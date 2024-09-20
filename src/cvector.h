@@ -53,7 +53,7 @@ void *cvector_move_to_vec(void *ptr)
  */
 size_t cvector_capacity(cvector *vec)
 {
-    return (vec ? (cvector_metadata_t *)vec->capacity : (size_t)0);
+    return (vec ? ((cvector_metadata_t *)vec)->capacity : (size_t)0);
 }
 
 /**
@@ -63,7 +63,7 @@ size_t cvector_capacity(cvector *vec)
  */
 size_t cvector_size(cvector *vec)
 {
-    return (vec ? (cvector_metadata_t *)vec->size : (size_t)0);
+    return (vec ? ((cvector_metadata_t *)vec)->size : (size_t)0);
 }
 
 /**
@@ -73,7 +73,7 @@ size_t cvector_size(cvector *vec)
  */
 size_t cvector_element_size(cvector *vec)
 {
-    return (vec ? (cvector_metadata_t *)vec->element_size : (size_t)0);
+    return (vec ? ((cvector_metadata_t *)vec)->element_size : (size_t)0);
 }
 
 /**
