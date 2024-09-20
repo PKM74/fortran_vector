@@ -12,8 +12,9 @@
 /* cvector heap implemented using C library malloc() */
 
 #include <stdlib.h>
-#include <assert.h>
 #include <string.h>
+#include <assert.h>
+#include <inttypes.h>
 
 typedef struct cvector_metadata_t
 {
