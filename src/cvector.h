@@ -381,16 +381,18 @@ void cvector_grow(cvector *vec, size_t count)
 
     if (vec)
     {
-        void *old_vec_pointer = cvector_vec_to_base(vec);
+        printf("old\n");
+        void *old_vec_pointer = vec;
         void *new_vec_pointer = realloc(old_vec_pointer, NEW_SIZE);
         assert(new_vec_pointer);
         vec = cvector_base_to_vec(new_vec_pointer);
     }
     else
     {
+        printf("new\n");
         void *new_vector = malloc(NEW_SIZE);
         assert(new_vector);
-        vec = cvector_base_to_vec(new_vector);
+        vec = new_vector;
         cvector_set_size(vec, 0);
     }
 
