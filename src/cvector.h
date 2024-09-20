@@ -38,7 +38,7 @@ typedef cvector_iterator;
  * @return the metadata pointer of the vector
  * @internal
  */
-cvector *cvector_vec_to_base(cvector *vec)
+cvector_metadata_t *cvector_vec_to_base(cvector *vec)
 {
     return (&((cvector_metadata_t *)(vec))[-1]);
 }
