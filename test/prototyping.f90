@@ -28,6 +28,7 @@ program prototyping
 
   type(bloof), target :: dat
   type(vec) :: v
+  class(*), pointer :: generic_pointer
 
   v = new_vec(sizeof(dat), int(10, c_size_t))
 
@@ -39,7 +40,17 @@ program prototyping
   call v%push_back(dat)
   call v%push_back(dat)
 
-  call v%erase(int(0, c_size_t))
+  call v%erase(0_8)
+
+  call v%at(1_8, generic_pointer)
+
+  select type (generic_pointer)
+   type is (bloof)
+    print*,"a bloof"
+   class default
+    print*,"it failed :("
+  end select
+
 
   print*,v%size()
 
