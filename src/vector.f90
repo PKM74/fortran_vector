@@ -14,6 +14,8 @@ module vector
     private
     type(c_ptr) :: data
     integer(c_size_t) :: size_of_type
+  contains
+    procedure :: destroy => vector_destroy
   end type vec
 
 
@@ -21,6 +23,8 @@ contains
 
 
   !* Create a new vector.
+  !* I did not create a module interface because I want you to be able to see explicitly
+  !* Where you create your vector.
   function new_vec(size_of_type, initial_size) result(v)
     implicit none
 
@@ -34,6 +38,17 @@ contains
     v%size_of_type = size_of_type
   end function new_vec
 
+
+  !* Destroy all components of the vector. Elements and underlying C memory.
+  subroutine vector_destroy(this)
+    implicit none
+
+    class(vec), intent(inout) :: this
+
+    !! todo: run the GC function here!
+
+    call internal_destroy_vector(this%data)
+  end subroutine vector_destroy
 
 
 end module vector
