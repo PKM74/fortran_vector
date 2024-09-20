@@ -459,7 +459,7 @@ void cvector_resize(cvector *vec, size_t count, void *value)
         if (vec)
         {
             size_t cv_sz_count__ = count;
-            size_t cv_sz__ = cvector_vec_to_base(vec)->size;
+            size_t cv_sz__ = ((cvector_metadata_t *)(vec))->size;
 
             if (cv_sz_count__ > cv_sz__)
             {
