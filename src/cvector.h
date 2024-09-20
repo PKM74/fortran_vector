@@ -417,7 +417,21 @@ void cvector_shrink_to_fit(cvector *vec)
 void *cvector_at(cvector *vec, size_t n)
 {
     //??
-    return ((vec) ? (((int)(n) < 0 || (size_t)(n) >= cvector_size(vec)) ? NULL : &(vec)[n]) : NULL);
+    if (vec)
+    {
+        if (((int)(n) < 0 || (size_t)(n) >= cvector_size(vec)))
+        {
+            return NULL;
+        }
+        else
+        {
+            return &(vec)[n];
+        }
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
 /**
