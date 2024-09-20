@@ -78,7 +78,24 @@ void vector_clear(cvector(void) * vec)
   cvector_clear(vec);
 }
 
+/**
+ * Insert an element into a position in the vector.
+ */
+void vector_insert(cvector(void) * vec, size_t position, void *new_element, size_t element_size)
+{
+  uint8_t raw_data[element_size];
+  memcpy(&raw_data, new_element, element_size);
 
+  cvector_insert(vec, position, raw_data);
+}
+
+/**
+ * Erase an element at a position in the vector.
+ */
+void vector_erase(cvector(void) * vec, size_t position)
+{
+  cvector_erase(vec, position);
+}
 
 /**
  * Push an element to the back of the vector.
@@ -89,4 +106,43 @@ void vector_push_back(cvector(void) * vec, void *new_element, size_t element_siz
   memcpy(&raw_data, new_element, element_size);
 
   cvector_push_back(vec, raw_data);
+}
+
+/**
+ * Removes the last element from the vector.
+ */
+void vector_pop_back(cvector(void) * vec)
+{
+  cvector_pop_back(vec);
+}
+
+/**
+ * Request the vector to reallocate to the new capacity.
+ */
+void vector_reserve(cvector(void) * vec, size_t new_capacity)
+{
+  cvector_reserve(vec, new_capacity);
+}
+
+/**
+ * Resize a vector to a new size.
+ *
+ * Requires a new default element.
+ */
+void vector_resize(cvector(void) * vec, size_t new_size, void *default_element, size_t element_size)
+{
+  uint8_t raw_data[element_size];
+  memcpy(&raw_data, default_element, element_size);
+
+  cvector_resize(vec, new_size, default_element);
+}
+
+/**
+ * Swap one vector's contents with another's.
+ */
+void vector_swap(cvector(void) * vec, cvector(void) * other, size_t element_size)
+{
+  uint8_t raw_data[element_size];
+
+  cvector_swap(vec, other, typeof(raw_data));
 }
