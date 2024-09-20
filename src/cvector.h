@@ -194,7 +194,7 @@ void cvector_clear(cvector *vec)
  * @param vec - the vector
  * @return void
  */
-void cvector_free(vec)
+void cvector_free(cvector *vec)
 {
     do
     {
@@ -210,7 +210,7 @@ void cvector_free(vec)
  * @param vec - the vector
  * @return a pointer to the first element (or NULL)
  */
-cvector *cvector_begin(vec)
+void *cvector_begin(cvector *vec)
 {
     return (vec);
 }
@@ -220,8 +220,10 @@ cvector *cvector_begin(vec)
  * @param vec - the vector
  * @return a pointer to one past the last element (or NULL)
  */
-#define cvector_end(vec) \
-    ((vec) ? &((vec)[cvector_size(vec)]) : NULL)
+void *cvector_end(cvector *vec)
+{
+    ((vec) ? &((vec)[cvector_size(vec)]) : NULL);
+}
 
 /* user request to use logarithmic growth algorithm */
 #ifdef CVECTOR_LOGARITHMIC_GROWTH
@@ -232,8 +234,10 @@ cvector *cvector_begin(vec)
  * @param size - current size
  * @return size after next vector grow
  */
-#define cvector_compute_next_grow(size) \
-    ((size) ? ((size) << 1) : 1)
+size_t cvector_compute_next_grow(size)
+{
+    return ((size) ? ((size) << 1) : 1);
+}
 
 #else
 
