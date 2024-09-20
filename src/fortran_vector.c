@@ -6,11 +6,11 @@
 /**
  * @param data_size The size of the element you are using this vector for.
  */
-void *new_vector(size_t data_size)
+void *new_vector(size_t element_size)
 {
 
   // This is what insanity looks like.
-  uint8_t raw_data[data_size];
+  uint8_t raw_data[element_size];
   // memcpy(&raw_data, t, data_size);
 
   // printf("data size: %d\n", data_size);
@@ -25,10 +25,13 @@ void *new_vector(size_t data_size)
   return v;
 }
 
-void push_back(cvector(void) * vec, void *new_element, size_t data_size)
+/**
+ * Push an element to the back of the vector.
+ */
+void push_back(cvector(void) * vec, void *new_element, size_t element_size)
 {
-  uint8_t raw_data[data_size];
-  memcpy(&raw_data, new_element, data_size);
+  uint8_t raw_data[element_size];
+  memcpy(&raw_data, new_element, element_size);
 
   cvector_push_back(vec, raw_data);
 }
