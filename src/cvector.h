@@ -91,7 +91,7 @@ size_t cvector_element_size(cvector *vec)
  */
 bool cvector_empty(cvector *vec)
 {
-    (cvector_size(vec) == 0);
+    return cvector_size(vec) == 0;
 }
 
 /**
