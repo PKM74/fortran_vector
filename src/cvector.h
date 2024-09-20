@@ -53,7 +53,7 @@ typedef struct cvector_metadata_t
  */
 typedef cvector;
 
-/*
+/**
  * @brief cvector_iterator - The iterator type used for cvector
  */
 typedef cvector_iterator;
@@ -131,7 +131,7 @@ void cvector_reserve(cvector *vec, size_t n)
     } while (0);
 }
 
-/*
+/**
  * @brief cvector_init - Initialize a vector.  The vector must be NULL for this to do anything.
  * @param vec - the vector
  * @param capacity - vector capacity to reserve
@@ -211,8 +211,10 @@ void cvector_free(vec)
  * @param vec - the vector
  * @return a pointer to the first element (or NULL)
  */
-#define cvector_begin(vec) \
-    (vec)
+cvector *cvector_begin(vec)
+{
+    return (vec);
+}
 
 /**
  * @brief cvector_end - returns an iterator to one past the last element of the vector
