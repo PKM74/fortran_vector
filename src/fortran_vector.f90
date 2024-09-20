@@ -67,8 +67,43 @@ module fortran_vector
     end function internal_vector_capacity
 
 
-    
+    !* Shrink the capacity of the vector to it's size.
+    !* (container size is trimmed to the current number of elements)
+    subroutine internal_vector_shrink_to_fit(vec_pointer) bind(c, name = "vector_shrink_to_fit")
+      use, intrinsic :: iso_c_binding
+      implicit none
 
+      type(c_ptr), intent(in), value :: vec_pointer
+    end subroutine internal_vector_shrink_to_fit
+
+
+    !* Clear all the elements from the vector.
+    subroutine internal_vector_clear(vec_pointer) bind(c, name = "vector_clear")
+      use, intrinsic :: iso_c_binding
+      implicit none
+
+      type(c_ptr), intent(in), value :: vec_pointer
+    end subroutine internal_vector_clear
+
+
+    !* Insert an element into an index of the array.
+    subroutine internal_vector_insert(vec_pointer, position, new_element, element_size) bind(c, name = "vector_insert")
+      use, intrinsic :: iso_c_binding
+      implicit none
+
+      type(c_ptr), intent(in), value :: vec_pointer, new_element
+      integer(c_size_t), intent(in), value :: position, element_size
+    end subroutine internal_vector_insert
+
+
+    !* Erase an element from the vector at a position.
+    subroutine internal_vector_erase(vec_pointer, position) bind(c, name = "vector_erase")
+      use, intrinsic :: iso_c_binding
+      implicit none
+
+      type(c_ptr), intent(in), value :: vec_pointer
+      integer(c_size_t), intent(in), value :: position
+    end subroutine internal_vector_erase
 
 
     !* Uses memcpy under the hood.
@@ -82,14 +117,45 @@ module fortran_vector
     end subroutine internal_push_back
 
 
-    !* Get the size of a vector.
-    function internal_get_size(vec_pointer) result(vec_size) bind(c, name = "vector_size")
+    !* Removes the last element from the vector.
+    subroutine internal_vector_pop_back(vec_pointer) bind(c, name = "vector_pop_back")
       use, intrinsic :: iso_c_binding
       implicit none
 
       type(c_ptr), intent(in), value :: vec_pointer
-      integer(c_size_t) :: vec_size
-    end function internal_get_size
+    end subroutine internal_vector_pop_back
+
+
+    !* Request a vector to reallocate to the new capacity.
+    subroutine internal_vector_reserve(vec_pointer, new_capacity) bind(c, name = "vector_reserve")
+      use, intrinsic :: iso_c_binding
+      implicit none
+
+      type(c_ptr), intent(in), value :: vec_pointer
+      integer(c_size_t), intent(in), value :: new_capacity
+    end subroutine internal_vector_reserve
+
+
+    !* Resize a vector to a new size.
+    !* Requires a new default element.
+    subroutine internal_vector_resize(vec_pointer, new_size, default_element_pointer, element_size) bind(c, name = "vector_resize")
+      use, intrinsic :: iso_c_binding
+      implicit none
+
+      type(c_ptr), intent(in), value :: vec_pointer, default_element_pointer
+      integer(c_size_t), intent(in), value :: new_size, element_size
+    end subroutine internal_vector_resize
+
+
+    !* Swap one vector's contents with another.
+    !* If they are not of the same type, this will probably segfault.
+    subroutine internal_vector_swap(vec_pointer, other_vec_pointer, element_size) bind(c, name = "vector_swap")
+      use, intrinsic :: iso_c_binding
+      implicit none
+
+      type(c_ptr), intent(in), value :: vec_pointer, other_vec_pointer
+      integer(c_size_t), intent(in), value :: element_size
+    end subroutine internal_vector_swap
 
 
   end interface
