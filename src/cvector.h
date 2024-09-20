@@ -342,13 +342,11 @@ void cvector_set_capacity(cvector *vec, size_t size)
  */
 void cvector_set_size(cvector *vec, size_t _size)
 {
-    do
+
+    if (vec)
     {
-        if (vec)
-        {
-            ((cvector_metadata_t *)vec)->size = (_size);
-        }
-    } while (0);
+        ((cvector_metadata_t *)vec)->size = (_size);
+    }
 }
 
 /**
