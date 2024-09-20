@@ -12,6 +12,7 @@
 void *new_vector(size_t initial_size, size_t element_size)
 {
   cvector *v = cvector_init(initial_size);
+
   return v;
 }
 

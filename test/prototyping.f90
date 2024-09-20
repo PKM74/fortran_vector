@@ -36,27 +36,13 @@ program prototyping
   dat%x = 10
 
   call v%push_back(10)
-  ! call v%push_back(20)
-  ! call v%push_back(30)
+  call v%push_back(20)
+  call v%push_back(30)
 
-  ! call v%erase(0_8)
-
-  ! generic_c_ptr = v%at(0_8)
-
-  ! print"(i15)",generic_c_ptr
-
-  ! call c_f_pointer(generic_c_ptr, output)
-
-  ! print*,output
+  print*,v%size()
 
 
-  ! print*,v%size()
-
-  ! print*,v%capacity()
-
-  ! print*,get_size(vec_pointer)
-
-
+  print*,"hi from fortran"
 
 
 end program prototyping
