@@ -51,12 +51,7 @@ typedef struct cvector_metadata_t
 /**
  * @brief cvector_vector_type - The vector type used in this library
  */
-typedef cvector_vector_type;
-
-/**
- * @brief cvector - Syntactic sugar to retrieve a vector type
- */
-#define cvector cvector_vector_type
+typedef cvector;
 
 /*
  * @brief cvector_iterator - The iterator type used for cvector
@@ -69,8 +64,10 @@ typedef cvector_vector_type;
  * @return the metadata pointer of the vector
  * @internal
  */
-#define cvector_vec_to_base(vec) \
-    (&((cvector_metadata_t *)(vec))[-1])
+cvector *cvector_vec_to_base(vec)
+{
+    return (&((cvector_metadata_t *)(vec))[-1]);
+}
 
 /**
  * @brief cvector_base_to_vec - For internal use, converts a metadata pointer to a vector pointer
@@ -350,15 +347,15 @@ void cvector_init(vec, capacity)
  * @param type - the type of both vectors
  * @return void
  */
-#define cvector_swap(vec, other, type)           \
-    do                                           \
-    {                                            \
-        if (vec && other)                        \
-        {                                        \
-            cvector_vector_type cv_swap__ = vec; \
-            vec = other;                         \
-            other = cv_swap__;                   \
-        }                                        \
+#define cvector_swap(vec, other, type) \
+    do                                 \
+    {                                  \
+        if (vec && other)              \
+        {                              \
+            cvector cv_swap__ = vec;   \
+            vec = other;               \
+            other = cv_swap__;         \
+        }                              \
     } while (0)
 
 /**
