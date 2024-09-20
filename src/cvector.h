@@ -49,7 +49,7 @@ typedef cvector_iterator;
  * @return the vector
  * @internal
  */
-void *cvector_base_to_vec(void *ptr)
+void *cvector_move_to_vec(void *ptr)
 {
     return (void *)((cvector_metadata_t *)(ptr + sizeof(cvector_metadata_t)));
 }
@@ -61,7 +61,7 @@ void *cvector_base_to_vec(void *ptr)
  */
 size_t cvector_capacity(cvector *vec)
 {
-    return (vec ? cvector_vec_to_base(vec)->capacity : (size_t)0);
+    return (vec ? (cvector_metadata_t *)vec->capacity : (size_t)0);
 }
 
 /**
@@ -71,7 +71,7 @@ size_t cvector_capacity(cvector *vec)
  */
 size_t cvector_size(cvector *vec)
 {
-    return (vec ? cvector_vec_to_base(vec)->size : (size_t)0);
+    return (vec ? (cvector_metadata_t *)vec->size : (size_t)0);
 }
 
 /**
@@ -81,7 +81,7 @@ size_t cvector_size(cvector *vec)
  */
 size_t cvector_element_size(cvector *vec)
 {
-    return (vec ? cvector_vec_to_base(vec)->element_size : (size_t)0);
+    return (vec ? (cvector_metadata_t *)vec->element_size : (size_t)0);
 }
 
 /**
@@ -344,7 +344,7 @@ void cvector_set_capacity(cvector *vec, size_t size)
     {
         if (vec)
         {
-            cvector_vec_to_base(vec)->capacity = (size);
+            (cvector_metadata_t *)vec->capacity = (size);
         }
     } while (0);
 }
@@ -362,7 +362,7 @@ void cvector_set_size(cvector *vec, size_t _size)
     {
         if (vec)
         {
-            cvector_vec_to_base(vec)->size = (_size);
+            (cvector_metadata_t *)vec->size = (_size);
         }
     } while (0);
 }
@@ -385,7 +385,7 @@ void cvector_grow(cvector *vec, size_t count)
         void *old_vec_pointer = vec;
         void *new_vec_pointer = realloc(old_vec_pointer, NEW_SIZE);
         assert(new_vec_pointer);
-        vec = cvector_base_to_vec(new_vec_pointer);
+        vec = cvector_move_to_vec(new_vec_pointer);
     }
     else
     {
