@@ -2,7 +2,7 @@
  * Copyright (c) 2015 Evan Teran
  *
  * License: The MIT License (MIT)
- * 
+ *
  * Completely broken by jordan4ibanez.
  */
 
@@ -385,7 +385,7 @@ void cvector_grow(cvector *vec, size_t count)
 {
     do
     {
-        const size_t cv_sz__ = (count) * sizeof(*(vec)) + sizeof(cvector_metadata_t);
+        const size_t cv_sz__ = count * cvector_element_size(vec) + sizeof(cvector_metadata_t);
         if (vec)
         {
             void *cv_p1__ = cvector_vec_to_base(vec);
