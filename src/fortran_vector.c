@@ -25,12 +25,10 @@ void *new_vector(size_t data_size)
   return v;
 }
 
-void push_back(void *vec, void *new_element, size_t data_size)
+void push_back(cvector(void) * vec, void *new_element, size_t data_size)
 {
   uint8_t raw_data[data_size];
   memcpy(&raw_data, new_element, data_size);
 
-  cvector(void) *test = vec;
-
-  cvector_push_back(test, raw_data);
+  cvector_push_back(vec, raw_data);
 }

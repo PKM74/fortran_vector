@@ -28,6 +28,7 @@ program prototyping
 
   integer(c_int), target :: test
   type(bloof), target :: dat
+  type(c_ptr) :: vec_pointer
 
   test = 1
 
@@ -35,7 +36,9 @@ program prototyping
 
   dat%x = 2147483647
 
-  call new_vector(sizeof(bloof()))
+  vec_pointer = new_vector(sizeof(bloof()))
+
+
 
 
 end program prototyping
