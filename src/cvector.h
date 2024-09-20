@@ -377,37 +377,25 @@ void cvector_set_size(cvector *vec, size_t _size)
  */
 void cvector_grow(cvector *vec, size_t count)
 {
-    do
+
+    const size_t NEW_SIZE = count * cvector_element_size(vec) + sizeof(cvector_metadata_t);
+
+    if (vec)
     {
-        const size_t NEW_SIZE = count * cvector_element_size(vec) + sizeof(cvector_metadata_t);
+        void *old_vec_pointer = cvector_vec_to_base(vec);
+        void *new_vec_pointer = realloc(old_vec_pointer, NEW_SIZE);
+        assert(new_vec_pointer);
+        vec = cvector_base_to_vec(new_vec_pointer);
+    }
+    else
+    {
+        void *new_vector = malloc(NEW_SIZE);
+        assert(new_vector);
+        vec = cvector_base_to_vec(new_vector);
+        cvector_set_size(vec, 0);
+    }
 
-        // printf("%i malloc size\n", NEW_SIZE);
-
-        if (vec)
-        {
-            void *old_vec_pointer = cvector_vec_to_base(vec);
-
-            void *new_vec_pointer = realloc(old_vec_pointer, NEW_SIZE);
-
-            assert(new_vec_pointer);
-
-            vec = cvector_base_to_vec(new_vec_pointer);
-        }
-        else
-        {
-
-            void *new_vector = malloc(NEW_SIZE);
-
-            assert(new_vector);
-
-            printf("new vec pointer %i\n", new_vector);
-
-            vec = cvector_base_to_vec(new_vector);
-
-            cvector_set_size(vec, 0);
-        }
-        cvector_set_capacity((vec), (count));
-    } while (0);
+    cvector_set_capacity(vec, count);
 }
 
 /**
