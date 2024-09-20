@@ -24,7 +24,7 @@ void *new_vector(size_t initial_size, size_t element_size, cvector_elem_destruct
 
   cvector_vector_type(typeof(raw_data)) *v = NULL;
 
-  // We need this to trick C into creating the underlying structure.
+  // We need this to force C into creating the underlying structure.
   cvector_init(v, initial_size, gc);
 
   return v;
