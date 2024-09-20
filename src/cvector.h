@@ -359,7 +359,7 @@ void cvector_set_size(cvector *vec, size_t _size)
 void cvector_grow(cvector *vec, size_t count)
 {
 
-    const size_t NEW_SIZE = count * cvector_element_size(vec) + sizeof(cvector_metadata_t);
+    const size_t NEW_SIZE = (count * cvector_element_size(vec)) + sizeof(cvector_metadata_t);
 
     if (vec)
     {
