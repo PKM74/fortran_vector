@@ -105,11 +105,12 @@ bool cvector_empty(cvector *vec)
  */
 void cvector_reserve(cvector *vec, size_t n)
 {
-    size_t cv_cap__ = cvector_capacity(vec);
-
-    while (cv_cap__ < n)
+    while (cvector_capacity(vec) < n)
     {
+        // printf("%i size\n", cvector_capacity(vec));
         cvector_grow(vec, n);
+
+        printf("new vec pointer %i\n", vec);
     }
 }
 
