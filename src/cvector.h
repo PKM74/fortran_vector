@@ -391,6 +391,8 @@ void cvector_grow(cvector *vec, size_t count)
 
         if (vec)
         {
+            printf("vector exists\n");
+
             void *vec_pointer = cvector_vec_to_base(vec);
 
             void *new_vec_pointer = realloc(vec_pointer, NEW_SIZE);
@@ -401,11 +403,13 @@ void cvector_grow(cvector *vec, size_t count)
         }
         else
         {
-            void *cv_p__ = malloc(NEW_SIZE);
+            printf("new vector\n");
 
-            assert(cv_p__);
+            void *new_vector = malloc(NEW_SIZE);
 
-            vec = cvector_base_to_vec(cv_p__);
+            assert(new_vector);
+
+            vec = cvector_base_to_vec(new_vector);
 
             cvector_set_size(vec, 0);
         }
