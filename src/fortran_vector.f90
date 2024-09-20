@@ -3,11 +3,12 @@ module fortran_vector
 
   interface
 
-    subroutine new_vector(t) bind(c, name = "new_vector")
+    subroutine new_vector(t, element_size) bind(c, name = "new_vector")
       use, intrinsic :: iso_c_binding
       implicit none
 
       type(c_ptr), intent(in), value :: t
+      integer(c_size_t), intent(in), value :: element_size
     end subroutine new_vector
 
 
