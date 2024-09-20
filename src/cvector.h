@@ -49,7 +49,7 @@ cvector_metadata_t *cvector_vec_to_base(cvector *vec)
  * @return the vector
  * @internal
  */
-void *cvector_base_to_vec(void *ptr)
+cvector *cvector_base_to_vec(void *ptr)
 {
     return ((void *)&((cvector_metadata_t *)(ptr))[1]);
 }
