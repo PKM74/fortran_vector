@@ -137,18 +137,18 @@ typedef cvector_vector_type;
  * @brief cvector_init - Initialize a vector.  The vector must be NULL for this to do anything.
  * @param vec - the vector
  * @param capacity - vector capacity to reserve
- * @param elem_destructor_fn - element destructor function
  * @return void
  */
-#define cvector_init(vec, capacity, elem_destructor_fn)               \
-    do                                                                \
-    {                                                                 \
-        if (!(vec))                                                   \
-        {                                                             \
-            cvector_reserve((vec), capacity);                         \
-            cvector_set_elem_destructor((vec), (elem_destructor_fn)); \
-        }                                                             \
-    } while (0)
+void cvector_init(vec, capacity)
+{
+    do
+    {
+        if (!(vec))
+        {
+            cvector_reserve((vec), capacity);
+        }
+    } while (0);
+}
 
 /**
  * @brief cvector_erase - removes the element at index i from the vector
