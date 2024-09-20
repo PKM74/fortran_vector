@@ -113,17 +113,19 @@ void cvector_reserve(cvector *vec, size_t n)
 
 /**
  * @brief cvector_init - Initialize a vector.  The vector must be NULL for this to do anything.
- * @param vec - the vector
  * @param capacity - vector capacity to reserve
  * @return void
  */
-void cvector_init(cvector *vec, size_t capacity)
+cvector *cvector_init(size_t capacity)
 {
+    cvector *vec = malloc(0);
 
     while (!vec)
     {
         cvector_reserve(vec, capacity);
     }
+
+    return vec;
 }
 
 /**
