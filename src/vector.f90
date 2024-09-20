@@ -17,6 +17,16 @@ module vector
     integer(c_size_t) :: size_of_type
   contains
     procedure :: destroy => vector_destroy
+    procedure :: at => vector_at
+    procedure :: is_empty => vector_is_empty
+    procedure :: size => vector_size
+    procedure :: capacity => vector_capacity
+    procedure :: shrink_to_fit => vector_shrink_to_fit
+    procedure :: clear => vector_clear
+    procedure :: insert => vector_insert
+    procedure :: erase => vector_erase
+    procedure :: push_back => vector_push_back
+
   end type vec
 
 
