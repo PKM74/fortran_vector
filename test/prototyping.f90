@@ -31,16 +31,16 @@ program prototyping
 
   ! test = 1
 
-  v = new_vec(sizeof(10), int(10, c_size_t))
+  v = new_vec(sizeof(dat), int(10, c_size_t))
 
   dat%x = 2147483647
 
   print*,c_loc(dat)
 
-  call v%push_back(10)
-  call v%push_back(20)
-  call v%push_back(30)
-  call v%push_back(40)
+  call v%push_back(dat)
+  call v%push_back(dat)
+  call v%push_back(dat)
+  call v%push_back(dat)
 
   print*,v%size()
 
