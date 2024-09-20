@@ -143,7 +143,7 @@ void cvector_erase(cvector *vec, size_t i)
             const size_t cv_sz__ = cvector_size(vec);
             if ((i) < cv_sz__)
             {
-                cvector_set_size((vec), cv_sz__ - 1);
+                cvector_set_size(vec, cv_sz__ - 1);
                 memmove(
                     (vec) + (i),
                     (vec) + (i) + 1,
@@ -344,7 +344,7 @@ void cvector_set_capacity(cvector *vec, size_t size)
     {
         if (vec)
         {
-            (cvector_metadata_t *)vec->capacity = (size);
+            ((cvector_metadata_t *)vec)->capacity = (size);
         }
     } while (0);
 }
@@ -362,7 +362,7 @@ void cvector_set_size(cvector *vec, size_t _size)
     {
         if (vec)
         {
-            (cvector_metadata_t *)vec->size = (_size);
+            ((cvector_metadata_t *)vec)->size = (_size);
         }
     } while (0);
 }
@@ -459,7 +459,7 @@ void cvector_resize(cvector *vec, size_t count, void *value)
         if (vec)
         {
             size_t cv_sz_count__ = count;
-            size_t cv_sz__ = ((cvector_metadata_t *)(vec))->size;
+            size_t cv_sz__ = ((cvector_metadata_t *)vec)->size;
 
             if (cv_sz_count__ > cv_sz__)
             {
