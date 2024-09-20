@@ -169,13 +169,10 @@ void cvector_clear(cvector *vec)
  */
 void cvector_free(cvector *vec)
 {
-    do
+    if (vec)
     {
-        if (vec)
-        {
-            free(cvector_vec_to_base(vec));
-        }
-    } while (0);
+        free(vec);
+    }
 }
 
 /**
