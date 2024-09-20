@@ -234,7 +234,7 @@ void *cvector_end(cvector *vec)
  * @param size - current size
  * @return size after next vector grow
  */
-size_t cvector_compute_next_grow(size)
+size_t cvector_compute_next_grow(size_t size)
 {
     return ((size) ? ((size) << 1) : 1);
 }
@@ -247,8 +247,10 @@ size_t cvector_compute_next_grow(size)
  * @param size - current size
  * @return size after next vector grow
  */
-#define cvector_compute_next_grow(size) \
-    ((size) + 1)
+size_t cvector_compute_next_grow(size_t size)
+{
+    return ((size) + 1);
+}
 
 #endif /* CVECTOR_LOGARITHMIC_GROWTH */
 
