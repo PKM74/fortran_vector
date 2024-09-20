@@ -16,6 +16,7 @@ module fortran_vector
     end function new_vector
 
 
+    !* Uses memcpy under the hood.
     subroutine push_back(vec_pointer, new_element_pointer, element_size) bind(c, name = "vector_push_back")
       use, intrinsic :: iso_c_binding
       implicit none

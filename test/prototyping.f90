@@ -36,9 +36,14 @@ program prototyping
 
   dat%x = 2147483647
 
-  vec_pointer = new_vector(sizeof(bloof()))
+  vec_pointer = new_vector(int(10, c_size_t), sizeof(bloof()), c_null_funptr)
 
   call push_back(vec_pointer, c_loc(dat), sizeof(dat))
+  call push_back(vec_pointer, c_loc(dat), sizeof(dat))
+  call push_back(vec_pointer, c_loc(dat), sizeof(dat))
+  call push_back(vec_pointer, c_loc(dat), sizeof(dat))
+
+  print*,get_size(vec_pointer)
 
 
 
