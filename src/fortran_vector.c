@@ -40,3 +40,11 @@ void vector_push_back(cvector(void) * vec, void *new_element, size_t element_siz
 
   cvector_push_back(vec, raw_data);
 }
+
+/**
+ * Get the number of elements in the vector.
+ */
+size_t vector_size(cvector(void) * vec)
+{
+  return cvector_size(vec);
+}
