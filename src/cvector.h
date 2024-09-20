@@ -264,7 +264,9 @@ void cvector_insert(cvector *vec, size_t pos, void *val)
                 (vec) + (pos),
                 sizeof(*(vec)) * ((cvector_size(vec)) - (pos)));
         }
-        (vec)[(pos)] = (val);
+
+        const size_t el_size = cvector_element_size(vec);
+        memcpy(vec + sizeof(cvector_metadata_t) + (el_size * pos), val, el_size);
         cvector_set_size((vec), cvector_size(vec) + 1);
     } while (0);
 }
