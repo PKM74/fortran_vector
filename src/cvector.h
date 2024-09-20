@@ -40,7 +40,7 @@ typedef cvector_iterator;
  */
 cvector_metadata_t *cvector_vec_to_base(cvector *vec)
 {
-    return (&((cvector_metadata_t *)(vec))[-1]);
+    return &((cvector_metadata_t *)(vec))[-1];
 }
 
 /**
@@ -49,9 +49,9 @@ cvector_metadata_t *cvector_vec_to_base(cvector *vec)
  * @return the vector
  * @internal
  */
-cvector *cvector_base_to_vec(void *ptr)
+void *cvector_base_to_vec(void *ptr)
 {
-    return ((void *)&((cvector_metadata_t *)(ptr))[1]);
+    return (void *)&((cvector_metadata_t *)(ptr))[1];
 }
 
 /**
