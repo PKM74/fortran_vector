@@ -146,13 +146,11 @@ contains
     class(vec), intent(inout) :: this
     integer(c_size_t), intent(in), value :: index
     class(*), intent(in), target :: generic
-    integer(1), dimension(:), pointer :: black_magic
+    type(c_ptr) :: black_magic
 
-    !! Just WAT.
+    black_magic = transfer(loc(generic), black_magic)
 
-    black_magic = transfer(generic, 1_1, size = this%size_of_type)
-
-    call internal_vector_insert(this%data, index, c_loc(black_magic), this%size_of_type)
+    call internal_vector_insert(this%data, index, black_magic, this%size_of_type)
   end subroutine vector_insert
 
 
