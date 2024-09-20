@@ -393,7 +393,6 @@ void cvector_shrink_to_fit(cvector *vec)
  */
 void *cvector_at(cvector *vec, size_t n)
 {
-    //??
     if (vec)
     {
         if (n < 0 || n >= cvector_size(vec))
@@ -402,7 +401,7 @@ void *cvector_at(cvector *vec, size_t n)
         }
         else
         {
-            return &(vec)[n];
+            return vec + METADATA_SIZE + (n * cvector_element_size(vec));
         }
     }
     else
