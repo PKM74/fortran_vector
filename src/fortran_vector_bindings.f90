@@ -1,6 +1,7 @@
-module fortran_vector
+module fortran_vector_bindings
   use, intrinsic :: iso_c_binding
   implicit none
+
 
   interface
 
@@ -161,8 +162,4 @@ module fortran_vector
   end interface
 
 
-contains
-
-
-
-end module fortran_vector
+end module fortran_vector_bindings
