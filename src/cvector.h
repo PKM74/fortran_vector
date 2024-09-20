@@ -2,6 +2,8 @@
  * Copyright (c) 2015 Evan Teran
  *
  * License: The MIT License (MIT)
+ * 
+ * Completely broken by jordan4ibanez.
  */
 
 #ifndef CVECTOR_H_
@@ -9,12 +11,9 @@
 
 /* cvector heap implemented using C library malloc() */
 
-/* in case C library malloc() needs extra protection,
- * allow these defines to be overridden.
- */
-#include <stdlib.h> /* for realloc */
-#include <assert.h> /* for assert */
-#include <string.h> /* for memmove */
+#include <stdlib.h>
+#include <assert.h>
+#include <string.h>
 
 typedef struct cvector_metadata_t
 {
