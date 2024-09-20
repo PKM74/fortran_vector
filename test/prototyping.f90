@@ -33,7 +33,7 @@ program prototyping
 
   v = new_vec(sizeof(10), int(10, c_size_t))
 
-  dat%x = 1
+  dat%x = 10
 
   call v%push_back(10)
   call v%push_back(20)
