@@ -38,8 +38,16 @@ program prototyping
   call v%push_back(10)
   call v%push_back(20)
   call v%push_back(30)
+  call v%push_back(20)
 
   print*,v%size()
+
+  print*,v%at(1_8)
+
+  call c_f_pointer(v%at(0_8), output)
+
+  print*,output
+
 
 
   print*,"hi from fortran"
