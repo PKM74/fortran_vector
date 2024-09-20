@@ -419,7 +419,7 @@ void *cvector_at(cvector *vec, size_t n)
     //??
     if (vec)
     {
-        if (((int)(n) < 0 || (size_t)(n) >= cvector_size(vec)))
+        if (n < 0 || n >= cvector_size(vec))
         {
             return NULL;
         }
