@@ -11,6 +11,7 @@ module fortran_vector
       implicit none
 
       integer(c_size_t), intent(in), value :: initial_size, element_size
+      type(c_funptr), intent(in), optional :: gc_func
       type(c_ptr) :: vec_pointer
     end function new_vector
 
