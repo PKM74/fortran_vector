@@ -29,8 +29,6 @@ program prototyping
   type(bloof), target :: dat
   type(vec) :: v
 
-  ! test = 1
-
   v = new_vec(sizeof(dat), int(10, c_size_t))
 
   dat%x = 2147483647
@@ -40,7 +38,8 @@ program prototyping
   call v%push_back(dat)
   call v%push_back(dat)
   call v%push_back(dat)
-  call v%push_back(dat)
+
+  call v%erase(int(0, c_size_t))
 
   print*,v%size()
 
