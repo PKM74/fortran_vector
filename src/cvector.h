@@ -200,8 +200,7 @@ void cvector_free(vec)
     {
         if (vec)
         {
-            void *p1__ = cvector_vec_to_base(vec);
-            cvector_clib_free(p1__);
+            cvector_clib_free(cvector_vec_to_base(vec));
         }
     } while (0);
 }
