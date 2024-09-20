@@ -105,14 +105,12 @@ bool cvector_empty(cvector *vec)
  */
 void cvector_reserve(cvector *vec, size_t n)
 {
-    do
+    size_t cv_cap__ = cvector_capacity(vec);
+
+    while (cv_cap__ < n)
     {
-        size_t cv_cap__ = cvector_capacity(vec);
-        if (cv_cap__ < n)
-        {
-            cvector_grow(vec, n);
-        }
-    } while (0);
+        cvector_grow(vec, n);
+    }
 }
 
 /**
@@ -128,7 +126,7 @@ void cvector_init(cvector *vec, size_t capacity)
         cvector_reserve(vec, capacity);
     }
 
-    printf("new vec pointer %i\n", vec);
+    // printf("new vec pointer %i\n", vec);
 }
 
 /**
@@ -386,7 +384,7 @@ void cvector_grow(cvector *vec, size_t count)
     {
         const size_t NEW_SIZE = count * cvector_element_size(vec) + sizeof(cvector_metadata_t);
 
-        printf("%i malloc size\n", NEW_SIZE);
+        // printf("%i malloc size\n", NEW_SIZE);
 
         if (vec)
         {
