@@ -6,11 +6,11 @@ module fortran_vector
 
     ! todo: make these internal.
 
-    function new_vector(element_size) result(vec_pointer) bind(c, name = "new_vector")
+    function new_vector(initial_size, element_size, gc_func) result(vec_pointer) bind(c, name = "new_vector")
       use, intrinsic :: iso_c_binding
       implicit none
 
-      integer(c_size_t), intent(in), value :: element_size
+      integer(c_size_t), intent(in), value :: initial_size, element_size
       type(c_ptr) :: vec_pointer
     end function new_vector
 
