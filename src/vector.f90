@@ -8,6 +8,7 @@ module vector
 
 
   public :: vec
+  public :: new_vec
 
 
   type :: vec
