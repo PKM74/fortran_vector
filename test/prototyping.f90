@@ -38,17 +38,23 @@ program prototyping
   print*,v%size()
 
   call v%push_back(10)
-  ! call v%push_back(20)
-  ! call v%push_back(30)
-  ! call v%push_back(20)
+  call v%push_back(20)
+  call v%push_back(30)
+  call v%push_back(20)
 
   print*,v%size()
 
-  print*,v%at(0_8)
-
+  
   call c_f_pointer(v%at(0_8), output)
-
   print*,"fortan output", output
+  call c_f_pointer(v%at(1_8), output)
+  print*,"fortan output", output
+  call c_f_pointer(v%at(2_8), output)
+  print*,"fortan output", output
+  call c_f_pointer(v%at(3_8), output)
+  print*,"fortan output", output
+
+  
 
 
 
