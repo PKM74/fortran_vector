@@ -361,22 +361,9 @@ void cvector_grow(cvector *vec, size_t count)
 
     const size_t NEW_SIZE = (count * cvector_element_size(vec)) + sizeof(cvector_metadata_t);
 
-    if (vec)
-    {
-        printf("old\n");
-        void *old_vec_pointer = vec;
-        void *new_vec_pointer = realloc(old_vec_pointer, NEW_SIZE);
-        assert(new_vec_pointer);
-        vec = cvector_move_to_vec(new_vec_pointer);
-    }
-    else
-    {
-        printf("new\n");
-        void *new_vector = malloc(NEW_SIZE);
-        assert(new_vector);
-        vec = new_vector;
-        cvector_set_size(vec, 0);
-    }
+    void *new_vec_pointer = realloc(vec, NEW_SIZE);
+    assert(new_vec_pointer);
+    vec = new_vec_pointer;
 
     cvector_set_capacity(vec, count);
 }
