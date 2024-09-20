@@ -123,13 +123,12 @@ void cvector_reserve(cvector *vec, size_t n)
  */
 void cvector_init(cvector *vec, size_t capacity)
 {
-    do
+    while (!vec)
     {
-        if (!(vec))
-        {
-            cvector_reserve(vec, capacity);
-        }
-    } while (0);
+        cvector_reserve(vec, capacity);
+    }
+
+    printf("new vec pointer %i\n", vec);
 }
 
 /**
