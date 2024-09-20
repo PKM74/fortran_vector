@@ -4,6 +4,8 @@ module fortran_vector
 
   interface
 
+    ! todo: make these internal.
+
     function new_vector(element_size) result(vec_pointer) bind(c, name = "new_vector")
       use, intrinsic :: iso_c_binding
       implicit none
