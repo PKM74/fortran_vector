@@ -57,25 +57,26 @@ typedef struct cvector_metadata_t
 {
     size_t size;
     size_t capacity;
+    size_t element_size;
     cvector_elem_destructor_t elem_destructor;
 } cvector_metadata_t;
 
 /**
  * @brief cvector_vector_type - The vector type used in this library
  */
-#define cvector_vector_type(type) type *
+#define cvector_vector_type type *
 
 /**
  * @brief cvector - Syntactic sugar to retrieve a vector type
  *
  * @param type The type of vector to act on.
  */
-#define cvector(type) cvector_vector_type(type)
+#define cvector cvector_vector_type
 
 /*
  * @brief cvector_iterator - The iterator type used for cvector
  */
-#define cvector_iterator(type) cvector_vector_type(type)
+#define cvector_iterator cvector_vector_type
 
 /**
  * @brief cvector_vec_to_base - For internal use, converts a vector pointer to a metadata pointer
@@ -369,7 +370,7 @@ typedef struct cvector_metadata_t
     {                                                  \
         if (vec && other)                              \
         {                                              \
-            cvector_vector_type(type) cv_swap__ = vec; \
+            cvector_vector_type cv_swap__ = vec; \
             vec = other;                               \
             other = cv_swap__;                         \
         }                                              \
