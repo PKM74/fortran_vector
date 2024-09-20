@@ -43,7 +43,7 @@ typedef cvector_iterator;
  */
 void *cvector_move_to_vec(void *ptr)
 {
-    return (void *)((cvector_metadata_t *)(ptr + sizeof(cvector_metadata_t)));
+    return (void *)((cvector_metadata_t *)(ptr + METADATA_SIZE));
 }
 
 /**
