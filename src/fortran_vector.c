@@ -4,7 +4,7 @@
 #include "cvector.h"
 #include "cvector_utils.h"
 
-#define CVECTOR_LOGARITHMIC_GROWTH
+// #define CVECTOR_LOGARITHMIC_GROWTH
 
 /**
  * @param data_size The size of the element you are using this vector for.
