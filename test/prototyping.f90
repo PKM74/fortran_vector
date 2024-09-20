@@ -30,20 +30,20 @@ program prototyping
   type(bloof), target :: dat
   type(c_ptr) :: vec_pointer
 
-  test = 1
+  ! test = 1
 
-  ! call new_vector(c_loc(test))
+  ! ! call new_vector(c_loc(test))
 
-  dat%x = 2147483647
+  ! dat%x = 2147483647
 
-  vec_pointer = new_vector(int(10, c_size_t), sizeof(bloof()), c_null_funptr)
+  ! vec_pointer = new_vector(int(10, c_size_t), sizeof(bloof()), c_null_funptr)
 
-  call push_back(vec_pointer, c_loc(dat), sizeof(dat))
-  call push_back(vec_pointer, c_loc(dat), sizeof(dat))
-  call push_back(vec_pointer, c_loc(dat), sizeof(dat))
-  call push_back(vec_pointer, c_loc(dat), sizeof(dat))
+  ! call push_back(vec_pointer, c_loc(dat), sizeof(dat))
+  ! call push_back(vec_pointer, c_loc(dat), sizeof(dat))
+  ! call push_back(vec_pointer, c_loc(dat), sizeof(dat))
+  ! call push_back(vec_pointer, c_loc(dat), sizeof(dat))
 
-  print*,get_size(vec_pointer)
+  ! print*,get_size(vec_pointer)
 
 
 
