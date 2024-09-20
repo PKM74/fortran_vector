@@ -253,7 +253,7 @@ void cvector_push_back(cvector *vec, void *value)
         {
             cvector_grow((vec), cvector_compute_next_grow(cv_cap__));
         }
-        (vec)[cvector_size(vec)] = (value);
+        memcpy(&vec[cvector_size(vec)], value, cvector_element_size(vec));
         cvector_set_size((vec), cvector_size(vec) + 1);
     } while (0);
 }
