@@ -30,6 +30,7 @@ program prototyping
   type(vec) :: v
   type(c_ptr) :: generic_c_ptr
   integer(c_int), pointer :: output
+  integer(c_int) :: i
 
   v = new_vec(sizeof(10), int(10, c_size_t))
 
@@ -37,24 +38,28 @@ program prototyping
 
   print*,v%size()
 
-  call v%push_back(10)
-  call v%push_back(20)
-  call v%push_back(30)
-  call v%push_back(20)
+  i = 1
 
-  print*,v%size()
 
-  
-  call c_f_pointer(v%at(0_8), output)
-  print*,"fortan output", output
-  call c_f_pointer(v%at(1_8), output)
-  print*,"fortan output", output
-  call c_f_pointer(v%at(2_8), output)
-  print*,"fortan output", output
-  call c_f_pointer(v%at(3_8), output)
-  print*,"fortan output", output
+  do
 
-  
+    print*,i
+    i = i + 1
+
+    call v%push_back(10)
+
+    print*,v%size()
+
+    ! call c_f_pointer(v%at(0_8), output)
+    ! print*,"fortan output", output
+    ! call c_f_pointer(v%at(1_8), output)
+    ! print*,"fortan output", output
+    ! call c_f_pointer(v%at(2_8), output)
+    ! print*,"fortan output", output
+    ! call c_f_pointer(v%at(3_8), output)
+    ! print*,"fortan output", output
+  end do
+
 
 
 
