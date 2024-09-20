@@ -14,7 +14,7 @@ void *new_vector(size_t initial_size, size_t element_size)
   // Tell C how big our data type is.
   uint8_t raw_data[element_size];
 
-  cvector *v = NULL;
+  cvector *v = malloc(0);
 
   // We need this to force C into creating the underlying structure.
   cvector_init(v, initial_size);
