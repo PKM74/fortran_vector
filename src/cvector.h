@@ -56,7 +56,7 @@ typedef cvector;
 /*
  * @brief cvector_iterator - The iterator type used for cvector
  */
-#define cvector_iterator cvector_vector_type
+typedef cvector_iterator;
 
 /**
  * @brief cvector_vec_to_base - For internal use, converts a vector pointer to a metadata pointer
@@ -64,7 +64,7 @@ typedef cvector;
  * @return the metadata pointer of the vector
  * @internal
  */
-cvector *cvector_vec_to_base(vec)
+cvector *cvector_vec_to_base(cvector *vec)
 {
     return (&((cvector_metadata_t *)(vec))[-1]);
 }
@@ -75,41 +75,40 @@ cvector *cvector_vec_to_base(vec)
  * @return the vector
  * @internal
  */
-#define cvector_base_to_vec(ptr) \
-    ((void *)&((cvector_metadata_t *)(ptr))[1])
+void *cvector_base_to_vec(void *ptr)
+{
+    ((void *)&((cvector_metadata_t *)(ptr))[1]);
+}
 
 /**
  * @brief cvector_capacity - gets the current capacity of the vector
  * @param vec - the vector
  * @return the capacity as a size_t
  */
-#define cvector_capacity(vec) \
-    ((vec) ? cvector_vec_to_base(vec)->capacity : (size_t)0)
+size_t cvector_capacity(cvector *vec)
+{
+    ((vec) ? cvector_vec_to_base(vec)->capacity : (size_t)0);
+}
 
 /**
  * @brief cvector_size - gets the current size of the vector
  * @param vec - the vector
  * @return the size as a size_t
  */
-#define cvector_size(vec) \
-    ((vec) ? cvector_vec_to_base(vec)->size : (size_t)0)
-
-/**
- * @brief cvector_elem_destructor - get the element destructor function used
- * to clean up elements
- * @param vec - the vector
- * @return the function pointer as cvector_elem_destructor_t
- */
-#define cvector_elem_destructor(vec) \
-    ((vec) ? cvector_vec_to_base(vec)->elem_destructor : NULL)
+size_t cvector_size(cvector *vec)
+{
+    ((vec) ? cvector_vec_to_base(vec)->size : (size_t)0);
+}
 
 /**
  * @brief cvector_empty - returns non-zero if the vector is empty
  * @param vec - the vector
  * @return non-zero if empty, zero if non-empty
  */
-#define cvector_empty(vec) \
-    (cvector_size(vec) == 0)
+bool cvector_empty(cvector *vec)
+{
+    (cvector_size(vec) == 0);
+}
 
 /**
  * @brief cvector_reserve - Requests that the vector capacity be at least enough
@@ -120,15 +119,17 @@ cvector *cvector_vec_to_base(vec)
  * @param n - Minimum capacity for the vector.
  * @return void
  */
-#define cvector_reserve(vec, n)                  \
-    do                                           \
-    {                                            \
-        size_t cv_cap__ = cvector_capacity(vec); \
-        if (cv_cap__ < (n))                      \
-        {                                        \
-            cvector_grow((vec), (n));            \
-        }                                        \
-    } while (0)
+void cvector_reserve(cvector *vec, size_t n)
+{
+    do
+    {
+        size_t cv_cap__ = cvector_capacity(vec);
+        if (cv_cap__ < (n))
+        {
+            cvector_grow((vec), (n));
+        }
+    } while (0);
+}
 
 /*
  * @brief cvector_init - Initialize a vector.  The vector must be NULL for this to do anything.
@@ -136,7 +137,7 @@ cvector *cvector_vec_to_base(vec)
  * @param capacity - vector capacity to reserve
  * @return void
  */
-void cvector_init(vec, capacity)
+void cvector_init(cvector *vec, size_t capacity)
 {
     do
     {
@@ -153,50 +154,40 @@ void cvector_init(vec, capacity)
  * @param i - index of element to remove
  * @return void
  */
-#define cvector_erase(vec, i)                                                               \
-    do                                                                                      \
-    {                                                                                       \
-        if (vec)                                                                            \
-        {                                                                                   \
-            const size_t cv_sz__ = cvector_size(vec);                                       \
-            if ((i) < cv_sz__)                                                              \
-            {                                                                               \
-                cvector_elem_destructor_t elem_destructor__ = cvector_elem_destructor(vec); \
-                if (elem_destructor__)                                                      \
-                {                                                                           \
-                    elem_destructor__(&(vec)[i]);                                           \
-                }                                                                           \
-                cvector_set_size((vec), cv_sz__ - 1);                                       \
-                cvector_clib_memmove(                                                       \
-                    (vec) + (i),                                                            \
-                    (vec) + (i) + 1,                                                        \
-                    sizeof(*(vec)) * (cv_sz__ - 1 - (i)));                                  \
-            }                                                                               \
-        }                                                                                   \
-    } while (0)
+void cvector_erase(cvector *vec, size_t i)
+{
+    do
+    {
+        if (vec)
+        {
+            const size_t cv_sz__ = cvector_size(vec);
+            if ((i) < cv_sz__)
+            {
+                cvector_set_size((vec), cv_sz__ - 1);
+                cvector_clib_memmove(
+                    (vec) + (i),
+                    (vec) + (i) + 1,
+                    sizeof(*(vec)) * (cv_sz__ - 1 - (i)));
+            }
+        }
+    } while (0);
+}
 
 /**
  * @brief cvector_clear - erase all of the elements in the vector
  * @param vec - the vector
  * @return void
  */
-#define cvector_clear(vec)                                                              \
-    do                                                                                  \
-    {                                                                                   \
-        if (vec)                                                                        \
-        {                                                                               \
-            cvector_elem_destructor_t elem_destructor__ = cvector_elem_destructor(vec); \
-            if (elem_destructor__)                                                      \
-            {                                                                           \
-                size_t i__;                                                             \
-                for (i__ = 0; i__ < cvector_size(vec); ++i__)                           \
-                {                                                                       \
-                    elem_destructor__(&(vec)[i__]);                                     \
-                }                                                                       \
-            }                                                                           \
-            cvector_set_size(vec, 0);                                                   \
-        }                                                                               \
-    } while (0)
+void cvector_clear(cvector *vec)
+{
+    do
+    {
+        if (vec)
+        {
+            cvector_set_size(vec, 0);
+        }
+    } while (0);
+}
 
 /**
  * @brief cvector_free - frees all memory associated with the vector
