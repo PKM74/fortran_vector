@@ -176,11 +176,11 @@ contains
 
     class(vec), intent(inout) :: this
     class(*), intent(in), target :: generic
-    integer(1), dimension(:), pointer :: black_magic
+    type(c_ptr) :: black_magic
 
-    black_magic = transfer(generic, 1_1, size = this%size_of_type)
+    black_magic = transfer(loc(generic), black_magic)
 
-    call internal_vector_push_back(this%data, c_loc(black_magic), this%size_of_type)
+    call internal_vector_push_back(this%data, black_magic, this%size_of_type)
   end subroutine vector_push_back
 
 
