@@ -242,16 +242,21 @@ size_t cvector_compute_next_grow(size_t size)
  */
 void cvector_push_back(cvector *vec, void *value)
 {
-    do
+    printf("1\n");
+    size_t current_capacity = cvector_capacity(vec);
+    printf("2\n");
+    if (current_capacity <= cvector_size(vec))
     {
-        size_t cv_cap__ = cvector_capacity(vec);
-        if (cv_cap__ <= cvector_size(vec))
-        {
-            cvector_grow((vec), cvector_compute_next_grow(cv_cap__));
-        }
-        memcpy(vec[cvector_size(vec)], value, cvector_element_size(vec));
-        cvector_set_size((vec), cvector_size(vec) + 1);
-    } while (0);
+        printf("3\n");
+        cvector_grow(vec, cvector_compute_next_grow(current_capacity));
+        printf("4\n");
+    }
+
+    printf("2\n");
+    memcpy(vec[cvector_size(vec)], value, cvector_element_size(vec));
+    printf("3\n");
+    cvector_set_size((vec), cvector_size(vec) + 1);
+    printf("4\n");
 }
 
 /**

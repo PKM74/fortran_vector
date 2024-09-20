@@ -35,7 +35,7 @@ program prototyping
 
   dat%x = 10
 
-  ! call v%push_back(10)
+  call v%push_back(10)
   ! call v%push_back(20)
   ! call v%push_back(30)
 
