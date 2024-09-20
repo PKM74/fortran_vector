@@ -40,7 +40,7 @@ typedef cvector_iterator;
  */
 cvector_metadata_t *cvector_vec_to_base(cvector *vec)
 {
-    return &((cvector_metadata_t *)(vec))[-1];
+    return &((cvector_metadata_t *)vec)[-1];
 }
 
 /**
@@ -242,21 +242,13 @@ size_t cvector_compute_next_grow(size_t size)
  */
 void cvector_push_back(cvector *vec, void *value)
 {
-    printf("1\n");
     size_t current_capacity = cvector_capacity(vec);
-    printf("2\n");
     if (current_capacity <= cvector_size(vec))
     {
-        printf("3\n");
         cvector_grow(vec, cvector_compute_next_grow(current_capacity));
-        printf("4\n");
     }
-
-    printf("2\n");
     memcpy(vec[cvector_size(vec)], value, cvector_element_size(vec));
-    printf("3\n");
     cvector_set_size((vec), cvector_size(vec) + 1);
-    printf("4\n");
 }
 
 /**
@@ -389,10 +381,24 @@ void cvector_grow(cvector *vec, size_t count)
 
     if (vec)
     {
+        printf("1\n");
+
         void *old_vec_pointer = cvector_vec_to_base(vec);
+        printf("2\n");
+
+        printf("%i\n", old_vec_pointer);
+
         void *new_vec_pointer = realloc(old_vec_pointer, NEW_SIZE);
+
+        printf("3\n");
+
         assert(new_vec_pointer);
+
+        printf("4\n");
+
         vec = cvector_base_to_vec(new_vec_pointer);
+
+        printf("5\n");
     }
     else
     {
