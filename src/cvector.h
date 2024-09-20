@@ -61,7 +61,7 @@ void *cvector_base_to_vec(void *ptr)
  */
 size_t cvector_capacity(cvector *vec)
 {
-    return ((vec) ? cvector_vec_to_base(vec)->capacity : (size_t)0);
+    return (vec ? cvector_vec_to_base(vec)->capacity : (size_t)0);
 }
 
 /**
@@ -71,7 +71,7 @@ size_t cvector_capacity(cvector *vec)
  */
 size_t cvector_size(cvector *vec)
 {
-    return ((vec) ? cvector_vec_to_base(vec)->size : (size_t)0);
+    return (vec ? cvector_vec_to_base(vec)->size : (size_t)0);
 }
 
 /**
