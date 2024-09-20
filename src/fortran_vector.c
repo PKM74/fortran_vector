@@ -19,6 +19,8 @@ void *new_vector(size_t initial_size, size_t element_size)
   // We need this to force C into creating the underlying structure.
   cvector_init(v, initial_size);
 
+  printf("c addr: %i\n", v);
+
   return v;
 }
 
