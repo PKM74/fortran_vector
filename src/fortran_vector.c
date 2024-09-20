@@ -28,7 +28,7 @@ void *new_vector(size_t element_size)
 /**
  * Push an element to the back of the vector.
  */
-void push_back(cvector(void) * vec, void *new_element, size_t element_size)
+void vector_push_back(cvector(void) * vec, void *new_element, size_t element_size)
 {
   uint8_t raw_data[element_size];
   memcpy(&raw_data, new_element, element_size);

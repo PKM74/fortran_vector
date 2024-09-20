@@ -38,6 +38,8 @@ program prototyping
 
   vec_pointer = new_vector(sizeof(bloof()))
 
+  call push_back(vec_pointer, c_loc(dat), sizeof(dat))
+
 
 
 
