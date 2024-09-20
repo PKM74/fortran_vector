@@ -391,13 +391,13 @@ void cvector_grow(cvector *vec, size_t count)
 
         if (vec)
         {
-            void *cv_p1__ = cvector_vec_to_base(vec);
+            void *vec_pointer = cvector_vec_to_base(vec);
 
-            void *cv_p2__ = realloc(cv_p1__, NEW_SIZE);
+            void *new_vec_pointer = realloc(vec_pointer, NEW_SIZE);
 
-            assert(cv_p2__);
+            assert(new_vec_pointer);
 
-            vec = cvector_base_to_vec(cv_p2__);
+            vec = cvector_base_to_vec(new_vec_pointer);
         }
         else
         {
