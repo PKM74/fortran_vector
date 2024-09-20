@@ -404,8 +404,7 @@ void cvector_grow(cvector *vec, size_t count)
 
             vec = cvector_base_to_vec(cv_p__);
 
-            cvector_set_size((vec), 0);
-            cvector_set_elem_destructor((vec), NULL);
+            cvector_set_size(vec, 0);
         }
         cvector_set_capacity((vec), (count));
     } while (0);
