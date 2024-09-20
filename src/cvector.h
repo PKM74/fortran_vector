@@ -108,9 +108,9 @@ void cvector_reserve(cvector *vec, size_t n)
     do
     {
         size_t cv_cap__ = cvector_capacity(vec);
-        if (cv_cap__ < (n))
+        if (cv_cap__ < n)
         {
-            cvector_grow((vec), (n));
+            cvector_grow(vec, n);
         }
     } while (0);
 }
@@ -127,7 +127,7 @@ void cvector_init(cvector *vec, size_t capacity)
     {
         if (!(vec))
         {
-            cvector_reserve((vec), capacity);
+            cvector_reserve(vec, capacity);
         }
     } while (0);
 }
@@ -385,12 +385,15 @@ void cvector_grow(cvector *vec, size_t count)
 {
     do
     {
-        const size_t cv_sz__ = count * cvector_element_size(vec) + sizeof(cvector_metadata_t);
+        const size_t NEW_SIZE = count * cvector_element_size(vec) + sizeof(cvector_metadata_t);
+
+        printf("%i malloc size\n", NEW_SIZE);
+
         if (vec)
         {
             void *cv_p1__ = cvector_vec_to_base(vec);
 
-            void *cv_p2__ = realloc(cv_p1__, cv_sz__);
+            void *cv_p2__ = realloc(cv_p1__, NEW_SIZE);
 
             assert(cv_p2__);
 
@@ -398,7 +401,7 @@ void cvector_grow(cvector *vec, size_t count)
         }
         else
         {
-            void *cv_p__ = malloc(cv_sz__);
+            void *cv_p__ = malloc(NEW_SIZE);
 
             assert(cv_p__);
 
