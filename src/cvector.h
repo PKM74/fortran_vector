@@ -194,24 +194,17 @@ void cvector_clear(cvector *vec)
  * @param vec - the vector
  * @return void
  */
-#define cvector_free(vec)                                                               \
-    do                                                                                  \
-    {                                                                                   \
-        if (vec)                                                                        \
-        {                                                                               \
-            void *p1__ = cvector_vec_to_base(vec);                                      \
-            cvector_elem_destructor_t elem_destructor__ = cvector_elem_destructor(vec); \
-            if (elem_destructor__)                                                      \
-            {                                                                           \
-                size_t i__;                                                             \
-                for (i__ = 0; i__ < cvector_size(vec); ++i__)                           \
-                {                                                                       \
-                    elem_destructor__(&(vec)[i__]);                                     \
-                }                                                                       \
-            }                                                                           \
-            cvector_clib_free(p1__);                                                    \
-        }                                                                               \
-    } while (0)
+void cvector_free(vec)
+{
+    do
+    {
+        if (vec)
+        {
+            void *p1__ = cvector_vec_to_base(vec);
+            cvector_clib_free(p1__);
+        }
+    } while (0);
+}
 
 /**
  * @brief cvector_begin - returns an iterator to first element of the vector
