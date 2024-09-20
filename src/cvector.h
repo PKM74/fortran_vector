@@ -12,34 +12,9 @@
 /* in case C library malloc() needs extra protection,
  * allow these defines to be overridden.
  */
-#ifndef cvector_clib_free
-#include <stdlib.h> /* for free */
-#define cvector_clib_free free
-#endif
-#ifndef cvector_clib_malloc
-#include <stdlib.h> /* for malloc */
-#define cvector_clib_malloc malloc
-#endif
-#ifndef cvector_clib_calloc
-#include <stdlib.h> /* for calloc */
-#define cvector_clib_calloc calloc
-#endif
-#ifndef cvector_clib_realloc
 #include <stdlib.h> /* for realloc */
-#define cvector_clib_realloc realloc
-#endif
-#ifndef cvector_clib_assert
 #include <assert.h> /* for assert */
-#define cvector_clib_assert assert
-#endif
-#ifndef cvector_clib_memcpy
-#include <string.h> /* for memcpy */
-#define cvector_clib_memcpy memcpy
-#endif
-#ifndef cvector_clib_memmove
 #include <string.h> /* for memmove */
-#define cvector_clib_memmove memmove
-#endif
 
 typedef struct cvector_metadata_t
 {
@@ -174,7 +149,7 @@ void cvector_erase(cvector *vec, size_t i)
             if ((i) < cv_sz__)
             {
                 cvector_set_size((vec), cv_sz__ - 1);
-                cvector_clib_memmove(
+                memmove(
                     (vec) + (i),
                     (vec) + (i) + 1,
                     sizeof(*(vec)) * (cv_sz__ - 1 - (i)));
@@ -210,7 +185,7 @@ void cvector_free(cvector *vec)
     {
         if (vec)
         {
-            cvector_clib_free(cvector_vec_to_base(vec));
+            free(cvector_vec_to_base(vec));
         }
     } while (0);
 }
@@ -302,7 +277,7 @@ void cvector_insert(cvector *vec, size_t pos, void *val)
         }
         if ((pos) < cvector_size(vec))
         {
-            cvector_clib_memmove(
+            memmove(
                 (vec) + (pos) + 1,
                 (vec) + (pos),
                 sizeof(*(vec)) * ((cvector_size(vec)) - (pos)));
@@ -339,7 +314,7 @@ void cvector_copy(cvector *from, cvector *to)
         {
             cvector_grow(to, cvector_size(from));
             cvector_set_size(to, cvector_size(from));
-            cvector_clib_memcpy((to), (from), cvector_size(from) * sizeof(*(from)));
+            memcpy((to), (from), cvector_size(from) * sizeof(*(from)));
         }
     } while (0);
 }
@@ -351,7 +326,7 @@ void cvector_copy(cvector *from, cvector *to)
  * @param type - the type of both vectors
  * @return void
  */
-void cvector_swap(cvector *vec, cvector *other, type)
+void cvector_swap(cvector *vec, cvector *other)
 {
     do
     {
@@ -416,17 +391,17 @@ void cvector_grow(cvector *vec, size_t count)
         {
             void *cv_p1__ = cvector_vec_to_base(vec);
 
-            void *cv_p2__ = cvector_clib_realloc(cv_p1__, cv_sz__);
+            void *cv_p2__ = realloc(cv_p1__, cv_sz__);
 
-            cvector_clib_assert(cv_p2__);
+            assert(cv_p2__);
 
             vec = cvector_base_to_vec(cv_p2__);
         }
         else
         {
-            void *cv_p__ = cvector_clib_malloc(cv_sz__);
-            
-            cvector_clib_assert(cv_p__);
+            void *cv_p__ = malloc(cv_sz__);
+
+            assert(cv_p__);
 
             vec = cvector_base_to_vec(cv_p__);
 
