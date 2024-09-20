@@ -40,7 +40,7 @@ typedef cvector_iterator;
  */
 cvector_metadata_t *cvector_vec_to_base(cvector *vec)
 {
-    return &((cvector_metadata_t *)vec)[-1];
+    return (cvector_metadata_t *)(vec - sizeof(cvector_metadata_t));
 }
 
 /**
@@ -51,7 +51,7 @@ cvector_metadata_t *cvector_vec_to_base(cvector *vec)
  */
 void *cvector_base_to_vec(void *ptr)
 {
-    return (void *)&((cvector_metadata_t *)(ptr))[1];
+    return (void *)((cvector_metadata_t *)(ptr + sizeof(cvector_metadata_t)));
 }
 
 /**
@@ -381,24 +381,10 @@ void cvector_grow(cvector *vec, size_t count)
 
     if (vec)
     {
-        printf("1\n");
-
         void *old_vec_pointer = cvector_vec_to_base(vec);
-        printf("2\n");
-
-        printf("%i\n", old_vec_pointer);
-
         void *new_vec_pointer = realloc(old_vec_pointer, NEW_SIZE);
-
-        printf("3\n");
-
         assert(new_vec_pointer);
-
-        printf("4\n");
-
         vec = cvector_base_to_vec(new_vec_pointer);
-
-        printf("5\n");
     }
     else
     {
