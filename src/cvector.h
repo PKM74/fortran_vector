@@ -22,6 +22,9 @@ typedef struct cvector_metadata_t
     size_t element_size;
 } cvector_metadata_t;
 
+// Cache this.
+const static size_t METADATA_SIZE = sizeof(cvector_metadata_t);
+
 /**
  * @brief cvector_vector_type - The vector type used in this library
  */
