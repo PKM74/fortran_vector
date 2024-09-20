@@ -6,8 +6,8 @@ void *new_vector(void *input_type, size_t data_size)
 {
 
   // This is what insanity looks like.
-  size_t florf[data_size];
-  memcpy(&florf, input_type, data_size);
+  size_t raw_data[data_size];
+  memcpy(&raw_data, input_type, data_size);
 
   // printf("data size: %d\n", data_size);
   // for (int i = 0; i < data_size; i++)
@@ -16,5 +16,5 @@ void *new_vector(void *input_type, size_t data_size)
   // }
   // printf("\n");
 
-  cvector_vector_type(typeof(florf)) v = NULL;
+  cvector_vector_type(typeof(raw_data)) v = NULL;
 }
