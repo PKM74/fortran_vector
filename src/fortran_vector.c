@@ -37,7 +37,7 @@ void *vector_at(cvector *vec, size_t i)
 {
   void *b = cvector_at(vec, i);
 
-  printf("%d\n", sizeof(b));
+  // printf("%d\n", sizeof(b));
 
   return b;
 }
@@ -148,5 +148,5 @@ void vector_swap(cvector *vec, cvector *other, size_t element_size)
 {
   uint8_t raw_data[element_size];
 
-  cvector_swap(vec, other, typeof(raw_data));
+  // cvector_swap(vec, other);
 }

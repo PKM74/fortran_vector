@@ -77,7 +77,7 @@ cvector *cvector_vec_to_base(cvector *vec)
  */
 void *cvector_base_to_vec(void *ptr)
 {
-    ((void *)&((cvector_metadata_t *)(ptr))[1]);
+    return ((void *)&((cvector_metadata_t *)(ptr))[1]);
 }
 
 /**
@@ -87,7 +87,7 @@ void *cvector_base_to_vec(void *ptr)
  */
 size_t cvector_capacity(cvector *vec)
 {
-    ((vec) ? cvector_vec_to_base(vec)->capacity : (size_t)0);
+    return ((vec) ? cvector_vec_to_base(vec)->capacity : (size_t)0);
 }
 
 /**
@@ -97,7 +97,17 @@ size_t cvector_capacity(cvector *vec)
  */
 size_t cvector_size(cvector *vec)
 {
-    ((vec) ? cvector_vec_to_base(vec)->size : (size_t)0);
+    return ((vec) ? cvector_vec_to_base(vec)->size : (size_t)0);
+}
+
+/**
+ * @brief cvector_element_size - gets the size of the elements
+ * @param vec - the vector
+ * @return the size as a size_t
+ */
+size_t cvector_element_size(cvector *vec)
+{
+    return (vec ? cvector_vec_to_base(vec)->element_size : (size_t)0);
 }
 
 /**
@@ -405,15 +415,21 @@ void cvector_grow(cvector *vec, size_t count)
         if (vec)
         {
             void *cv_p1__ = cvector_vec_to_base(vec);
+
             void *cv_p2__ = cvector_clib_realloc(cv_p1__, cv_sz__);
+
             cvector_clib_assert(cv_p2__);
-            (vec) = cvector_base_to_vec(cv_p2__);
+
+            vec = cvector_base_to_vec(cv_p2__);
         }
         else
         {
             void *cv_p__ = cvector_clib_malloc(cv_sz__);
+            
             cvector_clib_assert(cv_p__);
-            (vec) = cvector_base_to_vec(cv_p__);
+
+            vec = cvector_base_to_vec(cv_p__);
+
             cvector_set_size((vec), 0);
             cvector_set_elem_destructor((vec), NULL);
         }
