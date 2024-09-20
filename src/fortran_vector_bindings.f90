@@ -88,34 +88,34 @@ module fortran_vector_bindings
 
 
     !* Insert an element into an index of the array.
-    subroutine internal_vector_insert(vec_pointer, position, new_element, element_size) bind(c, name = "vector_insert")
+    subroutine internal_vector_insert(vec_pointer, index, new_element, element_size) bind(c, name = "vector_insert")
       use, intrinsic :: iso_c_binding
       implicit none
 
       type(c_ptr), intent(in), value :: vec_pointer, new_element
-      integer(c_size_t), intent(in), value :: position, element_size
+      integer(c_size_t), intent(in), value :: index, element_size
     end subroutine internal_vector_insert
 
 
-    !* Erase an element from the vector at a position.
-    subroutine internal_vector_erase(vec_pointer, position) bind(c, name = "vector_erase")
+    !* Erase an element from the vector at an index.
+    subroutine internal_vector_erase(vec_pointer, index) bind(c, name = "vector_erase")
       use, intrinsic :: iso_c_binding
       implicit none
 
       type(c_ptr), intent(in), value :: vec_pointer
-      integer(c_size_t), intent(in), value :: position
+      integer(c_size_t), intent(in), value :: index
     end subroutine internal_vector_erase
 
 
     !* Uses memcpy under the hood.
-    !* Push an element back.
-    subroutine internal_push_back(vec_pointer, new_element_pointer, element_size) bind(c, name = "vector_push_back")
+    !* Push an element to the back of the vector.
+    subroutine internal_vector_push_back(vec_pointer, new_element_pointer, element_size) bind(c, name = "vector_push_back")
       use, intrinsic :: iso_c_binding
       implicit none
 
       type(c_ptr), intent(in), value :: vec_pointer, new_element_pointer
       integer(c_size_t), intent(in), value :: element_size
-    end subroutine internal_push_back
+    end subroutine internal_vector_push_back
 
 
     !* Removes the last element from the vector.
