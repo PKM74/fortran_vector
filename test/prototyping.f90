@@ -26,17 +26,15 @@ program prototyping
   use, intrinsic :: iso_c_binding
   implicit none
 
-  integer(c_int), target :: test
   type(bloof), target :: dat
-  type(c_ptr) :: vec_pointer
+  type(vec) :: v
 
   ! test = 1
 
-  ! ! call new_vector(c_loc(test))
+  v = new_vec(sizeof(dat), int(10, c_size_t))
 
-  ! dat%x = 2147483647
+  dat%x = 2147483647
 
-  ! vec_pointer = new_vector(int(10, c_size_t), sizeof(bloof()), c_null_funptr)
 
   ! call push_back(vec_pointer, c_loc(dat), sizeof(dat))
   ! call push_back(vec_pointer, c_loc(dat), sizeof(dat))
