@@ -25,7 +25,7 @@ void *new_vector(size_t initial_size, size_t element_size, cvector_elem_destruct
 /**
  * Free the underlying memory.
  */
-void destroy_vector(cvector(void) vec)
+void destroy_vector(cvector(void) * vec)
 {
   cvector_free(vec);
 }
@@ -33,7 +33,7 @@ void destroy_vector(cvector(void) vec)
 /**
  * Index into the vector.
  */
-void *vector_at(cvector(void) vec, size_t i)
+void *vector_at(cvector(void) * vec, size_t i)
 {
   return cvector_at(vec, i);
 }
@@ -41,7 +41,7 @@ void *vector_at(cvector(void) vec, size_t i)
 /**
  * Check if the vector is empty.
  */
-bool vector_is_empty(cvector(void) vec)
+bool vector_is_empty(cvector(void) * vec)
 {
   return cvector_empty(vec);
 }
