@@ -35,7 +35,11 @@ void destroy_vector(cvector(void) * vec)
  */
 void *vector_at(cvector(void) * vec, size_t i)
 {
-  return cvector_at(vec, i);
+  void *b = cvector_at(vec, i);
+
+  printf("%d\n", sizeof(b));
+
+  return b;
 }
 
 /**

@@ -28,28 +28,26 @@ program prototyping
 
   type(bloof), target :: dat
   type(vec) :: v
-  class(*), pointer :: generic_pointer
+  type(c_ptr) :: generic_c_ptr
+  integer(c_int), pointer :: output
 
-  v = new_vec(sizeof(dat), int(10, c_size_t))
+  v = new_vec(sizeof(10), int(10, c_size_t))
 
-  dat%x = 2147483647
+  dat%x = 1
 
-  print*,c_loc(dat)
+  call v%push_back(10)
+  call v%push_back(20)
+  call v%push_back(30)
 
-  call v%push_back(dat)
-  call v%push_back(dat)
-  call v%push_back(dat)
+  ! call v%erase(0_8)
 
-  call v%erase(0_8)
+  generic_c_ptr = v%at(0_8)
 
-  call v%at(1_8, generic_pointer)
+  print"(i15)",generic_c_ptr
 
-  select type (generic_pointer)
-   type is (bloof)
-    print*,"a bloof"
-   class default
-    print*,"it failed :("
-  end select
+  call c_f_pointer(generic_c_ptr, output)
+
+  ! print*,output
 
 
   print*,v%size()

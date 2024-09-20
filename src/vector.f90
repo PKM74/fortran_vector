@@ -63,22 +63,15 @@ contains
 
 
   !* Get an element at an index in the vector.
-  subroutine vector_at(this, index, generic_pointer)
+  function vector_at(this, index) result(raw_c_pointer)
     implicit none
 
     class(vec), intent(inout) :: this
     integer(c_size_t), intent(in), value :: index
-    class(*), intent(inout), pointer :: generic_pointer
-    type(c_ptr) :: raw_pointer
-    integer(1), dimension(:), pointer :: black_magic
+    type(c_ptr) :: raw_c_pointer
 
-    !! If this works, I will be impressed.
-    raw_pointer = internal_vector_at(this%data, index)
-
-    call c_f_pointer(raw_pointer, black_magic, [this%size_of_type])
-
-    generic_pointer => black_magic(1)
-  end subroutine vector_at
+    raw_c_pointer = internal_vector_at(this%data, index)
+  end function vector_at
 
 
   !* Check if the vector is empty.
