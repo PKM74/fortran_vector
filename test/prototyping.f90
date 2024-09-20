@@ -22,7 +22,7 @@ end module cool
 
 program prototyping
   use :: cool
-  use :: fortran_vector
+  use :: vector
   use, intrinsic :: iso_c_binding
   implicit none
 
