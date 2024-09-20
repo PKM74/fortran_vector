@@ -41,24 +41,11 @@
 #define cvector_clib_memmove memmove
 #endif
 
-/* NOTE: Similar to C's qsort and bsearch, you will receive a T*
- * for a vector of Ts. This means that you cannot use `free` directly
- * as a destructor. Instead if you have for example a cvector_vector_type(int *)
- * you will need to supply a function which casts `elem_ptr` to an `int**`
- * and then does a free on what that pointer points to:
- *
- * ex:
- *
- * void free_int(void *p) { free(*(int **)p); }
- */
-typedef void (*cvector_elem_destructor_t)(void *elem_ptr);
-
 typedef struct cvector_metadata_t
 {
     size_t size;
     size_t capacity;
     size_t element_size;
-    cvector_elem_destructor_t elem_destructor;
 } cvector_metadata_t;
 
 /**
