@@ -64,12 +64,10 @@ typedef struct cvector_metadata_t
 /**
  * @brief cvector_vector_type - The vector type used in this library
  */
-#define cvector_vector_type type *
+typedef cvector_vector_type;
 
 /**
  * @brief cvector - Syntactic sugar to retrieve a vector type
- *
- * @param type The type of vector to act on.
  */
 #define cvector cvector_vector_type
 
@@ -365,15 +363,15 @@ typedef struct cvector_metadata_t
  * @param type - the type of both vectors
  * @return void
  */
-#define cvector_swap(vec, other, type)                 \
-    do                                                 \
-    {                                                  \
-        if (vec && other)                              \
-        {                                              \
+#define cvector_swap(vec, other, type)           \
+    do                                           \
+    {                                            \
+        if (vec && other)                        \
+        {                                        \
             cvector_vector_type cv_swap__ = vec; \
-            vec = other;                               \
-            other = cv_swap__;                         \
-        }                                              \
+            vec = other;                         \
+            other = cv_swap__;                   \
+        }                                        \
     } while (0)
 
 /**
