@@ -37,17 +37,6 @@ typedef cvector;
 typedef cvector_iterator;
 
 /**
- * @brief cvector_base_to_vec - For internal use, converts a metadata pointer to a vector pointer
- * @param ptr - pointer to the metadata
- * @return the vector
- * @internal
- */
-void *cvector_move_to_vec(void *ptr)
-{
-    return (void *)((cvector_metadata_t *)(ptr + METADATA_SIZE));
-}
-
-/**
  * @brief cvector_capacity - gets the current capacity of the vector
  * @param vec - the vector
  * @return the capacity as a size_t
