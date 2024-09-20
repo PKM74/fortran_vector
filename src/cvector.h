@@ -471,13 +471,14 @@ void cvector_resize(cvector *vec, size_t count, void *value)
         {
             size_t cv_sz_count__ = count;
             size_t cv_sz__ = cvector_vec_to_base(vec)->size;
+
             if (cv_sz_count__ > cv_sz__)
             {
                 cvector_reserve((vec), cv_sz_count__);
                 cvector_set_size((vec), cv_sz_count__);
                 do
                 {
-                    (vec)[cv_sz__++] = (value);
+                    memcpy(&vec[cv_sz__++], value, cvector_element_size(vec));
                 } while (cv_sz__ < cv_sz_count__);
             }
             else
