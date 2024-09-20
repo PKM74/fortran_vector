@@ -35,17 +35,6 @@ typedef cvector;
  */
 typedef cvector_iterator;
 
-// /**
-//  * @brief cvector_vec_to_base - For internal use, converts a vector pointer to a metadata pointer
-//  * @param vec - the vector
-//  * @return the metadata pointer of the vector
-//  * @internal
-//  */
-// cvector_metadata_t *cvector_vec_to_base(cvector *vec)
-// {
-//     return (cvector_metadata_t *)(vec - sizeof(cvector_metadata_t));
-// }
-
 /**
  * @brief cvector_base_to_vec - For internal use, converts a metadata pointer to a vector pointer
  * @param ptr - pointer to the metadata
