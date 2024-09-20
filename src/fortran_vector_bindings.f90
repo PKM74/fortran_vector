@@ -7,12 +7,11 @@ module fortran_vector_bindings
 
 
     !* Create the new C vector memory.
-    function internal_new_vector(initial_size, element_size, c_gc_func) result(vec_pointer) bind(c, name = "new_vector")
+    function internal_new_vector(initial_size, element_size) result(vec_pointer) bind(c, name = "new_vector")
       use, intrinsic :: iso_c_binding
       implicit none
 
       integer(c_size_t), intent(in), value :: initial_size, element_size
-      type(c_funptr), intent(in), value :: c_gc_func
       type(c_ptr) :: vec_pointer
     end function internal_new_vector
 

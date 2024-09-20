@@ -45,7 +45,7 @@ contains
 
     ! todo: needs a GC func thing.
 
-    v%data = internal_new_vector(initial_size, size_of_type, c_null_funptr)
+    v%data = internal_new_vector(initial_size, size_of_type)
 
     print*,"pointer:",v%data
 
