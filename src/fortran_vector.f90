@@ -20,11 +20,17 @@ module fortran_vector
       use, intrinsic :: iso_c_binding
       implicit none
 
-
       type(c_ptr), intent(in), value :: vec_pointer, new_element_pointer
       integer(c_size_t), intent(in), value :: element_size
     end subroutine push_back
 
+    function get_size(vec_pointer) result(vec_size) bind(c, name = "vector_size")
+      use, intrinsic :: iso_c_binding
+      implicit none
+
+      type(c_ptr), intent(in), value :: vec_pointer
+      integer(c_size_t) :: vec_size
+    end function get_size
 
   end interface
 
