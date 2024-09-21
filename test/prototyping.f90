@@ -53,7 +53,7 @@ program prototyping
     end if
 
     !! Deadlock into spin.
-    call c_f_pointer(v%at(int(i - 1, c_size_t)), output)
+    call c_f_pointer(v%at(int(i, c_size_t)), output)
 
     ! print*,"output;",output
 
@@ -73,7 +73,7 @@ program prototyping
 
   print*,"hi from fortran"
 
-  call sleep(10)
+  ! call sleep(10)
 
 
 end program prototyping
