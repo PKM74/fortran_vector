@@ -386,7 +386,7 @@ void cvector_set_size(void *vec, size_t new_size)
 void cvector_grow(void **vec, size_t new_capacity)
 {
     printf("growing\n");
-    const size_t NEW_SIZE = METADATA_SIZE + (new_capacity * cvector_element_size(vec));
+    const size_t NEW_SIZE = METADATA_SIZE + (new_capacity * cvector_element_size(*vec));
     void *temp = realloc(*vec, NEW_SIZE);
     assert(temp);
     cvector_set_capacity(temp, new_capacity);
