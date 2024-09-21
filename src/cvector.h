@@ -69,7 +69,14 @@ size_t cvector_capacity(void *vec)
  */
 size_t cvector_size(void *vec)
 {
-    return vec ? ((cvector_metadata_t *)vec)->size : (size_t)0;
+    if (vec)
+    {
+        return ((cvector_metadata_t *)vec)->size;
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 /**
