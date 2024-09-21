@@ -206,10 +206,17 @@ contains
     implicit none
 
     class(vec), intent(inout) :: this
+    integer(c_size_t) :: size
 
     !? If it's empty, popping can corrupt the memory.
     if (this%is_empty()) then
       return
+    end if
+
+    size = this%size()
+
+    if (.not. this%is_empty()) then
+      call run_gc(this, size, size)
     end if
 
     call internal_vector_pop_back(this%data)
