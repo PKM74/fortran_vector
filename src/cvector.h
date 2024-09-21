@@ -140,14 +140,15 @@ void cvector_erase(void *vec, size_t i)
 {
     if (vec)
     {
-        const size_t cv_sz__ = cvector_size(vec);
-        if ((i) < cv_sz__)
+        const size_t vector_size = cvector_size(vec);
+        if (i < vector_size)
         {
-            cvector_set_size(vec, cv_sz__ - 1);
+            //! fixme: this is wrong!
+            cvector_set_size(vec, vector_size - 1);
             memmove(
-                (vec) + (i),
-                (vec) + (i) + 1,
-                sizeof(*(vec)) * (cv_sz__ - 1 - (i)));
+                vec + i,
+                vec + i + 1,
+                sizeof(*(vec)) * (vector_size - 1 - (i)));
         }
     }
 }
@@ -185,7 +186,7 @@ void cvector_free(void *vec)
  */
 void *cvector_begin(void *vec)
 {
-    return (vec);
+    return vec;
 }
 
 /**
