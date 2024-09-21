@@ -249,4 +249,26 @@ contains
   end subroutine vector_swap
 
 
+!? BEGIN INTERNAL ONLY ==============================================
+
+  subroutine run_gc(this, min, max)
+    implicit none
+
+    type(vec), intent(inout) :: this
+    integer(c_size_t), intent(in), value :: min, max
+    procedure(vec_gc_blueprint), pointer :: optional_gc
+    integer(c_size_t) :: i
+
+    ! No GC function was assigned to the vector.
+    if (.not. c_associated(this%gc_func)) then
+      return
+    end if
+
+    call c_f_procpointer(this%gc_func, optional_gc)
+
+    do i = min, max
+      call optional_gc(this%at(i))
+    end do
+  end subroutine run_gc
+
 end module vector
