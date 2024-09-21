@@ -93,7 +93,14 @@ size_t cvector_size(void *vec)
  */
 size_t cvector_element_size(void *vec)
 {
-    return vec ? ((cvector_metadata_t *)vec)->element_size : (size_t)0;
+    if (vec)
+    {
+        return ((cvector_metadata_t *)vec)->element_size;
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 /**
