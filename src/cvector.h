@@ -233,6 +233,8 @@ void cvector_push_back(cvector *vec, void *value)
         cvector_grow(vec, cvector_compute_next_grow(current_capacity));
     }
 
+    printf("p4: %i\n", vec);
+
     printf("current cap: %i\n", current_capacity);
     printf("size: %i\n", cvector_size(vec));
 
@@ -355,22 +357,31 @@ void cvector_set_size(cvector *vec, size_t _size)
  */
 void cvector_grow(cvector *vec, size_t count)
 {
+    printf("------ inside grow --------\n");
 
-    printf("new count: %i\n", count);
+    // printf("new count: %i\n", count);
 
     const size_t NEW_SIZE = METADATA_SIZE + (count * cvector_element_size(vec));
 
+    // printf("allocation: %i\n", NEW_SIZE);
+
+    printf("p1: %i\n", vec);
+
     void *new_vec_pointer = realloc(vec, NEW_SIZE);
+
+    printf("p2: %i\n", new_vec_pointer);
+
     assert(new_vec_pointer);
+
     vec = new_vec_pointer;
+
+    printf("p3: %i\n", vec);
 
     cvector_set_capacity(vec, count);
 
-    printf("------ inside grow --------\n");
-
-    printf("size: %i\n", cvector_size(vec));
-    printf("cap: %i\n", cvector_capacity(vec));
-    printf("elsize: %i\n", cvector_element_size(vec));
+    // printf("size: %i\n", cvector_size(vec));
+    // printf("cap: %i\n", cvector_capacity(vec));
+    // printf("elsize: %i\n", cvector_element_size(vec));
 
     printf("------ exiting grow --------\n");
 }
