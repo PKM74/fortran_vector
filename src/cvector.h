@@ -416,24 +416,19 @@ void cvector_shrink_to_fit(void *vec)
  */
 void *cvector_at(void *vec, size_t n)
 {
-    printf("1\n");
     if (vec)
     {
-        printf("2\n");
         if (n < 0 || n >= cvector_size(vec))
         {
-            printf("3\n");
             return NULL;
         }
         else
         {
-            printf("4\n");
             return vec + METADATA_SIZE + (n * cvector_element_size(vec));
         }
     }
     else
     {
-        printf("5\n");
         return NULL;
     }
 }
