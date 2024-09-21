@@ -252,10 +252,10 @@ void cvector_push_back(void **vec, void *value)
 void cvector_insert(void *vec, size_t pos, void *val)
 {
 
-    size_t cv_cap__ = cvector_capacity(vec);
-    if (cv_cap__ <= cvector_size(vec))
+    size_t vec_capacity = cvector_capacity(vec);
+    if (vec_capacity <= cvector_size(vec))
     {
-        cvector_grow(vec, cvector_compute_next_grow(cv_cap__));
+        cvector_grow(vec, cvector_compute_next_grow(vec_capacity));
     }
     if ((pos) < cvector_size(vec))
     {
