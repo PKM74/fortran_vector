@@ -122,7 +122,7 @@ program example
       ! print*,output%a_number, output%a_fixed_length_string, output%a_pointer_string
     end do
 
-    !* Now let's just shove something in the middle.
+    !* Now let us just shove something in the middle.
     !! Notice I am giving the pointer a new memory address!
     !! If you don't do this, you're going to double free an address in your GC. :)
     !? Also, notice: Due to the sheer size of this list, this is very slow.
