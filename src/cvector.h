@@ -353,11 +353,11 @@ void cvector_swap(void *vec, void *other)
  * @return void
  * @internal
  */
-void cvector_set_capacity(void *vec, size_t size)
+void cvector_set_capacity(void *vec, size_t new_capacity)
 {
     if (vec)
     {
-        ((cvector_metadata_t *)vec)->capacity = (size);
+        ((cvector_metadata_t *)vec)->capacity = (new_capacity);
     }
 }
 
