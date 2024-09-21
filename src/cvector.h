@@ -266,7 +266,7 @@ void cvector_push_back(void **vec, void *value)
     // printf("current cap: %i\n", cvector_capacity(*vec));
     // printf("size: %i\n", cvector_size(*vec));
 
-    void *current_element = vec + METADATA_SIZE + (cvector_element_size(vec) * cvector_size(vec));
+    void *current_element = *vec + METADATA_SIZE + (cvector_element_size(*vec) * cvector_size(*vec));
 
     memcpy(current_element, value, cvector_element_size(*vec));
     cvector_set_size(*vec, cvector_size(*vec) + 1);
