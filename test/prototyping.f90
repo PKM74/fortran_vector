@@ -62,17 +62,8 @@ program prototyping
       deallocate(output%f)
     end do
 
-
-    ! print*,"zzzz"
-    ! call sleep(3)
-    ! print*,"here we go!"
-
-    ! call v%clear()
-
     call v%destroy()
 
-    ! print*,"zzzz (again)"
-    ! call sleep(3)
   end do
 
 end program prototyping

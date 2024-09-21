@@ -161,6 +161,21 @@ module fortran_vector_bindings
     end subroutine internal_vector_swap
 
 
+!? BEGIN FUNCTION BLUEPRINTS ==================================================
+
+
+    !* If your type uses pointers, I suggest you give your vector a GC.
+    !*
+    !* The raw_c_pointer is the element in the array. You'll be getting it
+    !* right before it's freed from C memory.
+    subroutine vec_gc_blueprint(raw_c_pointer)
+      use, intrinsic :: iso_c_binding
+      implicit none
+
+      type(c_ptr), intent(in), value :: raw_c_pointer
+    end subroutine vec_gc_blueprint
+
+
   end interface
 
 
