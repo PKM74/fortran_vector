@@ -2,23 +2,32 @@ module my_cool_module
   use, intrinsic :: iso_c_binding
   implicit none
 
+  !* An example data type you can use.
   type :: some_data
     integer(c_int) :: a_number
     character(64) :: a_fixed_length_string
     character(len = :, kind = c_char), pointer :: a_pointer_string => null()
   end type some_data
 
+  !* Allows you to call some_data() when getting the size.
   interface some_data
     module procedure :: new_some_data
   end interface some_data
 
 contains
 
+  !* A very explicit constructor.
   function new_some_data() result(output)
     implicit none
     type(some_data) :: output
   end function new_some_data
 
+  !* If your type uses pointers, I suggest you give your vector a GC.
+  !*
+  !* The raw_c_pointer is the element in the array. You'll be getting it
+  !* right before it's freed from C memory.
+  !*
+  !* Here is an example using our some_data type.
   subroutine example_gc_func(raw_c_pointer)
     implicit none
 
@@ -32,6 +41,8 @@ contains
 
 end module my_cool_module
 
+
+!* Now, let us move onto the actual program.
 program example
   use :: my_cool_module
   use :: vector
