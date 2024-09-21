@@ -27,7 +27,7 @@ void cvector_clear(void *vec);
 void cvector_free(void *vec);
 size_t cvector_compute_next_grow(size_t size);
 void cvector_push_back(void **vec, void *value);
-void cvector_insert(void *vec, size_t pos, void *val);
+void cvector_insert(void **vec, size_t pos, void *val);
 void cvector_pop_back(void *vec);
 void cvector_copy(void *from, void *to);
 void cvector_swap(void *vec, void *other);
@@ -252,7 +252,7 @@ void cvector_push_back(void **vec, void *value)
  * @param val - value to be copied (or moved) to the inserted elements.
  * @return void
  */
-void cvector_insert(void *vec, size_t pos, void *val)
+void cvector_insert(void **vec, size_t pos, void *val)
 {
 
     size_t vec_capacity = cvector_capacity(vec);
