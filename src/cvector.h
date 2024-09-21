@@ -385,7 +385,7 @@ void cvector_set_size(void *vec, size_t new_size)
  */
 void cvector_grow(void **vec, size_t new_capacity)
 {
-    const size_t OLD_SIZE = METADATA_SIZE + (cvector_size(vec) * cvector_element_size(vec));
+    printf("growing\n");
     const size_t NEW_SIZE = METADATA_SIZE + (new_capacity * cvector_element_size(vec));
     void *temp = realloc(*vec, NEW_SIZE);
     assert(temp);
@@ -416,19 +416,24 @@ void cvector_shrink_to_fit(void *vec)
  */
 void *cvector_at(void *vec, size_t n)
 {
+    printf("1\n");
     if (vec)
     {
+        printf("2\n");
         if (n < 0 || n >= cvector_size(vec))
         {
+            printf("3\n");
             return NULL;
         }
         else
         {
+            printf("4\n");
             return vec + METADATA_SIZE + (n * cvector_element_size(vec));
         }
     }
     else
     {
+        printf("5\n");
         return NULL;
     }
 }
