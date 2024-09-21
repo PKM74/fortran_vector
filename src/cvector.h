@@ -207,7 +207,7 @@ size_t cvector_compute_next_grow(size_t size)
  */
 size_t cvector_compute_next_grow(size_t size)
 {
-    return ((size) + 1);
+    return size + 1;
 }
 
 #endif /* CVECTOR_LOGARITHMIC_GROWTH */
@@ -356,13 +356,23 @@ void cvector_set_size(cvector *vec, size_t _size)
 void cvector_grow(cvector *vec, size_t count)
 {
 
-    const size_t NEW_SIZE = (count * cvector_element_size(vec)) + sizeof(cvector_metadata_t);
+    printf("new count: %i\n", count);
+
+    const size_t NEW_SIZE = METADATA_SIZE + (count * cvector_element_size(vec));
 
     void *new_vec_pointer = realloc(vec, NEW_SIZE);
     assert(new_vec_pointer);
     vec = new_vec_pointer;
 
     cvector_set_capacity(vec, count);
+
+    printf("------ inside grow --------\n");
+
+    printf("size: %i\n", cvector_size(vec));
+    printf("cap: %i\n", cvector_capacity(vec));
+    printf("elsize: %i\n", cvector_element_size(vec));
+
+    printf("------ exiting grow --------\n");
 }
 
 /**
