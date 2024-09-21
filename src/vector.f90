@@ -65,7 +65,6 @@ contains
 
     class(vec), intent(inout) :: this
 
-
     if (.not. this%is_empty()) then
       call run_gc(this, 1_8, this%size())
     end if
@@ -145,7 +144,9 @@ contains
 
     class(vec), intent(inout) :: this
 
-    !! todo: needs to run the GC function here!
+    if (.not. this%is_empty()) then
+      call run_gc(this, 1_8, this%size())
+    end if
 
     call internal_vector_clear(this%data)
   end subroutine vector_clear
