@@ -36,12 +36,11 @@ program prototyping
 
   dat%x = 10
 
-  print*,v%size()
+  ! print*,v%size()
 
   i = 1
 
-
-  do i = 1,10
+  do i = 1,10000000
 
     ! print*,i
 
@@ -49,10 +48,18 @@ program prototyping
 
     call v%push_back(i)
 
-    print*,"new size: ",v%size()
+    if (mod(v%size(), 1000000) == 0) then
+      print*,"new size: ",v%size()
+    end if
 
     !! Deadlock into spin.
-    ! call c_f_pointer(v%at(int(i - 1, c_size_t)), output)
+    call c_f_pointer(v%at(int(i - 1, c_size_t)), output)
+
+    ! print*,"output;",output
+
+    if (output /= i) then
+      error stop
+    end if
 
     ! print*,"fortan output", output
     ! call c_f_pointer(v%at(1_8), output)
@@ -64,9 +71,9 @@ program prototyping
   end do
 
 
-
-
   print*,"hi from fortran"
+
+  call sleep(10)
 
 
 end program prototyping
