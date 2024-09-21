@@ -196,7 +196,14 @@ void *cvector_begin(void *vec)
  */
 void *cvector_end(void *vec)
 {
-    return ((vec) ? &((vec)[cvector_size(vec)]) : NULL);
+    if (vec)
+    {
+        return &(vec)[cvector_size(vec)];
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
 /**
@@ -372,8 +379,8 @@ void cvector_shrink_to_fit(void *vec)
 {
     if (vec)
     {
-        const size_t cv_sz___ = cvector_size(vec);
-        cvector_grow(vec, cv_sz___);
+        const size_t vec_size = cvector_size(vec);
+        cvector_grow(vec, vec_size);
     }
 }
 
