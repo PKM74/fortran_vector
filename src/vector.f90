@@ -28,7 +28,8 @@ module vector
     procedure :: push_back => vector_push_back
     procedure :: pop_back => vector_pop_back
     procedure :: reserve => vector_reserve
-
+    procedure :: resize => vector_resize
+    procedure :: swap => vector_swap
   end type vec
 
 
@@ -199,6 +200,32 @@ contains
   end subroutine vector_reserve
 
 
+  !* Resize a vector to a new size.
+  !* Requires a new default element.
+  subroutine vector_resize(this, new_size, default_element)
+    implicit none
+
+    class(vec), intent(inout) :: this
+    integer(c_size_t), intent(in), value :: new_size
+    class(*), intent(in), target :: default_element
+    type(c_ptr) :: black_magic
+
+    black_magic = transfer(loc(default_element), black_magic)
+
+    call internal_vector_resize(this%data, new_size, black_magic, this%size_of_type)
+  end subroutine vector_resize
+
+
+  !* Swap one vector's contents with another.
+  !* If they are not of the same type, this will throw a C exception.
+  subroutine vector_swap(this, other)
+    implicit none
+
+    class(vec), intent(inout) :: this
+    type(vec), intent(inout) :: other
+
+    call internal_vector_swap(this%data, other%data, this%size_of_type)
+  end subroutine vector_swap
 
 
 end module vector
