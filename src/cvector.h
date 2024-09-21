@@ -211,8 +211,7 @@ void cvector_free(void *vec)
  */
 void *cvector_begin(void *vec)
 {
-    //! fixme: this is wrong!
-    return vec;
+    return vec + METADATA_SIZE;
 }
 
 /**
