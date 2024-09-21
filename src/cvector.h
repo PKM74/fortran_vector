@@ -40,7 +40,7 @@ void cvector_shrink_to_fit(void *vec);
 void *cvector_at(void *vec, size_t n);
 void *cvector_front(void *vec);
 void *cvector_back(void *vec);
-void cvector_resize(void *vec, size_t count, void *value);
+void cvector_resize(void **vec, size_t count, void *value);
 
 typedef struct cvector_metadata_t
 {
