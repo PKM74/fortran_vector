@@ -82,6 +82,10 @@ contains
     integer(c_size_t), intent(in), value :: index
     type(c_ptr) :: raw_c_pointer
 
+    if (index < 1 .or. index > this%size()) then
+      error stop "[Vector] Error: Went out of bounds."
+    end if
+
     raw_c_pointer = internal_vector_at(this%data, index)
   end function vector_at
 
