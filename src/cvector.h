@@ -102,8 +102,8 @@ cvector *cvector_init(size_t capacity, size_t element_size)
 {
     cvector *vec = malloc(sizeof(cvector_metadata_t));
 
-    ((cvector_metadata_t *)capacity)->capacity = 0;
-    ((cvector_metadata_t *)capacity)->size = 0;
+    ((cvector_metadata_t *)vec)->capacity = 0;
+    ((cvector_metadata_t *)vec)->size = 0;
     ((cvector_metadata_t *)vec)->element_size = element_size;
 
     if (!vec)

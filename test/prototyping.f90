@@ -43,7 +43,8 @@ program prototyping
 
   do
 
-    ! print*,i
+    print*,i
+
     i = i + 1
 
     call v%push_back(10)
