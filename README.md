@@ -1,5 +1,5 @@
 # fortran_vector
-My cool new project!
+Fortran bindings to c-vector. Modified to the extreme for Fortran use only.
 
 You can C the original code here: https://github.com/eteran/c-vector
 
