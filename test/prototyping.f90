@@ -49,9 +49,11 @@ program prototyping
 
     call v%push_back(i)
 
-    print*,v%size()
+    print*,"new size: ",v%size()
 
-    ! call c_f_pointer(v%at(int(i - 1, c_size_t)), output)
+    !! Deadlock into spin.
+    call c_f_pointer(v%at(int(i - 1, c_size_t)), output)
+
     ! print*,"fortan output", output
     ! call c_f_pointer(v%at(1_8), output)
     ! print*,"fortan output", output
