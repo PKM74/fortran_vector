@@ -102,7 +102,7 @@ program example
       call v%push_back(dat)
     end do
 
-    !* Let's just pop 10k items off the stack for no reason.
+    !* Let us just pop 10k items off the stack for no reason.
     do i = 1,10000
       call v%pop_back()
     end do
