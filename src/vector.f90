@@ -15,6 +15,7 @@ module vector
     private
     type(c_ptr) :: data = c_null_ptr
     integer(c_size_t) :: size_of_type = 0
+    type(c_funptr) :: gc_func = c_null_funptr
   contains
     procedure :: destroy => vector_destroy
     procedure :: at => vector_at
@@ -39,14 +40,18 @@ contains
   !* Create a new vector.
   !* I did not create a module interface because I want you to be able to see explicitly
   !* Where you create your vector.
-  function new_vec(size_of_type, initial_size) result(v)
+  function new_vec(size_of_type, initial_size, optional_gc_func) result(v)
     implicit none
 
     ! size_of_type allows you to simply get the size of your type before and hard code it into your program. 8)
     integer(c_size_t), intent(in), value :: size_of_type, initial_size
+    procedure(vec_gc_blueprint), optional :: optional_gc_func
     type(vec) :: v
 
-    ! todo: needs a GC func thing.
+    ! This will automatically clean your memory upon deletion.
+    if (present(optional_gc_func)) then
+      v%gc_func = c_funloc(optional_gc_func)
+    end if
 
     v%data = internal_new_vector(initial_size, size_of_type)
 
