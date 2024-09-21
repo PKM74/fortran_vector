@@ -47,8 +47,6 @@ contains
 
     v%data = internal_new_vector(initial_size, size_of_type)
 
-    print*,"pointer:",v%data
-
     v%size_of_type = size_of_type
   end function new_vec
 
