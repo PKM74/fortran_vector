@@ -248,30 +248,37 @@ void cvector_push_back(void **vec, void *value)
 /**
  * @brief cvector_insert - insert element at position pos to the vector
  * @param vec - the vector
- * @param pos - position in the vector where the new elements are inserted.
+ * @param index - position in the vector where the new elements are inserted.
  * @param val - value to be copied (or moved) to the inserted elements.
  * @return void
  */
-void cvector_insert(void **vec, size_t pos, void *val)
+void cvector_insert(void **vec, size_t index, void *val)
 {
+    size_t vec_capacity = cvector_capacity(*vec);
 
-    size_t vec_capacity = cvector_capacity(vec);
-    if (vec_capacity <= cvector_size(vec))
+    if (vec_capacity <= cvector_size(*vec))
     {
         cvector_grow(vec, cvector_compute_next_grow(vec_capacity));
     }
-    if (pos < cvector_size(vec))
+
+    size_t current_size = cvector_size(*vec);
+
+    const size_t el_size = cvector_element_size(*vec);
+
+    // If we're inserting into the middle, shove everything forwards.
+    if (index < current_size)
     {
-        //! fixme: this is wrong!
-        memmove(
-            (vec) + (pos) + 1,
-            (vec) + (pos),
-            sizeof(*(vec)) * ((cvector_size(vec)) - (pos)));
+        void *min = *vec + METADATA_SIZE + (index * el_size);
+        void *max = min + el_size;
+        const size_t length = (current_size - index) * el_size;
+
+        memmove(max, min, length);
     }
 
     const size_t el_size = cvector_element_size(vec);
-    memcpy(vec + sizeof(cvector_metadata_t) + (el_size * pos), val, el_size);
-    cvector_set_size((vec), cvector_size(vec) + 1);
+    memcpy(*vec + METADATA_SIZE + (el_size * index), val, el_size);
+
+    cvector_set_size(*vec, current_size + 1);
 }
 
 /**
