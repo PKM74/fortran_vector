@@ -100,14 +100,14 @@ void cvector_reserve(cvector *vec, size_t n)
  */
 cvector *cvector_init(size_t capacity, size_t element_size)
 {
-    cvector *vec = malloc(0);
+    cvector *vec = malloc(sizeof(cvector_metadata_t));
+
+    ((cvector_metadata_t *)vec)->element_size = element_size;
 
     if (!vec)
     {
         cvector_reserve(vec, capacity);
     }
-
-    ((cvector_metadata_t *)vec)->element_size = element_size;
 
     return vec;
 }
