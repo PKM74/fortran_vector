@@ -25,9 +25,9 @@ void destroy_vector(void *vec)
 /**
  * Index into the vector.
  */
-void *vector_at(void *vec, size_t i)
+void *vector_at(void *vec, size_t index)
 {
-  void *b = cvector_at(vec, i);
+  void *b = cvector_at(vec, index - 1);
 
   // printf("%d\n", sizeof(b));
 
@@ -75,22 +75,22 @@ void vector_clear(void *vec)
 }
 
 /**
- * Insert an element into a position in the vector.
+ * Insert an element into a index in the vector.
  */
-void vector_insert(void *vec, size_t position, void *new_element, size_t element_size)
+void vector_insert(void *vec, size_t index, void *new_element, size_t element_size)
 {
   uint8_t raw_data[element_size];
   memcpy(&raw_data, new_element, element_size);
 
-  cvector_insert(vec, position, raw_data);
+  cvector_insert(vec, index - 1, raw_data);
 }
 
 /**
- * Erase an element at a position in the vector.
+ * Erase an element at a index in the vector.
  */
-void vector_erase(void *vec, size_t position)
+void vector_erase(void *vec, size_t index)
 {
-  cvector_erase(vec, position);
+  cvector_erase(vec, index - 1);
 }
 
 /**
