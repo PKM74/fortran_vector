@@ -98,7 +98,7 @@ void vector_erase(void *vec, size_t position)
 /**
  * Push an element to the back of the vector.
  */
-void vector_push_back(void *vec, void *new_element, size_t element_size)
+void vector_push_back(void **vec, void *new_element, size_t element_size)
 {
   uint8_t raw_data[element_size];
   memcpy(&raw_data, new_element, element_size);
