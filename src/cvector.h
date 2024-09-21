@@ -30,7 +30,7 @@ void cvector_push_back(void **vec, void *value);
 void cvector_insert(void **vec, size_t pos, void *val);
 void cvector_pop_back(void *vec);
 void cvector_copy(void *from, void *to);
-void cvector_swap(void *vec, void *other);
+void cvector_swap(void **vec, void **other);
 void cvector_set_capacity(void *vec, size_t size);
 void cvector_set_size(void *vec, size_t _size);
 void cvector_grow(void **vec, size_t count);
@@ -317,14 +317,13 @@ void cvector_copy(void *from, void *to)
  * @param type - the type of both vectors
  * @return void
  */
-void cvector_swap(void *vec, void *other)
+void cvector_swap(void **vec, void **other)
 {
     if (vec && other)
     {
-        //! fixme: this needs to use pointer pointers!
-        void *swapper = vec;
-        vec = other;
-        other = swapper;
+        void *swapper = *vec;
+        *vec = *other;
+        *other = swapper;
     }
 }
 
