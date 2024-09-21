@@ -20,7 +20,7 @@ size_t cvector_capacity(void *vec);
 size_t cvector_size(void *vec);
 size_t cvector_element_size(void *vec);
 bool cvector_empty(void *vec);
-void cvector_reserve(void *vec, size_t n);
+void cvector_reserve(void **vec, size_t n);
 void *cvector_init(size_t capacity, size_t element_size);
 void cvector_erase(void *vec, size_t i);
 void cvector_clear(void *vec);
@@ -122,9 +122,9 @@ bool cvector_empty(void *vec)
  * @param n - Minimum capacity for the vector.
  * @return void
  */
-void cvector_reserve(void *vec, size_t n)
+void cvector_reserve(void **vec, size_t n)
 {
-    if (cvector_capacity(vec) < n)
+    if (cvector_capacity(*vec) < n)
     {
         cvector_grow(vec, n);
     }
