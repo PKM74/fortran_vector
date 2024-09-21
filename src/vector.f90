@@ -13,8 +13,8 @@ module vector
 
   type :: vec
     private
-    type(c_ptr) :: data
-    integer(c_size_t) :: size_of_type
+    type(c_ptr) :: data = c_null_ptr
+    integer(c_size_t) :: size_of_type = 0
   contains
     procedure :: destroy => vector_destroy
     procedure :: at => vector_at
@@ -60,9 +60,17 @@ contains
 
     class(vec), intent(inout) :: this
 
+    if (.not. c_associated(this%data)) then
+      print"(A)", "[Vector] Warning: Attempted to destroy with non-initialized vector."
+      return
+    end if
+
     !! todo: run the GC function here!
 
     call internal_destroy_vector(this%data)
+
+    this%data = c_null_ptr
+    this%size_of_type = 0
   end subroutine vector_destroy
 
 
