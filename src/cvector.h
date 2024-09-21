@@ -87,7 +87,7 @@ bool cvector_empty(cvector *vec)
  */
 void cvector_reserve(cvector *vec, size_t n)
 {
-    while (cvector_capacity(vec) < n)
+    if (cvector_capacity(vec) < n)
     {
         cvector_grow(vec, n);
     }
@@ -102,7 +102,7 @@ cvector *cvector_init(size_t capacity, size_t element_size)
 {
     cvector *vec = malloc(0);
 
-    while (!vec)
+    if (!vec)
     {
         cvector_reserve(vec, capacity);
     }
@@ -120,21 +120,19 @@ cvector *cvector_init(size_t capacity, size_t element_size)
  */
 void cvector_erase(cvector *vec, size_t i)
 {
-    do
+
+    if (vec)
     {
-        if (vec)
+        const size_t cv_sz__ = cvector_size(vec);
+        if ((i) < cv_sz__)
         {
-            const size_t cv_sz__ = cvector_size(vec);
-            if ((i) < cv_sz__)
-            {
-                cvector_set_size(vec, cv_sz__ - 1);
-                memmove(
-                    (vec) + (i),
-                    (vec) + (i) + 1,
-                    sizeof(*(vec)) * (cv_sz__ - 1 - (i)));
-            }
+            cvector_set_size(vec, cv_sz__ - 1);
+            memmove(
+                (vec) + (i),
+                (vec) + (i) + 1,
+                sizeof(*(vec)) * (cv_sz__ - 1 - (i)));
         }
-    } while (0);
+    }
 }
 
 /**
@@ -144,13 +142,10 @@ void cvector_erase(cvector *vec, size_t i)
  */
 void cvector_clear(cvector *vec)
 {
-    do
+    if (vec)
     {
-        if (vec)
-        {
-            cvector_set_size(vec, 0);
-        }
-    } while (0);
+        cvector_set_size(vec, 0);
+    }
 }
 
 /**
@@ -183,7 +178,7 @@ void *cvector_begin(cvector *vec)
  */
 void *cvector_end(cvector *vec)
 {
-    ((vec) ? &((vec)[cvector_size(vec)]) : NULL);
+    return ((vec) ? &((vec)[cvector_size(vec)]) : NULL);
 }
 
 /* user request to use logarithmic growth algorithm */
@@ -244,25 +239,23 @@ void cvector_push_back(cvector *vec, void *value)
  */
 void cvector_insert(cvector *vec, size_t pos, void *val)
 {
-    do
-    {
-        size_t cv_cap__ = cvector_capacity(vec);
-        if (cv_cap__ <= cvector_size(vec))
-        {
-            cvector_grow((vec), cvector_compute_next_grow(cv_cap__));
-        }
-        if ((pos) < cvector_size(vec))
-        {
-            memmove(
-                (vec) + (pos) + 1,
-                (vec) + (pos),
-                sizeof(*(vec)) * ((cvector_size(vec)) - (pos)));
-        }
 
-        const size_t el_size = cvector_element_size(vec);
-        memcpy(vec + sizeof(cvector_metadata_t) + (el_size * pos), val, el_size);
-        cvector_set_size((vec), cvector_size(vec) + 1);
-    } while (0);
+    size_t cv_cap__ = cvector_capacity(vec);
+    if (cv_cap__ <= cvector_size(vec))
+    {
+        cvector_grow((vec), cvector_compute_next_grow(cv_cap__));
+    }
+    if ((pos) < cvector_size(vec))
+    {
+        memmove(
+            (vec) + (pos) + 1,
+            (vec) + (pos),
+            sizeof(*(vec)) * ((cvector_size(vec)) - (pos)));
+    }
+
+    const size_t el_size = cvector_element_size(vec);
+    memcpy(vec + sizeof(cvector_metadata_t) + (el_size * pos), val, el_size);
+    cvector_set_size((vec), cvector_size(vec) + 1);
 }
 
 /**
@@ -272,10 +265,7 @@ void cvector_insert(cvector *vec, size_t pos, void *val)
  */
 void cvector_pop_back(cvector *vec)
 {
-    do
-    {
-        cvector_set_size((vec), cvector_size(vec) - 1);
-    } while (0);
+    cvector_set_size((vec), cvector_size(vec) - 1);
 }
 
 /**
@@ -286,15 +276,12 @@ void cvector_pop_back(cvector *vec)
  */
 void cvector_copy(cvector *from, cvector *to)
 {
-    do
+    if ((from))
     {
-        if ((from))
-        {
-            cvector_grow(to, cvector_size(from));
-            cvector_set_size(to, cvector_size(from));
-            memcpy((to), (from), cvector_size(from) * sizeof(*(from)));
-        }
-    } while (0);
+        cvector_grow(to, cvector_size(from));
+        cvector_set_size(to, cvector_size(from));
+        memcpy((to), (from), cvector_size(from) * sizeof(*(from)));
+    }
 }
 
 /**
@@ -306,15 +293,12 @@ void cvector_copy(cvector *from, cvector *to)
  */
 void cvector_swap(cvector *vec, cvector *other)
 {
-    do
+    if (vec && other)
     {
-        if (vec && other)
-        {
-            cvector cv_swap__ = vec;
-            vec = other;
-            other = cv_swap__;
-        }
-    } while (0);
+        cvector cv_swap__ = vec;
+        vec = other;
+        other = cv_swap__;
+    }
 }
 
 /**
@@ -375,14 +359,11 @@ void cvector_grow(cvector *vec, size_t count)
  */
 void cvector_shrink_to_fit(cvector *vec)
 {
-    do
+    if (vec)
     {
-        if (vec)
-        {
-            const size_t cv_sz___ = cvector_size(vec);
-            cvector_grow(vec, cv_sz___);
-        }
-    } while (0);
+        const size_t cv_sz___ = cvector_size(vec);
+        cvector_grow(vec, cv_sz___);
+    }
 }
 
 /**
@@ -437,31 +418,30 @@ void *cvector_back(cvector *vec)
  */
 void cvector_resize(cvector *vec, size_t count, void *value)
 {
-    do
-    {
-        if (vec)
-        {
-            size_t cv_sz_count__ = count;
-            size_t cv_sz__ = ((cvector_metadata_t *)vec)->size;
 
-            if (cv_sz_count__ > cv_sz__)
+    if (vec)
+    {
+        size_t cv_sz_count__ = count;
+        size_t cv_sz__ = ((cvector_metadata_t *)vec)->size;
+
+        if (cv_sz_count__ > cv_sz__)
+        {
+            cvector_reserve((vec), cv_sz_count__);
+            cvector_set_size((vec), cv_sz_count__);
+            while (cv_sz__ < cv_sz_count__)
             {
-                cvector_reserve((vec), cv_sz_count__);
-                cvector_set_size((vec), cv_sz_count__);
-                do
-                {
-                    memcpy(&vec[cv_sz__++], value, cvector_element_size(vec));
-                } while (cv_sz__ < cv_sz_count__);
-            }
-            else
-            {
-                while (cv_sz_count__ < cv_sz__--)
-                {
-                    cvector_pop_back(vec);
-                }
+                //!!FIXME: THIS IS WRONG!
+                memcpy(&vec[cv_sz__++], value, cvector_element_size(vec));
             }
         }
-    } while (0);
+        else
+        {
+            while (cv_sz_count__ < cv_sz__--)
+            {
+                cvector_pop_back(vec);
+            }
+        }
+    }
 }
 
 #endif /* CVECTOR_H_ */
