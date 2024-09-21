@@ -151,7 +151,7 @@ module fortran_vector_bindings
 
 
     !* Swap one vector's contents with another.
-    !* If they are not of the same type, this will probably segfault.
+    !* If they are not of the same type, this will throw a C exception.
     subroutine internal_vector_swap(vec_pointer, other_vec_pointer, element_size) bind(c, name = "vector_swap")
       use, intrinsic :: iso_c_binding
       implicit none
