@@ -38,6 +38,8 @@ program prototyping
 
   ! print*,v%size()
 
+  call v%reserve(10000000_8)
+
   i = 1
 
   do i = 1,10000000
@@ -52,11 +54,8 @@ program prototyping
       print*,"new size: ",v%size()
     end if
 
-    !! Deadlock into spin.
+    !? Insurance
     call c_f_pointer(v%at(int(i, c_size_t)), output)
-
-    ! print*,"output;",output
-
     if (output /= i) then
       error stop
     end if
