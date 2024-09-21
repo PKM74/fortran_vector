@@ -302,7 +302,7 @@ void cvector_copy(void *from, void *to)
     {
         cvector_grow(to, cvector_size(from));
         cvector_set_size(to, cvector_size(from));
-        memcpy(to, from, cvector_size(from) * sizeof(*(from)));
+
         // If they're not the same size, this will blow up.
         assert(cvector_element_size(from) == cvector_size(to));
 
