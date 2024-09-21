@@ -220,14 +220,25 @@ size_t cvector_compute_next_grow(size_t size)
  */
 void cvector_push_back(cvector *vec, void *value)
 {
+
+    printf("did we get here\n");
     size_t current_capacity = cvector_capacity(vec);
+
+    printf("current cap: %i\n", current_capacity);
+    printf("size: %i\n", cvector_size(vec));
+    printf("into grow\n");
 
     if (current_capacity <= cvector_size(vec))
     {
         cvector_grow(vec, cvector_compute_next_grow(current_capacity));
     }
 
+    printf("current cap: %i\n", current_capacity);
+    printf("size: %i\n", cvector_size(vec));
+
     void *current_element = vec + METADATA_SIZE + (cvector_element_size(vec) * cvector_size(vec));
+
+    // Why are you corrupted?
     memcpy(current_element, value, cvector_element_size(vec));
     cvector_set_size((vec), cvector_size(vec) + 1);
 }
