@@ -115,7 +115,7 @@ void vector_pop_back(void *vec)
 /**
  * Request the vector to reallocate to the new capacity.
  */
-void vector_reserve(void *vec, size_t new_capacity)
+void vector_reserve(void **vec, size_t new_capacity)
 {
   cvector_reserve(vec, new_capacity);
 }
