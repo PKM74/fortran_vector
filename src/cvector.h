@@ -278,7 +278,7 @@ void cvector_insert(void *vec, size_t pos, void *val)
  */
 void cvector_pop_back(void *vec)
 {
-    cvector_set_size((vec), cvector_size(vec) - 1);
+    cvector_set_size(vec, cvector_size(vec) - 1);
 }
 
 /**
@@ -293,6 +293,7 @@ void cvector_copy(void *from, void *to)
     {
         cvector_grow(to, cvector_size(from));
         cvector_set_size(to, cvector_size(from));
+        //! this is wrong!
         memcpy(to, from, cvector_size(from) * sizeof(*(from)));
     }
 }
