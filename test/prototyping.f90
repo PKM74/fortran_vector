@@ -43,12 +43,12 @@ program prototyping
 
   do
 
-    print*,i
+    ! print*,i
     i = i + 1
 
     call v%push_back(10)
 
-    print*,v%size()
+    ! print*,v%size()
 
     ! call c_f_pointer(v%at(0_8), output)
     ! print*,"fortan output", output
