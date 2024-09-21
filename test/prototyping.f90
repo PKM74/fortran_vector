@@ -47,7 +47,7 @@ program prototyping
 
     i = i + 1
 
-    call v%push_back(10)
+    call v%push_back(i)
 
     ! print*,v%size()
 
