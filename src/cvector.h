@@ -460,29 +460,29 @@ void *cvector_back(void *vec)
  * @param value - the value to initialize new elements with
  * @return void
  */
-void cvector_resize(void *vec, size_t count, void *value)
+void cvector_resize(void **vec, size_t new_size, void *value)
 {
-
     if (vec)
     {
-        size_t cv_sz_count__ = count;
-        size_t cv_sz__ = ((cvector_metadata_t *)vec)->size;
+        size_t old_size = ((cvector_metadata_t *)vec)->size;
 
-        if (cv_sz_count__ > cv_sz__)
+        if (new_size > old_size)
         {
-            cvector_reserve((vec), cv_sz_count__);
-            cvector_set_size((vec), cv_sz_count__);
-            while (cv_sz__ < cv_sz_count__)
+            cvector_reserve(vec, new_size);
+            cvector_set_size(vec, new_size);
+
+            while (old_size < new_size)
             {
-                //!!FIXME: THIS IS WRONG!
-                memcpy(&vec[cv_sz__++], value, cvector_element_size(vec));
+                cvector_push_back(vec, value);
+                old_size++;
             }
         }
         else
         {
-            while (cv_sz_count__ < cv_sz__--)
+            while (new_size < old_size)
             {
                 cvector_pop_back(vec);
+                old_size--;
             }
         }
     }
