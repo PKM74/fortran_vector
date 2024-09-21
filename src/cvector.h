@@ -349,7 +349,7 @@ void cvector_swap(void *vec, void *other)
 /**
  * @brief cvector_set_capacity - For internal use, sets the capacity variable of the vector
  * @param vec - the vector
- * @param size - the new capacity to set
+ * @param new_capacity - the new capacity to set
  * @return void
  * @internal
  */
@@ -364,15 +364,15 @@ void cvector_set_capacity(void *vec, size_t new_capacity)
 /**
  * @brief cvector_set_size - For internal use, sets the size variable of the vector
  * @param vec - the vector
- * @param size - the new capacity to set
+ * @param new_size - the new capacity to set
  * @return void
  * @internal
  */
-void cvector_set_size(void *vec, size_t _size)
+void cvector_set_size(void *vec, size_t new_size)
 {
     if (vec)
     {
-        ((cvector_metadata_t *)vec)->size = (_size);
+        ((cvector_metadata_t *)vec)->size = (new_size);
     }
 }
 
