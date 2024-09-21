@@ -40,24 +40,46 @@ program prototyping
 
   call v%reserve(3_8)
 
-  call v%push_back(1)
-  call v%push_back(2)
-  call v%push_back(3)
-  call v%push_back(4)
+  do
 
-  call v%erase(2_8)
+    call v%push_back(1)
+    call v%push_back(2)
+    call v%push_back(3)
+    call v%push_back(4)
 
-  call c_f_pointer(v%at(1_8), output)
-  print*,"output:", output
+    call v%erase(2_8)
 
-  call c_f_pointer(v%at(2_8), output)
-  print*,"output:", output
+    call c_f_pointer(v%at(1_8), output)
+    print*,"output:", output
 
-  call c_f_pointer(v%at(3_8), output)
-  print*,"output:", output
+    call c_f_pointer(v%at(2_8), output)
+    print*,"output:", output
+
+    call c_f_pointer(v%at(3_8), output)
+    print*,"output:", output
+
+    print*,"begin insertion"
+
+    call v%insert(2_8, 2)
+
+    call c_f_pointer(v%at(1_8), output)
+    print*,"output:", output
+
+    call c_f_pointer(v%at(2_8), output)
+    print*,"output:", output
+
+    call c_f_pointer(v%at(3_8), output)
+    print*,"output:", output
+
+    call v%pop_back()
+    call v%pop_back()
+    call v%pop_back()
+    call v%pop_back()
+    call v%pop_back()
+
+  end do
 
 
-  
 
   ! do i = 1,10000000
 
