@@ -243,7 +243,7 @@ void cvector_push_back(void **vec, void *value)
         cvector_grow(vec, cvector_compute_next_grow(current_capacity));
     }
 
-    // printf("current cap: %i\n", cvector_capacity(vec));
+    printf("current cap: %i\n", cvector_capacity(*vec));
     // printf("size: %i\n", cvector_size(vec));
 
     // void *current_element = vec + METADATA_SIZE + (cvector_element_size(vec) * cvector_size(vec));
