@@ -205,34 +205,6 @@ void cvector_free(void *vec)
 }
 
 /**
- * @brief cvector_begin - returns an iterator to first element of the vector
- * @param vec - the vector
- * @return a pointer to the first element (or NULL)
- */
-void *cvector_begin(void *vec)
-{
-    return vec + METADATA_SIZE;
-}
-
-/**
- * @brief cvector_end - returns an iterator to one past the last element of the vector
- * @param vec - the vector
- * @return a pointer to one past the last element (or NULL)
- */
-void *cvector_end(void *vec)
-{
-    if (vec)
-    {
-        //! fixme: this is wrong!
-        return &(vec)[cvector_size(vec)];
-    }
-    else
-    {
-        return NULL;
-    }
-}
-
-/**
  * @brief cvector_compute_next_grow - returns an the computed size in next vector grow
  * size is increased by multiplication of 2
  * @param size - current size
