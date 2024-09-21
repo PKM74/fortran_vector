@@ -41,17 +41,17 @@ program prototyping
   i = 1
 
 
-  do
+  do i = 1,10
 
     ! print*,i
 
-    i = i + 1
+    ! i = i + 1
 
     call v%push_back(i)
 
-    ! print*,v%size()
+    print*,v%size()
 
-    ! call c_f_pointer(v%at(0_8), output)
+    ! call c_f_pointer(v%at(int(i - 1, c_size_t)), output)
     ! print*,"fortan output", output
     ! call c_f_pointer(v%at(1_8), output)
     ! print*,"fortan output", output
