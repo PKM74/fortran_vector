@@ -26,6 +26,8 @@ module vector
     procedure :: insert => vector_insert
     procedure :: erase => vector_erase
     procedure :: push_back => vector_push_back
+    procedure :: pop_back => vector_pop_back
+    procedure :: reserver => vector_reserve
 
   end type vec
 
@@ -175,6 +177,26 @@ contains
     call internal_vector_push_back(this%data, black_magic, this%size_of_type)
   end subroutine vector_push_back
 
+
+  !* Remove the last element of the vector.
+  subroutine vector_pop_back(this)
+    implicit none
+
+    class(vec), intent(inout) :: this
+
+    call internal_vector_pop_back(this%data)
+  end subroutine vector_pop_back
+
+
+  !* Reserve an internal capacity of the vector.
+  subroutine vector_reserve(this, new_capacity)
+    implicit none
+
+    class(vec), intent(inout) :: this
+    integer(c_size_t), intent(in), value :: new_capacity
+
+    call internal_vector_reserve(this%data, new_capacity)
+  end subroutine vector_reserve
 
 
 
