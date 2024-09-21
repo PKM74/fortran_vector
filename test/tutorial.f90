@@ -24,8 +24,8 @@ contains
 
   !* If your type uses pointers, I suggest you give your vector a GC.
   !*
-  !* The raw_c_pointer is the element in the array. You'll be getting it
-  !* right before it's freed from C memory.
+  !* The raw_c_pointer is the element in the array. You will be getting it
+  !* right before it is freed from C memory.
   !*
   !* Here is an example using our some_data type.
   subroutine example_gc_func(raw_c_pointer)
@@ -81,7 +81,7 @@ program example
       dat%a_fixed_length_string = "I'm memcpy'd straight into the vector!"
 
       !! Notice I am giving the pointer a new memory address!
-      !! If you don't do this, you're going to double free an address in your GC. :)
+      !! If you do not do this, you are going to double free an address in your GC. :)
       allocate(character(35) :: dat%a_pointer_string)
 
       !* I thought this would also be entertaining.
@@ -119,7 +119,7 @@ program example
 
     !* Now let us just shove something in the middle.
     !! Notice I am giving the pointer a new memory address!
-    !! If you don't do this, you're going to double free an address in your GC. :)
+    !! If you do not do this, you are going to double free an address in your GC. :)
     !? Also, notice: Due to the sheer size of this list, this is very slow.
     allocate(character(3) :: dat%a_pointer_string)
     dat%a_pointer_string = "yep"
