@@ -59,7 +59,14 @@ const static size_t METADATA_SIZE = sizeof(cvector_metadata_t);
  */
 size_t cvector_capacity(void *vec)
 {
-    return vec ? ((cvector_metadata_t *)vec)->capacity : (size_t)0;
+    if (vec)
+    {
+        return ((cvector_metadata_t *)vec)->capacity;
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 /**
