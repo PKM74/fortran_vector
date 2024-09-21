@@ -164,12 +164,16 @@ void cvector_erase(void *vec, size_t i)
         const size_t vector_size = cvector_size(vec);
         if (i < vector_size)
         {
-            //! fixme: this is wrong!
-            cvector_set_size(vec, vector_size - 1);
-            memmove(
-                vec + i,
-                vec + i + 1,
-                sizeof(*(vec)) * (vector_size - 1 - (i)));
+            const size_t new_size = vector_size - 1;
+
+            cvector_set_size(vec, new_size);
+
+            const size_t el_size = cvector_element_size(vec);
+            void *min = vec + METADATA_SIZE + (i * el_size);
+            void *max = min + el_size;
+            const size_t length = (new_size - i) * el_size;
+
+            memmove(min, max, length);
         }
     }
 }
