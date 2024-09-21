@@ -19,6 +19,18 @@ contains
     type(bloof) :: b
   end function new_bloof
 
+  subroutine test_gc_func(raw_c_pointer)
+    implicit none
+
+    type(c_ptr), intent(in), value :: raw_c_pointer
+    type(bloof), pointer :: dat
+
+    call c_f_pointer(raw_c_pointer, dat)
+
+    deallocate(dat%f)
+
+  end subroutine test_gc_func
+
 end module cool
 
 program prototyping
@@ -44,7 +56,7 @@ program prototyping
     end if
     t = .not. t
 
-    v = new_vec(sizeof(dat), int(10000000, c_size_t))
+    v = new_vec(sizeof(dat), int(10000000, c_size_t), test_gc_func)
 
     do i = 1,10000000
       dat%x = i
@@ -59,7 +71,6 @@ program prototyping
       generic_c_ptr = v%at(int(i, c_size_t))
       call c_f_pointer(generic_c_ptr, output)
       ! print*,output%x, output%d, output%f
-      deallocate(output%f)
     end do
 
     call v%destroy()
