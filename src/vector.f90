@@ -60,11 +60,6 @@ contains
 
     class(vec), intent(inout) :: this
 
-    if (.not. c_associated(this%data)) then
-      print"(A)", "[Vector] Warning: Attempted to destroy with non-initialized vector."
-      return
-    end if
-
     !! todo: run the GC function here!
 
     call internal_destroy_vector(this%data)
@@ -96,6 +91,7 @@ contains
 
     class(vec), intent(inout) :: this
     logical(c_bool) :: empty
+
 
     empty = internal_vector_is_empty(this%data)
   end function vector_is_empty
