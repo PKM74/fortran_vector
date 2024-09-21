@@ -198,9 +198,6 @@ void *cvector_end(void *vec)
     return ((vec) ? &((vec)[cvector_size(vec)]) : NULL);
 }
 
-/* user request to use logarithmic growth algorithm */
-#ifdef CVECTOR_LOGARITHMIC_GROWTH
-
 /**
  * @brief cvector_compute_next_grow - returns an the computed size in next vector grow
  * size is increased by multiplication of 2
@@ -209,23 +206,15 @@ void *cvector_end(void *vec)
  */
 size_t cvector_compute_next_grow(size_t size)
 {
-    return ((size) ? ((size) << 1) : 1);
+    if (size)
+    {
+        return size << 1;
+    }
+    else
+    {
+        return 1;
+    }
 }
-
-#else
-
-/**
- * @brief cvector_compute_next_grow - returns an the computed size in next vector grow
- * size is increased by 1
- * @param size - current size
- * @return size after next vector grow
- */
-size_t cvector_compute_next_grow(size_t size)
-{
-    return size + 1;
-}
-
-#endif /* CVECTOR_LOGARITHMIC_GROWTH */
 
 /**
  * @brief cvector_push_back - adds an element to the end of the vector
