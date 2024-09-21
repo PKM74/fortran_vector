@@ -135,7 +135,7 @@ void cvector_reserve(void **vec, size_t n)
  */
 void *cvector_init(size_t capacity, size_t element_size)
 {
-    void *vec = malloc(sizeof(cvector_metadata_t));
+    void *vec = malloc(METADATA_SIZE);
 
     ((cvector_metadata_t *)vec)->capacity = 0;
     ((cvector_metadata_t *)vec)->size = 0;
