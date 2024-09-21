@@ -32,7 +32,7 @@ program prototyping
   integer(c_int), pointer :: output
   integer(c_int) :: i
 
-  v = new_vec(sizeof(10), int(10, c_size_t))
+  v = new_vec(sizeof(10), int(0, c_size_t))
 
   dat%x = 10
 
