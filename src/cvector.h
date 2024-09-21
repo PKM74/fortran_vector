@@ -27,21 +27,11 @@ typedef struct cvector_metadata_t
 const static size_t METADATA_SIZE = sizeof(cvector_metadata_t);
 
 /**
- * @brief cvector_vector_type - The vector type used in this library
- */
-typedef cvector;
-
-/**
- * @brief cvector_iterator - The iterator type used for cvector
- */
-typedef cvector_iterator;
-
-/**
  * @brief cvector_capacity - gets the current capacity of the vector
  * @param vec - the vector
  * @return the capacity as a size_t
  */
-size_t cvector_capacity(cvector *vec)
+size_t cvector_capacity(void *vec)
 {
     return vec ? ((cvector_metadata_t *)vec)->capacity : (size_t)0;
 }
@@ -51,7 +41,7 @@ size_t cvector_capacity(cvector *vec)
  * @param vec - the vector
  * @return the size as a size_t
  */
-size_t cvector_size(cvector *vec)
+size_t cvector_size(void *vec)
 {
     return vec ? ((cvector_metadata_t *)vec)->size : (size_t)0;
 }
@@ -61,7 +51,7 @@ size_t cvector_size(cvector *vec)
  * @param vec - the vector
  * @return the size as a size_t
  */
-size_t cvector_element_size(cvector *vec)
+size_t cvector_element_size(void *vec)
 {
     return vec ? ((cvector_metadata_t *)vec)->element_size : (size_t)0;
 }
@@ -71,7 +61,7 @@ size_t cvector_element_size(cvector *vec)
  * @param vec - the vector
  * @return non-zero if empty, zero if non-empty
  */
-bool cvector_empty(cvector *vec)
+bool cvector_empty(void *vec)
 {
     return cvector_size(vec) == 0;
 }
@@ -85,7 +75,7 @@ bool cvector_empty(cvector *vec)
  * @param n - Minimum capacity for the vector.
  * @return void
  */
-void cvector_reserve(cvector *vec, size_t n)
+void cvector_reserve(void *vec, size_t n)
 {
     if (cvector_capacity(vec) < n)
     {
@@ -98,9 +88,9 @@ void cvector_reserve(cvector *vec, size_t n)
  * @param capacity - vector capacity to reserve
  * @return void
  */
-cvector *cvector_init(size_t capacity, size_t element_size)
+void *cvector_init(size_t capacity, size_t element_size)
 {
-    cvector *vec = malloc(sizeof(cvector_metadata_t));
+    void *vec = malloc(sizeof(cvector_metadata_t));
 
     ((cvector_metadata_t *)vec)->capacity = 0;
     ((cvector_metadata_t *)vec)->size = 0;
@@ -120,7 +110,7 @@ cvector *cvector_init(size_t capacity, size_t element_size)
  * @param i - index of element to remove
  * @return void
  */
-void cvector_erase(cvector *vec, size_t i)
+void cvector_erase(void *vec, size_t i)
 {
 
     if (vec)
@@ -142,7 +132,7 @@ void cvector_erase(cvector *vec, size_t i)
  * @param vec - the vector
  * @return void
  */
-void cvector_clear(cvector *vec)
+void cvector_clear(void *vec)
 {
     if (vec)
     {
@@ -155,7 +145,7 @@ void cvector_clear(cvector *vec)
  * @param vec - the vector
  * @return void
  */
-void cvector_free(cvector *vec)
+void cvector_free(void *vec)
 {
     if (vec)
     {
@@ -168,7 +158,7 @@ void cvector_free(cvector *vec)
  * @param vec - the vector
  * @return a pointer to the first element (or NULL)
  */
-void *cvector_begin(cvector *vec)
+void *cvector_begin(void *vec)
 {
     return (vec);
 }
@@ -178,7 +168,7 @@ void *cvector_begin(cvector *vec)
  * @param vec - the vector
  * @return a pointer to one past the last element (or NULL)
  */
-void *cvector_end(cvector *vec)
+void *cvector_end(void *vec)
 {
     return ((vec) ? &((vec)[cvector_size(vec)]) : NULL);
 }
@@ -218,7 +208,7 @@ size_t cvector_compute_next_grow(size_t size)
  * @param value - the value to add
  * @return void
  */
-void cvector_push_back(cvector *vec, void *value)
+void cvector_push_back(void *vec, void *value)
 {
 
     printf("did we get here\n");
@@ -252,13 +242,13 @@ void cvector_push_back(cvector *vec, void *value)
  * @param val - value to be copied (or moved) to the inserted elements.
  * @return void
  */
-void cvector_insert(cvector *vec, size_t pos, void *val)
+void cvector_insert(void *vec, size_t pos, void *val)
 {
 
     size_t cv_cap__ = cvector_capacity(vec);
     if (cv_cap__ <= cvector_size(vec))
     {
-        cvector_grow((vec), cvector_compute_next_grow(cv_cap__));
+        cvector_grow(vec, cvector_compute_next_grow(cv_cap__));
     }
     if ((pos) < cvector_size(vec))
     {
@@ -278,7 +268,7 @@ void cvector_insert(cvector *vec, size_t pos, void *val)
  * @param vec - the vector
  * @return void
  */
-void cvector_pop_back(cvector *vec)
+void cvector_pop_back(void *vec)
 {
     cvector_set_size((vec), cvector_size(vec) - 1);
 }
@@ -289,13 +279,13 @@ void cvector_pop_back(cvector *vec)
  * @param to - destination to which the function copy to
  * @return void
  */
-void cvector_copy(cvector *from, cvector *to)
+void cvector_copy(void *from, void *to)
 {
-    if ((from))
+    if (from)
     {
         cvector_grow(to, cvector_size(from));
         cvector_set_size(to, cvector_size(from));
-        memcpy((to), (from), cvector_size(from) * sizeof(*(from)));
+        memcpy(to, from, cvector_size(from) * sizeof(*(from)));
     }
 }
 
@@ -306,11 +296,11 @@ void cvector_copy(cvector *from, cvector *to)
  * @param type - the type of both vectors
  * @return void
  */
-void cvector_swap(cvector *vec, cvector *other)
+void cvector_swap(void *vec, void *other)
 {
     if (vec && other)
     {
-        cvector cv_swap__ = vec;
+        void *cv_swap__ = vec;
         vec = other;
         other = cv_swap__;
     }
@@ -323,7 +313,7 @@ void cvector_swap(cvector *vec, cvector *other)
  * @return void
  * @internal
  */
-void cvector_set_capacity(cvector *vec, size_t size)
+void cvector_set_capacity(void *vec, size_t size)
 {
 
     if (vec)
@@ -339,7 +329,7 @@ void cvector_set_capacity(cvector *vec, size_t size)
  * @return void
  * @internal
  */
-void cvector_set_size(cvector *vec, size_t _size)
+void cvector_set_size(void *vec, size_t _size)
 {
 
     if (vec)
@@ -355,7 +345,7 @@ void cvector_set_size(cvector *vec, size_t _size)
  * @return void
  * @internal
  */
-void cvector_grow(cvector *vec, size_t count)
+void cvector_grow(void *vec, size_t count)
 {
     printf("------ inside grow --------\n");
 
@@ -365,17 +355,17 @@ void cvector_grow(cvector *vec, size_t count)
 
     // printf("allocation: %i\n", NEW_SIZE);
 
-    printf("p1: %i\n", vec);
+    // printf("p1: %i\n", vec);
 
     void *new_vec_pointer = realloc(vec, NEW_SIZE);
 
-    printf("p2: %i\n", new_vec_pointer);
+    // printf("p2: %i\n", new_vec_pointer);
 
     assert(new_vec_pointer);
 
     vec = new_vec_pointer;
 
-    printf("p3: %i\n", vec);
+    // printf("p3: %i\n", vec);
 
     cvector_set_capacity(vec, count);
 
@@ -383,7 +373,8 @@ void cvector_grow(cvector *vec, size_t count)
     // printf("cap: %i\n", cvector_capacity(vec));
     // printf("elsize: %i\n", cvector_element_size(vec));
 
-    printf("------ exiting grow --------\n");
+    // printf("------ exiting grow --------\n");
+    // return vec;
 }
 
 /**
@@ -391,7 +382,7 @@ void cvector_grow(cvector *vec, size_t count)
  * @param vec - the vector
  * @return void
  */
-void cvector_shrink_to_fit(cvector *vec)
+void cvector_shrink_to_fit(void *vec)
 {
     if (vec)
     {
@@ -406,7 +397,7 @@ void cvector_shrink_to_fit(cvector *vec)
  * @param n - position of an element in the vector.
  * @return the element at the specified position in the vector.
  */
-void *cvector_at(cvector *vec, size_t n)
+void *cvector_at(void *vec, size_t n)
 {
     if (vec)
     {
@@ -429,7 +420,7 @@ void *cvector_at(cvector *vec, size_t n)
  * @brief cvector_front - returns a reference to the first element in the vector. Unlike member cvector_begin, which returns an iterator to this same element, this function returns a direct reference.
  * @return a reference to the first element in the vector container.
  */
-void *cvector_front(cvector *vec)
+void *cvector_front(void *vec)
 {
     return ((vec) ? ((cvector_size(vec) > 0) ? cvector_at(vec, 0) : NULL) : NULL);
 }
@@ -438,7 +429,7 @@ void *cvector_front(cvector *vec)
  * @brief cvector_back - returns a reference to the last element in the vector.Unlike member cvector_end, which returns an iterator just past this element, this function returns a direct reference.
  * @return a reference to the last element in the vector.
  */
-void *cvector_back(cvector *vec)
+void *cvector_back(void *vec)
 {
     return ((vec) ? ((cvector_size(vec) > 0) ? cvector_at(vec, cvector_size(vec) - 1) : NULL) : NULL);
 }
@@ -450,7 +441,7 @@ void *cvector_back(cvector *vec)
  * @param value - the value to initialize new elements with
  * @return void
  */
-void cvector_resize(cvector *vec, size_t count, void *value)
+void cvector_resize(void *vec, size_t count, void *value)
 {
 
     if (vec)

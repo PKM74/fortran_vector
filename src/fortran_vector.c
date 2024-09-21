@@ -11,7 +11,7 @@
  */
 void *new_vector(size_t initial_size, size_t element_size)
 {
-  cvector *v = cvector_init(initial_size, element_size);
+  void *v = cvector_init(initial_size, element_size);
 
   return v;
 }
@@ -19,7 +19,7 @@ void *new_vector(size_t initial_size, size_t element_size)
 /**
  * Free the underlying memory.
  */
-void destroy_vector(cvector *vec)
+void destroy_vector(void *vec)
 {
   cvector_free(vec);
 }
@@ -27,7 +27,7 @@ void destroy_vector(cvector *vec)
 /**
  * Index into the vector.
  */
-void *vector_at(cvector *vec, size_t i)
+void *vector_at(void *vec, size_t i)
 {
   void *b = cvector_at(vec, i);
 
@@ -39,7 +39,7 @@ void *vector_at(cvector *vec, size_t i)
 /**
  * Check if the vector is empty.
  */
-bool vector_is_empty(cvector *vec)
+bool vector_is_empty(void *vec)
 {
   return cvector_empty(vec);
 }
@@ -47,7 +47,7 @@ bool vector_is_empty(cvector *vec)
 /**
  * Get the number of elements in the vector.
  */
-size_t vector_size(cvector *vec)
+size_t vector_size(void *vec)
 {
   return cvector_size(vec);
 }
@@ -55,7 +55,7 @@ size_t vector_size(cvector *vec)
 /**
  * Get the capacity of a vector.
  */
-size_t vector_capacity(cvector *vec)
+size_t vector_capacity(void *vec)
 {
   return cvector_capacity(vec);
 }
@@ -63,7 +63,7 @@ size_t vector_capacity(cvector *vec)
 /**
  * Request that capacity is equal to size.
  */
-void vector_shrink_to_fit(cvector *vec)
+void vector_shrink_to_fit(void *vec)
 {
   cvector_shrink_to_fit(vec);
 }
@@ -71,7 +71,7 @@ void vector_shrink_to_fit(cvector *vec)
 /**
  * Clear all elements in the vector.
  */
-void vector_clear(cvector *vec)
+void vector_clear(void *vec)
 {
   cvector_clear(vec);
 }
@@ -79,7 +79,7 @@ void vector_clear(cvector *vec)
 /**
  * Insert an element into a position in the vector.
  */
-void vector_insert(cvector *vec, size_t position, void *new_element, size_t element_size)
+void vector_insert(void *vec, size_t position, void *new_element, size_t element_size)
 {
   uint8_t raw_data[element_size];
   memcpy(&raw_data, new_element, element_size);
@@ -90,7 +90,7 @@ void vector_insert(cvector *vec, size_t position, void *new_element, size_t elem
 /**
  * Erase an element at a position in the vector.
  */
-void vector_erase(cvector *vec, size_t position)
+void vector_erase(void *vec, size_t position)
 {
   cvector_erase(vec, position);
 }
@@ -98,7 +98,7 @@ void vector_erase(cvector *vec, size_t position)
 /**
  * Push an element to the back of the vector.
  */
-void vector_push_back(cvector *vec, void *new_element, size_t element_size)
+void vector_push_back(void *vec, void *new_element, size_t element_size)
 {
   uint8_t raw_data[element_size];
   memcpy(&raw_data, new_element, element_size);
@@ -109,7 +109,7 @@ void vector_push_back(cvector *vec, void *new_element, size_t element_size)
 /**
  * Removes the last element from the vector.
  */
-void vector_pop_back(cvector *vec)
+void vector_pop_back(void *vec)
 {
   cvector_pop_back(vec);
 }
@@ -117,7 +117,7 @@ void vector_pop_back(cvector *vec)
 /**
  * Request the vector to reallocate to the new capacity.
  */
-void vector_reserve(cvector *vec, size_t new_capacity)
+void vector_reserve(void *vec, size_t new_capacity)
 {
   cvector_reserve(vec, new_capacity);
 }
@@ -127,7 +127,7 @@ void vector_reserve(cvector *vec, size_t new_capacity)
  *
  * Requires a new default element.
  */
-void vector_resize(cvector *vec, size_t new_size, void *default_element, size_t element_size)
+void vector_resize(void *vec, size_t new_size, void *default_element, size_t element_size)
 {
   uint8_t raw_data[element_size];
   memcpy(&raw_data, default_element, element_size);
@@ -138,7 +138,7 @@ void vector_resize(cvector *vec, size_t new_size, void *default_element, size_t 
 /**
  * Swap one vector's contents with another's.
  */
-void vector_swap(cvector *vec, cvector *other, size_t element_size)
+void vector_swap(void *vec, void *other, size_t element_size)
 {
   uint8_t raw_data[element_size];
 
