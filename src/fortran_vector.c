@@ -2,7 +2,7 @@
 #include <stdbool.h>
 #include <inttypes.h>
 #include "cvector.h"
-#include "cvector_utils.h"
+// #include "cvector_utils.h"
 
 /**
  * @param data_size The size of the element you are using this vector for.
