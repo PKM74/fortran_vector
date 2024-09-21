@@ -64,7 +64,7 @@ program example
 
   t = .true.
 
-  !* We're going to shovel through 100 million items over the course of this. 32 GB of data.
+  !* We are going to shovel through 100 million items over the course of this. 32 GB of data.
   do y = 1,10
 
     !* I thought this would be entertaining.
