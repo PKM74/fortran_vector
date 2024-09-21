@@ -3,7 +3,7 @@
  *
  * License: The MIT License (MIT)
  *
- * Completely broken by jordan4ibanez.
+ * Turned into this monstrosity by jordan4ibanez.
  */
 
 #ifndef CVECTOR_H_
