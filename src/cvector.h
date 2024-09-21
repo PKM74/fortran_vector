@@ -16,6 +16,32 @@
 #include <assert.h>
 #include <inttypes.h>
 
+// Forward declaration.
+size_t cvector_capacity(void *vec);
+size_t cvector_size(void *vec);
+size_t cvector_element_size(void *vec);
+bool cvector_empty(void *vec);
+void cvector_reserve(void *vec, size_t n);
+void *cvector_init(size_t capacity, size_t element_size);
+void cvector_erase(void *vec, size_t i);
+void cvector_clear(void *vec);
+void cvector_free(void *vec);
+void *cvector_begin(void *vec);
+void *cvector_end(void *vec);
+size_t cvector_compute_next_grow(size_t size);
+void cvector_push_back(void *vec, void *value);
+void cvector_insert(void *vec, size_t pos, void *val);
+void cvector_pop_back(void *vec);
+void cvector_copy(void *from, void *to);
+void cvector_swap(void *vec, void *other);
+void cvector_set_capacity(void *vec, size_t size);
+void cvector_set_size(void *vec, size_t _size);
+void cvector_grow(void *vec, size_t count);
+void cvector_shrink_to_fit(void *vec);
+void *cvector_at(void *vec, size_t n);
+void *cvector_front(void *vec);
+void *cvector_back(void *vec);
+void cvector_resize(void *vec, size_t count, void *value);
 typedef struct cvector_metadata_t
 {
     size_t size;
