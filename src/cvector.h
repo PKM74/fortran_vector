@@ -339,6 +339,7 @@ void cvector_swap(void *vec, void *other)
 {
     if (vec && other)
     {
+        //! fixme: this needs to use pointer pointers!
         void *swapper = vec;
         vec = other;
         other = swapper;
