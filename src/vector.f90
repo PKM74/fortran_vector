@@ -178,7 +178,9 @@ contains
       error stop "[Vector] Error: Went out of bounds."
     end if
 
-    !! todo: needs to run the GC function here!
+    if (.not. this%is_empty()) then
+      call run_gc(this, index, index)
+    end if
 
     call internal_vector_erase(this%data, index)
   end subroutine vector_erase
