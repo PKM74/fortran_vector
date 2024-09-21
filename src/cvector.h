@@ -275,7 +275,6 @@ void cvector_insert(void **vec, size_t index, void *val)
         memmove(max, min, length);
     }
 
-    const size_t el_size = cvector_element_size(vec);
     memcpy(*vec + METADATA_SIZE + (el_size * index), val, el_size);
 
     cvector_set_size(*vec, current_size + 1);
