@@ -257,7 +257,7 @@ void cvector_insert(void *vec, size_t pos, void *val)
     {
         cvector_grow(vec, cvector_compute_next_grow(vec_capacity));
     }
-    if ((pos) < cvector_size(vec))
+    if (pos < cvector_size(vec))
     {
         //! fixme: this is wrong!
         memmove(
@@ -309,9 +309,9 @@ void cvector_swap(void *vec, void *other)
 {
     if (vec && other)
     {
-        void *cv_swap__ = vec;
+        void *swapper = vec;
         vec = other;
-        other = cv_swap__;
+        other = swapper;
     }
 }
 
