@@ -431,7 +431,21 @@ void *cvector_front(void *vec)
  */
 void *cvector_back(void *vec)
 {
-    return ((vec) ? ((cvector_size(vec) > 0) ? cvector_at(vec, cvector_size(vec) - 1) : NULL) : NULL);
+    if (vec)
+    {
+        if (cvector_size(vec) > 0)
+        {
+            return cvector_at(vec, cvector_size(vec) - 1);
+        }
+        else
+        {
+            return NULL;
+        }
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
 /**
