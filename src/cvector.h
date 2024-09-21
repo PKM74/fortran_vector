@@ -220,6 +220,7 @@ void *cvector_end(void *vec)
 {
     if (vec)
     {
+        //! fixme: this is wrong!
         return &(vec)[cvector_size(vec)];
     }
     else
