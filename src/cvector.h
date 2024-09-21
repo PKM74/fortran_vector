@@ -379,17 +379,17 @@ void cvector_set_size(void *vec, size_t new_size)
 /**
  * @brief cvector_grow - For internal use, ensures that the vector is at least <count> elements big
  * @param vec - the vector
- * @param count - the new capacity to set
+ * @param new_capacity - the new capacity to set
  * @return void
  * @internal
  */
-void cvector_grow(void **vec, size_t count)
+void cvector_grow(void **vec, size_t new_capacity)
 {
     const size_t OLD_SIZE = METADATA_SIZE + (cvector_size(vec) * cvector_element_size(vec));
-    const size_t NEW_SIZE = METADATA_SIZE + (count * cvector_element_size(vec));
+    const size_t NEW_SIZE = METADATA_SIZE + (new_capacity * cvector_element_size(vec));
     void *temp = realloc(*vec, NEW_SIZE);
     assert(temp);
-    cvector_set_capacity(temp, count);
+    cvector_set_capacity(temp, new_capacity);
 
     *vec = temp;
 }
