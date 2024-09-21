@@ -92,7 +92,6 @@ contains
     class(vec), intent(inout) :: this
     logical(c_bool) :: empty
 
-
     empty = internal_vector_is_empty(this%data)
   end function vector_is_empty
 
@@ -166,6 +165,10 @@ contains
     class(vec), intent(inout) :: this
     integer(c_size_t), intent(in), value :: index
 
+    if (index < 1 .or. index > this%size()) then
+      error stop "[Vector] Error: Went out of bounds."
+    end if
+
     !! todo: needs to run the GC function here!
 
     call internal_vector_erase(this%data, index)
@@ -192,6 +195,11 @@ contains
     implicit none
 
     class(vec), intent(inout) :: this
+
+    !? If it's empty, popping can corrupt the memory.
+    if (this%is_empty()) then
+      return
+    end if
 
     call internal_vector_pop_back(this%data)
   end subroutine vector_pop_back
