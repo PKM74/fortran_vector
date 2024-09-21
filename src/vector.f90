@@ -246,6 +246,8 @@ contains
 
     black_magic = transfer(loc(default_element), black_magic)
 
+    !! FIXME: this will need some in depth analysis of how to GC this.
+
     call internal_vector_resize(this%data, new_size, black_magic, this%size_of_type)
   end subroutine vector_resize
 
