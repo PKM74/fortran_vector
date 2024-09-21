@@ -27,7 +27,7 @@ module vector
     procedure :: erase => vector_erase
     procedure :: push_back => vector_push_back
     procedure :: pop_back => vector_pop_back
-    procedure :: reserver => vector_reserve
+    procedure :: reserve => vector_reserve
 
   end type vec
 
