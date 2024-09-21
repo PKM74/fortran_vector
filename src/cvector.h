@@ -259,6 +259,7 @@ void cvector_insert(void *vec, size_t pos, void *val)
     }
     if ((pos) < cvector_size(vec))
     {
+        //! fixme: this is wrong!
         memmove(
             (vec) + (pos) + 1,
             (vec) + (pos),
