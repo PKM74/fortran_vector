@@ -19,6 +19,8 @@ Works with any data type, primitives, pointers, and derived types (with pointers
 fortran_vector = { git = "https://github.com/jordan4ibanez/fortran_vector" }
 ```
 
+### Example:
+
 Here is an example where we shuffle through 32 GB of memory:
 
 ```fortran
