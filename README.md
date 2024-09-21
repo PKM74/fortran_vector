@@ -7,9 +7,17 @@ This has been modified, to the extreme with, quite literally, only Fortran in mi
 
 If you like what I do, and would like to support me: [My Patreon](https://www.patreon.com/jordan4ibanez)
 
+### Goal:
+
 Allows extremely high performance ultra generic implementation of dynamic arrays (vectors) in Fortran.
 
-Works with any data type, primitives and derived types. I would be careful with allocatable though.
+Works with any data type, primitives, pointers, and derived types (with pointers as well). I would be careful with allocatable though.
+
+### Add to your project:
+```toml
+[dependencies]
+fortran_vector = { git = "https://github.com/jordan4ibanez/fortran_vector" }
+```
 
 Here is an example where we shuffle through 32 GB of memory:
 
