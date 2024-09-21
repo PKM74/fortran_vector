@@ -143,7 +143,8 @@ module fortran_vector_bindings
       use, intrinsic :: iso_c_binding
       implicit none
 
-      type(c_ptr), intent(in), value :: vec_pointer, default_element_pointer
+      type(c_ptr), intent(inout) :: vec_pointer
+      type(c_ptr), intent(in), value :: default_element_pointer
       integer(c_size_t), intent(in), value :: new_size, element_size
     end subroutine internal_vector_resize
 
