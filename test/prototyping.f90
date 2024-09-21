@@ -4,6 +4,8 @@ module cool
 
   type :: bloof
     integer(c_int) :: x
+    character(64) :: d
+    character(len = :, kind = c_char), pointer :: f
   end type bloof
 
   interface bloof
@@ -14,7 +16,6 @@ contains
 
   function new_bloof() result(b)
     implicit none
-
     type(bloof) :: b
   end function new_bloof
 
@@ -36,6 +37,9 @@ program prototyping
 
   do i = 1,10000000
     dat%x = i
+    dat%d = "hello"
+    allocate(character(22) :: dat%f)
+    dat%f = "foop"
     call v%push_back(dat)
   end do
 
@@ -43,7 +47,8 @@ program prototyping
   do i = 1,10000000
     generic_c_ptr = v%at(int(i, c_size_t))
     call c_f_pointer(generic_c_ptr, output)
-    print*,output%x
+    print*,output%x, output%d, output%f
+    deallocate(output%f)
   end do
 
 
