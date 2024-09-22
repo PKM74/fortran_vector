@@ -246,9 +246,9 @@ void cvector_push_back(void **vec, void *value)
 }
 
 /**
- * @brief cvector_insert - insert element at position pos to the vector
+ * @brief cvector_insert - insert element at index pos to the vector
  * @param vec - the vector
- * @param index - position in the vector where the new elements are inserted.
+ * @param index - index in the vector where the new elements are inserted.
  * @param val - value to be copied (or moved) to the inserted elements.
  * @return void
  */
@@ -389,22 +389,22 @@ void cvector_shrink_to_fit(void *vec)
 }
 
 /**
- * @brief cvector_at - returns a reference to the element at position n in the vector.
+ * @brief cvector_at - returns a reference to the element at index n in the vector.
  * @param vec - the vector
- * @param n - position of an element in the vector.
- * @return the element at the specified position in the vector.
+ * @param index - index of an element in the vector.
+ * @return the element at the specified index in the vector.
  */
-void *cvector_at(void *vec, size_t n)
+void *cvector_at(void *vec, size_t index)
 {
     if (vec)
     {
-        if (n < 0 || n >= cvector_size(vec))
+        if (index < 0 || index >= cvector_size(vec))
         {
             return NULL;
         }
         else
         {
-            return vec + METADATA_SIZE + (n * cvector_element_size(vec));
+            return vec + METADATA_SIZE + (index * cvector_element_size(vec));
         }
     }
     else
