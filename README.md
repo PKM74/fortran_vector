@@ -13,7 +13,7 @@ Allows extremely high performance ultra generic implementation of dynamic arrays
 
 Works with any data type, primitives, pointers, and derived types (with pointers as well). I would be careful with allocatable though.
 
-You can simply use a ``target`` variable and sent it in using ``push_back``. It will be copied into the vector. This allows high performance reusage of stack variables.
+You can simply use a regular stack variable and sent it in using ``push_back``. It will be copied into the vector. This allows high performance reusage of stack variables.
 
 ### Add to your project:
 ```toml
