@@ -22,7 +22,7 @@ size_t cvector_element_size(void *vec);
 bool cvector_empty(void *vec);
 void cvector_reserve(void **vec, size_t n);
 void *cvector_init(size_t capacity, size_t element_size);
-void cvector_erase(void *vec, size_t i);
+void cvector_erase(void *vec, size_t index);
 void cvector_clear(void *vec);
 void cvector_free(void *vec);
 size_t cvector_compute_next_grow(size_t size);
@@ -152,24 +152,24 @@ void *cvector_init(size_t capacity, size_t element_size)
 /**
  * @brief cvector_erase - removes the element at index i from the vector
  * @param vec - the vector
- * @param i - index of element to remove
+ * @param index - index of element to remove
  * @return void
  */
-void cvector_erase(void *vec, size_t i)
+void cvector_erase(void *vec, size_t index)
 {
     if (vec)
     {
         const size_t vector_size = cvector_size(vec);
-        if (i < vector_size)
+        if (index < vector_size)
         {
             const size_t new_size = vector_size - 1;
 
             cvector_set_size(vec, new_size);
 
             const size_t el_size = cvector_element_size(vec);
-            void *min = vec + METADATA_SIZE + (i * el_size);
+            void *min = vec + METADATA_SIZE + (index * el_size);
             void *max = min + el_size;
-            const size_t length = (new_size - i) * el_size;
+            const size_t length = (new_size - index) * el_size;
 
             memmove(min, max, length);
         }
