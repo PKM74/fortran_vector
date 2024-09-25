@@ -27,11 +27,15 @@ void destroy_vector(void *vec)
  */
 void *vector_get(void *vec, size_t index)
 {
-  void *b = cvector_get(vec, index - 1);
+  return cvector_get(vec, index - 1);
+}
 
-  // printf("%d\n", sizeof(b));
-
-  return b;
+/**
+ * Set index of the vector.
+ */
+void *vector_get(void *vec, size_t index, void *fortran_data)
+{
+  cvector_set(vec, index - 1, fortran_data);
 }
 
 /**
