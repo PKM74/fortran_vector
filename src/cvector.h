@@ -30,7 +30,7 @@ void cvector_clear(char *vec);
 void cvector_free(char *vec);
 size_t cvector_compute_next_grow(size_t size);
 void cvector_push_back(char **vec, char *value);
-void cvector_insert(char **vec, size_t pos, char *val);
+void cvector_insert(char **vec, size_t pos, char *fortran_data);
 void cvector_pop_back(char *vec);
 void cvector_copy(char *from, char *to);
 void cvector_swap(char **vec, char **other);
