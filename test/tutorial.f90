@@ -131,7 +131,7 @@ program example
     !* We literally have to memmove the items down, byte by byte.
     !? In the future: I hope to optimize this so you can do it in one huge chunk.
     do i = 1,10
-      call v%erase(1_8)
+      call v%remove(1_8)
     end do
 
     do i = 1,int(v%size())

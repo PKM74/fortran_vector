@@ -86,11 +86,11 @@ void vector_insert(void *vec, size_t index, void *new_element, size_t element_si
 }
 
 /**
- * Erase an element at a index in the vector.
+ * Remove an element at an index in the vector.
  */
-void vector_erase(void *vec, size_t index)
+void vector_remove(void *vec, size_t index)
 {
-  cvector_erase(vec, index - 1);
+  cvector_remove(vec, index - 1);
 }
 
 /**

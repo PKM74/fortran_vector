@@ -97,14 +97,15 @@ module fortran_vector_bindings
     end subroutine internal_vector_insert
 
 
-    !* Erase an element from the vector at an index.
-    subroutine internal_vector_erase(vec_pointer_pointer, index) bind(c, name = "vector_erase")
+    !* Remove an element from the vector at an index.
+    !* This will shift the entire vector back after the index.
+    subroutine internal_vector_remove(vec_pointer_pointer, index) bind(c, name = "vector_remove")
       use, intrinsic :: iso_c_binding
       implicit none
 
       type(c_ptr), intent(in), value :: vec_pointer_pointer
       integer(c_size_t), intent(in), value :: index
-    end subroutine internal_vector_erase
+    end subroutine internal_vector_remove
 
 
     !* Uses memcpy under the hood.

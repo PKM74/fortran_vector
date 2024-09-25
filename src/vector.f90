@@ -25,7 +25,7 @@ module vector
     procedure :: shrink_to_fit => vector_shrink_to_fit
     procedure :: clear => vector_clear
     procedure :: insert => vector_insert
-    procedure :: erase => vector_erase
+    procedure :: remove => vector_remove
     procedure :: push_back => vector_push_back
     procedure :: pop_back => vector_pop_back
     procedure :: reserve => vector_reserve
@@ -167,8 +167,9 @@ contains
   end subroutine vector_insert
 
 
-  !* Erase an element from the vector at an index.
-  subroutine vector_erase(this, index)
+  !* Remove an element from the vector at an index.
+  !* This will call the GC on the element.
+  subroutine vector_remove(this, index)
     implicit none
 
     class(vec), intent(inout) :: this
@@ -182,8 +183,8 @@ contains
       call run_gc(this, index, index)
     end if
 
-    call internal_vector_erase(this%data, index)
-  end subroutine vector_erase
+    call internal_vector_remove(this%data, index)
+  end subroutine vector_remove
 
 
   !* Uses memcpy under the hood.

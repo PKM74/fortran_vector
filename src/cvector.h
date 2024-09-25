@@ -17,13 +17,15 @@
 
 // Forward declaration.
 typedef struct cvector_metadata_t cvector_metadata_t;
+
 size_t cvector_capacity(char *vec);
 size_t cvector_size(char *vec);
 size_t cvector_element_size(char *vec);
+
 bool cvector_empty(char *vec);
 void cvector_reserve(char **vec, size_t n);
 char *cvector_init(size_t capacity, size_t element_size);
-void cvector_erase(char *vec, size_t index);
+void cvector_remove(char *vec, size_t index);
 void cvector_clear(char *vec);
 void cvector_free(char *vec);
 size_t cvector_compute_next_grow(size_t size);
@@ -151,12 +153,12 @@ char *cvector_init(size_t capacity, size_t element_size)
 }
 
 /**
- * @brief cvector_erase - removes the element at index i from the vector
+ * @brief cvector_remove - removes the element at index i from the vector
  * @param vec - the vector
  * @param index - index of element to remove
  * @return void
  */
-void cvector_erase(char *vec, size_t index)
+void cvector_remove(char *vec, size_t index)
 {
     // Null pointer.
     if (!vec)
