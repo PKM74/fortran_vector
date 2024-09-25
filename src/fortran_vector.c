@@ -6,7 +6,7 @@
 /**
  * @param data_size The size of the element you are using this vector for.
  */
-void *new_vector(size_t initial_size, size_t element_size)
+char *new_vector(size_t initial_size, size_t element_size)
 {
   return cvector_init(initial_size, element_size);
 }
@@ -14,7 +14,7 @@ void *new_vector(size_t initial_size, size_t element_size)
 /**
  * Free the underlying memory.
  */
-void destroy_vector(void *vec)
+void destroy_vector(char *vec)
 {
   cvector_free(vec);
 }
@@ -22,7 +22,7 @@ void destroy_vector(void *vec)
 /**
  * Index into the vector.
  */
-void *vector_get(void *vec, size_t index)
+char *vector_get(char *vec, size_t index)
 {
   return cvector_get(vec, index - 1);
 }
@@ -30,7 +30,7 @@ void *vector_get(void *vec, size_t index)
 /**
  * Set index of the vector.
  */
-void vector_set(void *vec, size_t index, void *fortran_data)
+void vector_set(char *vec, size_t index, char *fortran_data)
 {
   cvector_set(vec, index - 1, fortran_data);
 }
@@ -38,7 +38,7 @@ void vector_set(void *vec, size_t index, void *fortran_data)
 /**
  * Check if the vector is empty.
  */
-bool vector_is_empty(void *vec)
+bool vector_is_empty(char *vec)
 {
   return cvector_empty(vec);
 }
@@ -46,7 +46,7 @@ bool vector_is_empty(void *vec)
 /**
  * Get the number of elements in the vector.
  */
-size_t vector_size(void *vec)
+size_t vector_size(char *vec)
 {
   return cvector_size(vec);
 }
@@ -54,7 +54,7 @@ size_t vector_size(void *vec)
 /**
  * Get the capacity of a vector.
  */
-size_t vector_capacity(void *vec)
+size_t vector_capacity(char *vec)
 {
   return cvector_capacity(vec);
 }
@@ -62,7 +62,7 @@ size_t vector_capacity(void *vec)
 /**
  * Request that capacity is equal to size.
  */
-void vector_shrink_to_fit(void *vec)
+void vector_shrink_to_fit(char *vec)
 {
   cvector_shrink_to_fit(vec);
 }
@@ -70,7 +70,7 @@ void vector_shrink_to_fit(void *vec)
 /**
  * Clear all elements in the vector.
  */
-void vector_clear(void *vec)
+void vector_clear(char *vec)
 {
   cvector_clear(vec);
 }
@@ -78,7 +78,7 @@ void vector_clear(void *vec)
 /**
  * Insert an element into a index in the vector.
  */
-void vector_insert(void *vec, size_t index, void *fortran_data, size_t element_size)
+void vector_insert(char *vec, size_t index, char *fortran_data, size_t element_size)
 {
   cvector_insert(vec, index - 1, fortran_data);
 }
@@ -86,7 +86,7 @@ void vector_insert(void *vec, size_t index, void *fortran_data, size_t element_s
 /**
  * Remove an element at an index in the vector.
  */
-void vector_remove(void *vec, size_t index)
+void vector_remove(char *vec, size_t index)
 {
   cvector_remove(vec, index - 1);
 }
@@ -94,7 +94,7 @@ void vector_remove(void *vec, size_t index)
 /**
  * Push an element to the back of the vector.
  */
-void vector_push_back(void **vec, void *fortran_data, size_t element_size)
+void vector_push_back(char **vec, char *fortran_data, size_t element_size)
 {
   cvector_push_back(vec, fortran_data);
 }
@@ -102,7 +102,7 @@ void vector_push_back(void **vec, void *fortran_data, size_t element_size)
 /**
  * Removes the last element from the vector.
  */
-void vector_pop_back(void *vec)
+void vector_pop_back(char *vec)
 {
   cvector_pop_back(vec);
 }
@@ -110,7 +110,7 @@ void vector_pop_back(void *vec)
 /**
  * Request the vector to reallocate to the new capacity.
  */
-void vector_reserve(void **vec, size_t new_capacity)
+void vector_reserve(char **vec, size_t new_capacity)
 {
   cvector_reserve(vec, new_capacity);
 }
@@ -120,7 +120,7 @@ void vector_reserve(void **vec, size_t new_capacity)
  *
  * Requires a new default element.
  */
-void vector_resize(void *vec, size_t new_size, void *default_element, size_t element_size)
+void vector_resize(char *vec, size_t new_size, char *default_element, size_t element_size)
 {
   cvector_resize(vec, new_size, default_element);
 }
@@ -128,7 +128,7 @@ void vector_resize(void *vec, size_t new_size, void *default_element, size_t ele
 /**
  * Swap one vector's contents with another's.
  */
-void vector_swap(void *vec, void *other, size_t element_size)
+void vector_swap(char *vec, char *other, size_t element_size)
 {
   cvector_swap(vec, other);
 }
