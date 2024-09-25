@@ -39,6 +39,7 @@ void cvector_set_size(char *vec, size_t _size);
 void cvector_grow(char **vec, size_t count);
 void cvector_shrink_to_fit(char *vec);
 char *cvector_get(char *vec, size_t index);
+void cvector_set(char *vec, size_t index, void *fortran_data);
 char *cvector_front(char *vec);
 char *cvector_back(char *vec);
 void cvector_resize(char **vec, size_t count, char *value);
@@ -417,6 +418,17 @@ char *cvector_get(char *vec, size_t index)
     {
         return NULL;
     }
+}
+
+/**
+ * Overwrite the memory of an index.
+ */
+void cvector_set(char *vec, size_t index, void *fortran_data)
+{
+    // Safety implemented in Fortran.
+    size_t current_size = cvector_size(vec);
+    const size_t element_size = cvector_element_size(vec);
+    memcpy(vec + HEADER_SIZE + (element_size * index), fortran_data, element_size);
 }
 
 /**
