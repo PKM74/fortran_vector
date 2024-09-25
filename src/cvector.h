@@ -38,7 +38,7 @@ void cvector_set_capacity(char *vec, size_t size);
 void cvector_set_size(char *vec, size_t _size);
 void cvector_grow(char **vec, size_t count);
 void cvector_shrink_to_fit(char *vec);
-char *cvector_get(char *vec, size_t n);
+char *cvector_get(char *vec, size_t index);
 char *cvector_front(char *vec);
 char *cvector_back(char *vec);
 void cvector_resize(char **vec, size_t count, char *value);
