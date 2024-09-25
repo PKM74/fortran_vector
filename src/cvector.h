@@ -23,7 +23,7 @@ size_t cvector_size(char *vec);
 size_t cvector_element_size(char *vec);
 
 bool cvector_empty(char *vec);
-void cvector_reserve(char **vec, size_t n);
+void cvector_reserve(char **vec, size_t new_capacity);
 char *cvector_init(size_t capacity, size_t element_size);
 void cvector_remove(char *vec, size_t index);
 void cvector_clear(char *vec);
