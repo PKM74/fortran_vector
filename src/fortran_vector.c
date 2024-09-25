@@ -9,9 +9,7 @@
  */
 void *new_vector(size_t initial_size, size_t element_size)
 {
-  void *v = cvector_init(initial_size, element_size);
-
-  return v;
+  return cvector_init(initial_size, element_size);
 }
 
 /**
@@ -33,7 +31,7 @@ void *vector_get(void *vec, size_t index)
 /**
  * Set index of the vector.
  */
-void *vector_get(void *vec, size_t index, void *fortran_data)
+void vector_set(void *vec, size_t index, void *fortran_data)
 {
   cvector_set(vec, index - 1, fortran_data);
 }

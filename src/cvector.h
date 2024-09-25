@@ -426,6 +426,7 @@ char *cvector_get(char *vec, size_t index)
 void cvector_set(char *vec, size_t index, void *fortran_data)
 {
     // Safety implemented in Fortran.
+
     size_t current_size = cvector_size(vec);
     const size_t element_size = cvector_element_size(vec);
     memcpy(vec + HEADER_SIZE + (element_size * index), fortran_data, element_size);
