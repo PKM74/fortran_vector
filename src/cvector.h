@@ -16,7 +16,7 @@
 #include <inttypes.h>
 
 // Forward declaration.
-typedef struct cvector_metadata_t cvector_metadata_t;
+typedef struct cvector_header cvector_header;
 
 size_t cvector_capacity(char *vec);
 size_t cvector_size(char *vec);
@@ -43,7 +43,7 @@ char *cvector_front(char *vec);
 char *cvector_back(char *vec);
 void cvector_resize(char **vec, size_t count, char *value);
 
-struct cvector_metadata_t
+struct cvector_header
 {
     size_t size;
     size_t capacity;
@@ -51,7 +51,7 @@ struct cvector_metadata_t
 };
 
 // Cache this.
-const static size_t METADATA_SIZE = sizeof(cvector_metadata_t);
+const static size_t HEADER_SIZE = sizeof(cvector_header);
 
 /**
  * @brief cvector_capacity - gets the current capacity of the vector
@@ -62,7 +62,7 @@ size_t cvector_capacity(char *vec)
 {
     if (vec)
     {
-        return ((cvector_metadata_t *)vec)->capacity;
+        return ((cvector_header *)vec)->capacity;
     }
     else
     {
@@ -79,7 +79,7 @@ size_t cvector_size(char *vec)
 {
     if (vec)
     {
-        return ((cvector_metadata_t *)vec)->size;
+        return ((cvector_header *)vec)->size;
     }
     else
     {
@@ -96,7 +96,7 @@ size_t cvector_element_size(char *vec)
 {
     if (vec)
     {
-        return ((cvector_metadata_t *)vec)->element_size;
+        return ((cvector_header *)vec)->element_size;
     }
     else
     {
@@ -138,11 +138,11 @@ void cvector_reserve(char **vec, size_t n)
  */
 char *cvector_init(size_t capacity, size_t element_size)
 {
-    char *vec = malloc(METADATA_SIZE);
+    char *vec = malloc(HEADER_SIZE);
 
-    ((cvector_metadata_t *)vec)->capacity = 0;
-    ((cvector_metadata_t *)vec)->size = 0;
-    ((cvector_metadata_t *)vec)->element_size = element_size;
+    ((cvector_header *)vec)->capacity = 0;
+    ((cvector_header *)vec)->size = 0;
+    ((cvector_header *)vec)->element_size = element_size;
 
     if (!vec)
     {
@@ -178,7 +178,7 @@ void cvector_remove(char *vec, size_t index)
     cvector_set_size(vec, new_size);
     const size_t element_size = cvector_element_size(vec);
     const size_t array_size = (index * element_size);
-    const size_t size = METADATA_SIZE + array_size;
+    const size_t size = HEADER_SIZE + array_size;
     const char *min = vec + size;
     const char *max = min + element_size;
     const size_t length = (new_size - index) * element_size;
@@ -249,7 +249,7 @@ void cvector_push_back(char **vec, char *value)
     // printf("current cap: %i\n", cvector_capacity(*vec));
     // printf("size: %i\n", cvector_size(*vec));
 
-    char *current_element = *vec + METADATA_SIZE + (cvector_element_size(*vec) * cvector_size(*vec));
+    char *current_element = *vec + HEADER_SIZE + (cvector_element_size(*vec) * cvector_size(*vec));
 
     memcpy(current_element, value, cvector_element_size(*vec));
     cvector_set_size(*vec, cvector_size(*vec) + 1);
@@ -278,14 +278,14 @@ void cvector_insert(char **vec, size_t index, char *val)
     // If we're inserting into the middle, shove everything forwards.
     if (index < current_size)
     {
-        char *min = *vec + METADATA_SIZE + (index * element_size);
+        char *min = *vec + HEADER_SIZE + (index * element_size);
         char *max = min + element_size;
         const size_t length = (current_size - index) * element_size;
 
         memmove(max, min, length);
     }
 
-    memcpy(*vec + METADATA_SIZE + (element_size * index), val, element_size);
+    memcpy(*vec + HEADER_SIZE + (element_size * index), val, element_size);
     cvector_set_size(*vec, current_size + 1);
 }
 
@@ -315,7 +315,7 @@ void cvector_copy(char *from, char *to)
         // If they're not the same size, this will blow up.
         assert(cvector_element_size(from) == cvector_size(to));
 
-        memcpy(to, from, METADATA_SIZE + (cvector_size(from) * cvector_element_size(from)));
+        memcpy(to, from, HEADER_SIZE + (cvector_size(from) * cvector_element_size(from)));
     }
 }
 
@@ -347,7 +347,7 @@ void cvector_set_capacity(char *vec, size_t new_capacity)
 {
     if (vec)
     {
-        ((cvector_metadata_t *)vec)->capacity = (new_capacity);
+        ((cvector_header *)vec)->capacity = (new_capacity);
     }
 }
 
@@ -362,7 +362,7 @@ void cvector_set_size(char *vec, size_t new_size)
 {
     if (vec)
     {
-        ((cvector_metadata_t *)vec)->size = (new_size);
+        ((cvector_header *)vec)->size = (new_size);
     }
 }
 
@@ -375,7 +375,7 @@ void cvector_set_size(char *vec, size_t new_size)
  */
 void cvector_grow(char **vec, size_t new_capacity)
 {
-    const size_t NEW_SIZE = METADATA_SIZE + (new_capacity * cvector_element_size(*vec));
+    const size_t NEW_SIZE = HEADER_SIZE + (new_capacity * cvector_element_size(*vec));
     char *temp = realloc(*vec, NEW_SIZE);
     assert(temp);
     cvector_set_capacity(temp, new_capacity);
@@ -413,7 +413,7 @@ char *cvector_get(char *vec, size_t index)
         }
         else
         {
-            return vec + METADATA_SIZE + (index * cvector_element_size(vec));
+            return vec + HEADER_SIZE + (index * cvector_element_size(vec));
         }
     }
     else
@@ -479,7 +479,7 @@ void cvector_resize(char **vec, size_t new_size, char *value)
 {
     if (vec)
     {
-        size_t old_size = ((cvector_metadata_t *)vec)->size;
+        size_t old_size = ((cvector_header *)vec)->size;
 
         if (new_size > old_size)
         {
