@@ -116,18 +116,18 @@ bool cvector_empty(char *vec)
 
 /**
  * @brief cvector_reserve - Requests that the vector capacity be at least enough
- * to contain n elements. If n is greater than the current vector capacity, the
+ * to contain new_capacity elements. If new_capacity is greater than the current vector capacity, the
  * function causes the container to reallocate its storage increasing its
- * capacity to n (or greater).
+ * capacity to new_capacity (or greater).
  * @param vec - the vector
- * @param n - Minimum capacity for the vector.
+ * @param new_capacity - Minimum capacity for the vector.
  * @return void
  */
-void cvector_reserve(char **vec, size_t n)
+void cvector_reserve(char **vec, size_t new_capacity)
 {
-    if (cvector_capacity(*vec) < n)
+    if (cvector_capacity(*vec) < new_capacity)
     {
-        cvector_grow(vec, n);
+        cvector_grow(vec, new_capacity);
     }
 }
 
