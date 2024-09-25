@@ -99,13 +99,13 @@ module fortran_vector_bindings
 
 
     !* Insert an element into an index of the array.
-    subroutine internal_vector_insert(vec_pointer, index, new_element, element_size) bind(c, name = "vector_insert")
+    subroutine internal_vector_insert(vec_pointer, index, fortran_data, data_size) bind(c, name = "vector_insert")
       use, intrinsic :: iso_c_binding
       implicit none
 
       type(c_ptr), intent(inout) :: vec_pointer
-      type(c_ptr), intent(in), value :: new_element
-      integer(c_size_t), intent(in), value :: index, element_size
+      type(c_ptr), intent(in), value :: fortran_data
+      integer(c_size_t), intent(in), value :: index, data_size
     end subroutine internal_vector_insert
 
 
@@ -122,13 +122,13 @@ module fortran_vector_bindings
 
     !* Uses memcpy under the hood.
     !* Push an element to the back of the vector.
-    subroutine internal_vector_push_back(vec_pointer, new_element_pointer, element_size) bind(c, name = "vector_push_back")
+    subroutine internal_vector_push_back(vec_pointer, fortran_data, data_size) bind(c, name = "vector_push_back")
       use, intrinsic :: iso_c_binding
       implicit none
 
       type(c_ptr), intent(inout) :: vec_pointer
-      type(c_ptr), intent(in), value :: new_element_pointer
-      integer(c_size_t), intent(in), value :: element_size
+      type(c_ptr), intent(in), value :: fortran_data
+      integer(c_size_t), intent(in), value :: data_size
     end subroutine internal_vector_push_back
 
 
@@ -153,24 +153,24 @@ module fortran_vector_bindings
 
     !* Resize a vector to a new size.
     !* Requires a new default element.
-    subroutine internal_vector_resize(vec_pointer, new_size, default_element_pointer, element_size) bind(c, name = "vector_resize")
+    subroutine internal_vector_resize(vec_pointer, new_size, default_fortran_data, data_size) bind(c, name = "vector_resize")
       use, intrinsic :: iso_c_binding
       implicit none
 
       type(c_ptr), intent(inout) :: vec_pointer
-      type(c_ptr), intent(in), value :: default_element_pointer
-      integer(c_size_t), intent(in), value :: new_size, element_size
+      type(c_ptr), intent(in), value :: default_fortran_data
+      integer(c_size_t), intent(in), value :: new_size, data_size
     end subroutine internal_vector_resize
 
 
     !* Swap one vector's contents with another.
     !* If they are not of the same type, this will throw a C exception.
-    subroutine internal_vector_swap(vec_pointer, other_vec_pointer, element_size) bind(c, name = "vector_swap")
+    subroutine internal_vector_swap(vec_pointer, other_vec_pointer, data_size) bind(c, name = "vector_swap")
       use, intrinsic :: iso_c_binding
       implicit none
 
       type(c_ptr), intent(in), value :: vec_pointer, other_vec_pointer
-      integer(c_size_t), intent(in), value :: element_size
+      integer(c_size_t), intent(in), value :: data_size
     end subroutine internal_vector_swap
 
 
