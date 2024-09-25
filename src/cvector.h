@@ -259,10 +259,10 @@ void cvector_push_back(char **vec, char *value)
  * @brief cvector_insert - insert element at index pos to the vector
  * @param vec - the vector
  * @param index - index in the vector where the new elements are inserted.
- * @param val - value to be copied (or moved) to the inserted elements.
+ * @param fortran_data - value to be copied (or moved) to the inserted elements.
  * @return void
  */
-void cvector_insert(char **vec, size_t index, char *val)
+void cvector_insert(char **vec, size_t index, char *fortran_data)
 {
     size_t vec_capacity = cvector_capacity(*vec);
 
@@ -285,7 +285,7 @@ void cvector_insert(char **vec, size_t index, char *val)
         memmove(max, min, length);
     }
 
-    memcpy(*vec + HEADER_SIZE + (element_size * index), val, element_size);
+    memcpy(*vec + HEADER_SIZE + (element_size * index), fortran_data, element_size);
     cvector_set_size(*vec, current_size + 1);
 }
 
