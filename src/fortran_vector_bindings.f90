@@ -37,15 +37,14 @@ module fortran_vector_bindings
 
 
     !* Overwrite of an index into the vector.
-    function internal_vector_set(vec_pointer, index, fortran_data) result(void_pointer) bind(c, name = "vector_set")
+    subroutine internal_vector_set(vec_pointer, index, fortran_data) bind(c, name = "vector_set")
       use, intrinsic :: iso_c_binding
       implicit none
 
       type(c_ptr), intent(in), value :: vec_pointer
       integer(c_size_t), intent(in), value :: index
       type(c_ptr), intent(in), value :: fortran_data
-      type(c_ptr) :: void_pointer
-    end function internal_vector_set
+    end subroutine internal_vector_set
 
 
     !* Check if a vector is empty.
