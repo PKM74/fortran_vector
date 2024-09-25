@@ -19,6 +19,7 @@ module vector
   contains
     procedure :: destroy => vector_destroy
     procedure :: get => vector_get
+    procedure :: set => vector_set
     procedure :: is_empty => vector_is_empty
     procedure :: size => vector_size
     procedure :: capacity => vector_capacity
@@ -90,6 +91,29 @@ contains
 
     raw_c_pointer = internal_vector_get(this%data, index)
   end function vector_get
+
+  !* Overwrite the data at an index in the vector.
+  !* This will run the GC.
+  subroutine vector_set(this, index, fortran_data)
+    implicit none
+
+    class(vec), intent(inout) :: this
+    integer(c_size_t), intent(in), value :: index
+    class(*), intent(in), target :: fortran_data
+    type(c_ptr) :: black_magic
+
+    if (index < 1 .or. index > this%size()) then
+      error stop "[Vector] Error: Went out of bounds."
+    end if
+
+    if (.not. this%is_empty()) then
+      call run_gc(this, index, this%size())
+    end if
+
+    black_magic = transfer(loc(fortran_data), black_magic)
+
+    call internal_vector_set(this%data, index, black_magic)
+  end subroutine vector_set
 
 
   !* Check if the vector is empty.
