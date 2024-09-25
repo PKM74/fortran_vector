@@ -59,21 +59,31 @@ program example
   logical(c_bool) :: t
 
 
+  !* A mini tutorial in the tutorial.
+  !* Very basic starting point.
+
+  !* Create it.
   v = new_vec(int(sizeof(10), c_int64_t), 0_8)
 
+  !* Push some elements into it.
   call v%push_back(1)
   call v%push_back(2)
   call v%push_back(3)
 
+  !* Change the first element.
   call v%set(1_8, 99999)
 
+  !* Iterate it.
   do i = 1, int(v%size())
     call c_f_pointer(v%get(int(i, c_int64_t)), int_pointer)
     print*,int_pointer
   end do
 
+  !* Free all memory.
+  call v%destroy()
 
-  call sleep(100)
+
+  !* Now, begins the real tutorial.
 
 
   t = .true.
