@@ -2,7 +2,6 @@
 #include <stdbool.h>
 #include <inttypes.h>
 #include "cvector.h"
-// #include "cvector_utils.h"
 
 /**
  * @param data_size The size of the element you are using this vector for.
@@ -79,12 +78,9 @@ void vector_clear(void *vec)
 /**
  * Insert an element into a index in the vector.
  */
-void vector_insert(void *vec, size_t index, void *new_element, size_t element_size)
+void vector_insert(void *vec, size_t index, void *fortran_data, size_t element_size)
 {
-  uint8_t raw_data[element_size];
-  memcpy(&raw_data, new_element, element_size);
-
-  cvector_insert(vec, index - 1, raw_data);
+  cvector_insert(vec, index - 1, fortran_data);
 }
 
 /**
@@ -98,12 +94,9 @@ void vector_remove(void *vec, size_t index)
 /**
  * Push an element to the back of the vector.
  */
-void vector_push_back(void **vec, void *new_element, size_t element_size)
+void vector_push_back(void **vec, void *fortran_data, size_t element_size)
 {
-  uint8_t raw_data[element_size];
-  memcpy(&raw_data, new_element, element_size);
-
-  cvector_push_back(vec, raw_data);
+  cvector_push_back(vec, fortran_data);
 }
 
 /**
@@ -129,9 +122,6 @@ void vector_reserve(void **vec, size_t new_capacity)
  */
 void vector_resize(void *vec, size_t new_size, void *default_element, size_t element_size)
 {
-  uint8_t raw_data[element_size];
-  memcpy(&raw_data, default_element, element_size);
-
   cvector_resize(vec, new_size, default_element);
 }
 
@@ -140,7 +130,5 @@ void vector_resize(void *vec, size_t new_size, void *default_element, size_t ele
  */
 void vector_swap(void *vec, void *other, size_t element_size)
 {
-  uint8_t raw_data[element_size];
-
-  // cvector_swap(vec, other);
+  cvector_swap(vec, other);
 }
