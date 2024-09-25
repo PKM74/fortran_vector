@@ -246,9 +246,6 @@ void cvector_push_back(char **vec, char *value)
         cvector_grow(vec, cvector_compute_next_grow(current_capacity));
     }
 
-    // printf("current cap: %i\n", cvector_capacity(*vec));
-    // printf("size: %i\n", cvector_size(*vec));
-
     char *current_element = *vec + HEADER_SIZE + (cvector_element_size(*vec) * cvector_size(*vec));
 
     memcpy(current_element, value, cvector_element_size(*vec));
@@ -398,7 +395,7 @@ void cvector_shrink_to_fit(char *vec)
 }
 
 /**
- * @brief cvector_get - returns a reference to the element at index n in the vector.
+ * @brief cvector_get - returns a reference to the element at index new_capacity in the vector.
  * @param vec - the vector
  * @param index - index of an element in the vector.
  * @return the element at the specified index in the vector.
