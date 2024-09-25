@@ -177,15 +177,15 @@ contains
 
 
   !* Insert an element into an index of the array.
-  subroutine vector_insert(this, index, generic)
+  subroutine vector_insert(this, index, fortran_data)
     implicit none
 
     class(vec), intent(inout) :: this
     integer(c_size_t), intent(in), value :: index
-    class(*), intent(in), target :: generic
+    class(*), intent(in), target :: fortran_data
     type(c_ptr) :: black_magic
 
-    black_magic = transfer(loc(generic), black_magic)
+    black_magic = transfer(loc(fortran_data), black_magic)
 
     call internal_vector_insert(this%data, index, black_magic, this%size_of_type)
   end subroutine vector_insert
@@ -213,14 +213,14 @@ contains
 
   !* Uses memcpy under the hood.
   !* Push an element to the back of the vector.
-  subroutine vector_push_back(this, generic)
+  subroutine vector_push_back(this, fortran_data)
     implicit none
 
     class(vec), intent(inout) :: this
-    class(*), intent(in), target :: generic
+    class(*), intent(in), target :: fortran_data
     type(c_ptr) :: black_magic
 
-    black_magic = transfer(loc(generic), black_magic)
+    black_magic = transfer(loc(fortran_data), black_magic)
 
     call internal_vector_push_back(this%data, black_magic, this%size_of_type)
   end subroutine vector_push_back
