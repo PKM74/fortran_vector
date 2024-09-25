@@ -26,14 +26,14 @@ module fortran_vector_bindings
 
 
     !* Get the pointer of an index into the vector.
-    function internal_vector_at(vec_pointer, index) result(void_pointer) bind(c, name = "vector_at")
+    function internal_vector_get(vec_pointer, index) result(void_pointer) bind(c, name = "vector_get")
       use, intrinsic :: iso_c_binding
       implicit none
 
       type(c_ptr), intent(in), value :: vec_pointer
       integer(c_size_t), intent(in), value :: index
       type(c_ptr) :: void_pointer
-    end function internal_vector_at
+    end function internal_vector_get
 
 
     !* Check if a vector is empty.

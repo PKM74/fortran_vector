@@ -25,7 +25,7 @@ void destroy_vector(void *vec)
 /**
  * Index into the vector.
  */
-void *vector_at(void *vec, size_t index)
+void *vector_get(void *vec, size_t index)
 {
   void *b = cvector_get(vec, index - 1);
 

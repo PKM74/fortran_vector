@@ -106,7 +106,7 @@ program example
     !* Now let us get the elements.
     !* You can see we can iterate based on the size of the vector.
     do j = 1,v%size()
-      generic_c_ptr = v%at(int(j, c_size_t))
+      generic_c_ptr = v%get(int(j, c_size_t))
       call c_f_pointer(generic_c_ptr, output)
 
       !* Add in an extra assertion for double check in this example.
@@ -135,7 +135,7 @@ program example
     end do
 
     do i = 1,int(v%size())
-      call c_f_pointer(v%at(int(i, c_int64_t)), output)
+      call c_f_pointer(v%get(int(i, c_int64_t)), output)
       ! print*,output%a_number
     end do
 

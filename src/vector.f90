@@ -18,7 +18,7 @@ module vector
     type(c_funptr) :: gc_func = c_null_funptr
   contains
     procedure :: destroy => vector_destroy
-    procedure :: at => vector_at
+    procedure :: get => vector_get
     procedure :: is_empty => vector_is_empty
     procedure :: size => vector_size
     procedure :: capacity => vector_capacity
@@ -77,7 +77,7 @@ contains
 
 
   !* Get an element at an index in the vector.
-  function vector_at(this, index) result(raw_c_pointer)
+  function vector_get(this, index) result(raw_c_pointer)
     implicit none
 
     class(vec), intent(inout) :: this
@@ -88,8 +88,8 @@ contains
       error stop "[Vector] Error: Went out of bounds."
     end if
 
-    raw_c_pointer = internal_vector_at(this%data, index)
-  end function vector_at
+    raw_c_pointer = internal_vector_get(this%data, index)
+  end function vector_get
 
 
   !* Check if the vector is empty.
@@ -283,7 +283,7 @@ contains
     call c_f_procpointer(this%gc_func, optional_gc)
 
     do i = min, max
-      call optional_gc(this%at(i))
+      call optional_gc(this%get(i))
     end do
   end subroutine run_gc
 
