@@ -55,7 +55,26 @@ program example
   integer(c_int) :: i, y
   integer(c_size_t) :: j
   type(some_data), pointer :: output
+  integer(c_int), pointer :: int_pointer
   logical(c_bool) :: t
+
+
+  v = new_vec(int(sizeof(10), c_int64_t), 0_8)
+
+  call v%push_back(1)
+  call v%push_back(2)
+  call v%push_back(3)
+
+  call v%set(1_8, 99999)
+
+  do i = 1, int(v%size())
+    call c_f_pointer(v%get(int(i, c_int64_t)), int_pointer)
+    print*,int_pointer
+  end do
+
+
+  call sleep(100)
+
 
   t = .true.
 
