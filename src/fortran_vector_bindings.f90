@@ -98,11 +98,11 @@ module fortran_vector_bindings
 
 
     !* Erase an element from the vector at an index.
-    subroutine internal_vector_erase(vec_pointer, index) bind(c, name = "vector_erase")
+    subroutine internal_vector_erase(vec_pointer_pointer, index) bind(c, name = "vector_erase")
       use, intrinsic :: iso_c_binding
       implicit none
 
-      type(c_ptr), intent(in), value :: vec_pointer
+      type(c_ptr), intent(in), value :: vec_pointer_pointer
       integer(c_size_t), intent(in), value :: index
     end subroutine internal_vector_erase
 

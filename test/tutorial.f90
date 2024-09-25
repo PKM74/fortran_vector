@@ -59,14 +59,14 @@ program example
 
   t = .true.
 
-  !* We are going to shovel through 100 million items over the course of this. 32 GB of data.
-  do y = 1,10
+  !* We are going to shovel through 200 million items over the course of this. 43.9 GB of data.
+  do y = 1,200
 
     !* I thought this would be entertaining.
     if (t) then
-      print*,"tick"
+      print*,"tick ",y
     else
-      print*,"tock"
+      print*,"tock ",y
     end if
     t = .not. t
 
@@ -75,8 +75,8 @@ program example
     !* If you know your data size and it never changes, you can use a literal number here.
     v = new_vec(sizeof(dat), int(0, c_size_t), example_gc_func)
 
-    !* Let us push 10 million items into the vector.
-    do i = 1,10000000
+    !* Let us push 1 million items into the vector.
+    do i = 1,1000000
       dat%a_number = i
       dat%a_fixed_length_string = "I'm memcpy'd straight into the vector!"
 
@@ -86,6 +86,7 @@ program example
 
       !* I thought this would also be entertaining.
       t = .not. t
+
       if (t) then
         dat%a_pointer_string = "check it, I'm a fortran pointer 8)"
       else
@@ -131,6 +132,11 @@ program example
     !? In the future: I hope to optimize this so you can do it in one huge chunk.
     do i = 1,10
       call v%erase(1_8)
+    end do
+
+    do i = 1,int(v%size())
+      call c_f_pointer(v%at(int(i, c_int64_t)), output)
+      ! print*,output%a_number
     end do
 
     !* This not only calls the GC on all of our elements (if you gave it one),

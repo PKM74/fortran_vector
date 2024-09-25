@@ -27,7 +27,7 @@ void destroy_vector(void *vec)
  */
 void *vector_at(void *vec, size_t index)
 {
-  void *b = cvector_at(vec, index - 1);
+  void *b = cvector_get(vec, index - 1);
 
   // printf("%d\n", sizeof(b));
 
