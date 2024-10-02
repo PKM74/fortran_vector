@@ -1,6 +1,7 @@
 module concurrent_vector
   use, intrinsic :: iso_c_binding
   use :: fortran_vector_bindings
+  use :: thread_mutex
   implicit none
 
 
@@ -16,6 +17,7 @@ module concurrent_vector
     type(c_ptr) :: data = c_null_ptr
     integer(c_size_t) :: size_of_type = 0
     type(c_funptr) :: gc_func = c_null_funptr
+    type(c_ptr) :: mutex = c_null_ptr
   contains
     procedure :: destroy => concurrent_vector_destroy
     procedure :: get => concurrent_vector_get
@@ -57,6 +59,8 @@ contains
     v%data = internal_new_vector(initial_size, size_of_type)
 
     v%size_of_type = size_of_type
+
+    v%mutex = thread_create_mutex()
   end function new_concurrent_vec
 
 
@@ -74,6 +78,7 @@ contains
 
     this%data = c_null_ptr
     this%size_of_type = 0
+    call thread_destroy_mutex(this%mutex)
   end subroutine concurrent_vector_destroy
 
 
@@ -287,6 +292,28 @@ contains
 
     call internal_vector_swap(this%data, other%data, this%size_of_type)
   end subroutine concurrent_vector_swap
+
+
+  !* Lock the hashmap mutex.
+  subroutine concurrent_str_hashmap_lock(this)
+    implicit none
+
+    class(concurrent_vec), intent(inout) :: this
+    integer(c_int) :: status
+
+    status = thread_lock_mutex(this%mutex)
+  end subroutine concurrent_str_hashmap_lock
+
+
+  !* Unlock the hashmap mutex.
+  subroutine concurrent_str_hashmap_unlock(this)
+    implicit none
+
+    class(concurrent_vec), intent(inout) :: this
+    integer(c_int) :: status
+
+    status = thread_unlock_mutex(this%mutex)
+  end subroutine concurrent_str_hashmap_unlock
 
 
 !? BEGIN INTERNAL ONLY ==============================================
