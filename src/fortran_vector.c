@@ -62,7 +62,7 @@ size_t vector_capacity(char *vec)
 /**
  * Request that capacity is equal to size.
  */
-void vector_shrink_to_fit(char *vec)
+void vector_shrink_to_fit(char **vec)
 {
   cvector_shrink_to_fit(vec);
 }
@@ -78,7 +78,7 @@ void vector_clear(char *vec)
 /**
  * Insert an element into a index in the vector.
  */
-void vector_insert(char *vec, size_t index, char *fortran_data, size_t element_size)
+void vector_insert(char **vec, size_t index, char *fortran_data, size_t element_size)
 {
   cvector_insert(vec, index - 1, fortran_data);
 }
@@ -120,7 +120,7 @@ void vector_reserve(char **vec, size_t new_capacity)
  *
  * Requires a new default element.
  */
-void vector_resize(char *vec, size_t new_size, char *default_element, size_t element_size)
+void vector_resize(char **vec, size_t new_size, char *default_element, size_t element_size)
 {
   cvector_resize(vec, new_size, default_element);
 }
@@ -128,7 +128,7 @@ void vector_resize(char *vec, size_t new_size, char *default_element, size_t ele
 /**
  * Swap one vector's contents with another's.
  */
-void vector_swap(char *vec, char *other, size_t element_size)
+void vector_swap(char **vec, char **other, size_t element_size)
 {
   cvector_swap(vec, other);
 }
