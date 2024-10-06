@@ -84,7 +84,7 @@ module fortran_vector_bindings
       use, intrinsic :: iso_c_binding
       implicit none
 
-      type(c_ptr), intent(in), value :: vec_pointer
+      type(c_ptr), intent(inout) :: vec_pointer
     end subroutine internal_vector_shrink_to_fit
 
 
@@ -168,7 +168,7 @@ module fortran_vector_bindings
       use, intrinsic :: iso_c_binding
       implicit none
 
-      type(c_ptr), intent(in), value :: vec_pointer, other_vec_pointer
+      type(c_ptr), intent(inout) :: vec_pointer, other_vec_pointer
       integer(c_size_t), intent(in), value :: data_size
     end subroutine internal_vector_swap
 
