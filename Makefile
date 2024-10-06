@@ -39,8 +39,7 @@ test_gdb:
 
 .PHONY: test_valgrind
 test_valgrind:
-	@valgrind --trace-children=yes --leak-check=full fpm test --flag   -g \
-	                                                          --c-flag -g
+	@./scripts/run_valgrind.sh
 
 
 test_release:
