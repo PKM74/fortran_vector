@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <inttypes.h>
+#include <string.h>
 
 // Forward declaration.
 typedef struct cvector_header cvector_header;
@@ -32,12 +33,12 @@ size_t cvector_compute_next_grow(size_t size);
 void cvector_push_back(char **vec, char *value);
 void cvector_insert(char **vec, size_t pos, char *fortran_data);
 void cvector_pop_back(char *vec);
-void cvector_copy(char *from, char *to);
+void cvector_copy(char *from, char **to);
 void cvector_swap(char **vec, char **other);
 void cvector_set_capacity(char *vec, size_t size);
 void cvector_set_size(char *vec, size_t _size);
 void cvector_grow(char **vec, size_t count);
-void cvector_shrink_to_fit(char *vec);
+void cvector_shrink_to_fit(char **vec);
 char *cvector_get(char *vec, size_t index);
 void cvector_set(char *vec, size_t index, void *fortran_data);
 char *cvector_front(char *vec);
@@ -147,7 +148,7 @@ char *cvector_init(size_t capacity, size_t element_size)
 
     if (!vec)
     {
-        cvector_reserve(vec, capacity);
+        cvector_reserve(&vec, capacity);
     }
 
     return vec;
@@ -180,7 +181,7 @@ void cvector_remove(char *vec, size_t index)
     const size_t element_size = cvector_element_size(vec);
     const size_t array_size = (index * element_size);
     const size_t size = HEADER_SIZE + array_size;
-    const char *min = vec + size;
+    char *min = vec + size;
     const char *max = min + element_size;
     const size_t length = (new_size - index) * element_size;
 
@@ -303,15 +304,15 @@ void cvector_pop_back(char *vec)
  * @param to - destination to which the function copy to
  * @return void
  */
-void cvector_copy(char *from, char *to)
+void cvector_copy(char *from, char **to)
 {
     if (from)
     {
         cvector_grow(to, cvector_size(from));
-        cvector_set_size(to, cvector_size(from));
+        cvector_set_size(*to, cvector_size(from));
 
         // If they're not the same size, this will blow up.
-        assert(cvector_element_size(from) == cvector_size(to));
+        assert(cvector_element_size(from) == cvector_size(*to));
 
         memcpy(to, from, HEADER_SIZE + (cvector_size(from) * cvector_element_size(from)));
     }
@@ -386,11 +387,11 @@ void cvector_grow(char **vec, size_t new_capacity)
  * @param vec - the vector
  * @return void
  */
-void cvector_shrink_to_fit(char *vec)
+void cvector_shrink_to_fit(char **vec)
 {
     if (vec)
     {
-        const size_t vec_size = cvector_size(vec);
+        const size_t vec_size = cvector_size(*vec);
         cvector_grow(vec, vec_size);
     }
 }
@@ -494,7 +495,7 @@ void cvector_resize(char **vec, size_t new_size, char *value)
         if (new_size > old_size)
         {
             cvector_reserve(vec, new_size);
-            cvector_set_size(vec, new_size);
+            cvector_set_size(*vec, new_size);
 
             while (old_size < new_size)
             {
@@ -506,7 +507,7 @@ void cvector_resize(char **vec, size_t new_size, char *value)
         {
             while (new_size < old_size)
             {
-                cvector_pop_back(vec);
+                cvector_pop_back(*vec);
                 old_size--;
             }
         }
