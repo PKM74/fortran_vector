@@ -120,7 +120,7 @@ void vector_reserve(char **vec, size_t new_capacity)
  *
  * Requires a new default element.
  */
-void vector_resize(char **vec, size_t new_size, char *default_element, size_t element_size)
+void vector_resize(char **vec, size_t new_size, char *default_element)
 {
   cvector_resize(vec, new_size, default_element);
 }

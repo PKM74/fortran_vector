@@ -152,13 +152,13 @@ module fortran_vector_bindings
 
     !* Resize a vector to a new size.
     !* Requires a new default element.
-    subroutine internal_vector_resize(vec_pointer, new_size, default_fortran_data, data_size) bind(c, name = "vector_resize")
+    subroutine internal_vector_resize(vec_pointer, new_size, default_fortran_data) bind(c, name = "vector_resize")
       use, intrinsic :: iso_c_binding
       implicit none
 
       type(c_ptr), intent(inout) :: vec_pointer
       type(c_ptr), intent(in), value :: default_fortran_data
-      integer(c_size_t), intent(in), value :: new_size, data_size
+      integer(c_size_t), intent(in), value :: new_size
     end subroutine internal_vector_resize
 
 
