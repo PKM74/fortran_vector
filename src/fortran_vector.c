@@ -118,7 +118,7 @@ void vector_clone(char *from, char **to)
 /**
  * Swap one vector's contents with another's.
  */
-void vector_swap(char **vec, char **other, size_t element_size)
+void vector_swap(char **vec, char **other)
 {
   cvector_swap(vec, other);
 }
