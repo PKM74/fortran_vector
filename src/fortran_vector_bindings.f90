@@ -172,6 +172,16 @@ module fortran_vector_bindings
     end subroutine internal_vector_swap
 
 
+    !* Clone a vector.
+    subroutine internal_vector_clone(vec_pointer, other_vec_pointer) bind(c, name = "vector_clone")
+      use, intrinsic :: iso_c_binding
+      implicit none
+
+      type(c_ptr), intent(in), value ::  vec_pointer
+      type(c_ptr), intent(inout) ::  other_vec_pointer
+    end subroutine internal_vector_clone
+
+
 !? BEGIN FUNCTION BLUEPRINTS ==================================================
 
 
