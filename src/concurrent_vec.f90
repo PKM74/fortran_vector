@@ -290,7 +290,7 @@ contains
     class(concurrent_vec), intent(inout) :: this
     type(concurrent_vec), intent(inout) :: other
 
-    call internal_vector_swap(this%data, other%data, this%size_of_type)
+    call internal_vector_swap(this%data, other%data)
   end subroutine concurrent_vector_swap
 
 
