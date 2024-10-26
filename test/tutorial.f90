@@ -50,7 +50,7 @@ program example
   implicit none
 
   type(some_data) :: dat
-  type(vec) :: v
+  type(vec) :: v, other
   type(c_ptr) :: generic_c_ptr
   integer(c_int) :: i, y
   integer(c_size_t) :: j
@@ -61,7 +61,7 @@ program example
 
   !* A mini tutorial in the tutorial.
   !* Very basic starting point.
-  
+
 
   !* Create it.
   v = new_vec(int(sizeof(10), c_int64_t), 0_8)
@@ -80,8 +80,19 @@ program example
     print*,int_pointer
   end do
 
+  !* This is how you clone a vector.
+  call v%clone(other)
+
+  call c_f_pointer(other%get(1_8), int_pointer)
+  print*,int_pointer
+  call c_f_pointer(other%get(2_8), int_pointer)
+  print*,int_pointer
+  call c_f_pointer(other%get(3_8), int_pointer)
+  print*,int_pointer
+
   !* Free all memory.
   call v%destroy()
+  call other%destroy()
 
 
   !* Now, begins the real tutorial.
