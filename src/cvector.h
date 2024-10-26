@@ -33,7 +33,7 @@ size_t cvector_compute_next_grow(size_t size);
 void cvector_push_back(char **vec, char *value);
 void cvector_insert(char **vec, size_t pos, char *fortran_data);
 void cvector_pop_back(char *vec);
-void cvector_copy(char *from, char **to);
+void cvector_clone(char *from, char **to);
 void cvector_swap(char **vec, char **other);
 void cvector_set_capacity(char *vec, size_t size);
 void cvector_set_size(char *vec, size_t _size);
@@ -299,12 +299,12 @@ void cvector_pop_back(char *vec)
 }
 
 /**
- * @brief cvector_copy - copy a vector
+ * @brief cvector_clone - copy a vector
  * @param from - the original vector
  * @param to - destination to which the function copy to
  * @return void
  */
-void cvector_copy(char *from, char **to)
+void cvector_clone(char *from, char **to)
 {
     if (from)
     {
