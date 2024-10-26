@@ -32,6 +32,7 @@ module vector
     procedure :: reserve => vector_reserve
     procedure :: resize => vector_resize
     procedure :: swap => vector_swap
+    procedure :: clone => vector_clone
   end type vec
 
 
@@ -285,8 +286,20 @@ contains
     class(vec), intent(inout) :: this
     type(vec), intent(inout) :: other
 
-    call internal_vector_swap(this%data, other%data, this%size_of_type)
+    call internal_vector_swap(this%data, other%data)
   end subroutine vector_swap
+
+
+  !* Clone a vector into another one.
+  !* Might want to make sure that it's uninitialized or this might cause issues.
+  subroutine vector_clone(this, other)
+    implicit none
+
+    class(vec), intent(in) :: this
+    type(vec), intent(inout) :: other
+
+    call internal_vector_clone(this%data, other%data)
+  end subroutine vector_clone
 
 
 !? BEGIN INTERNAL ONLY ==============================================
