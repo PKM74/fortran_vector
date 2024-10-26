@@ -108,6 +108,22 @@ void vector_pop_back(char *vec)
 }
 
 /**
+ * Clone a vector.
+ */
+void vector_clone(char *from, char **to)
+{
+  cvector_clone(from, to);
+}
+
+/**
+ * Swap one vector's contents with another's.
+ */
+void vector_swap(char **vec, char **other, size_t element_size)
+{
+  cvector_swap(vec, other);
+}
+
+/**
  * Request the vector to reallocate to the new capacity.
  */
 void vector_reserve(char **vec, size_t new_capacity)
@@ -123,12 +139,4 @@ void vector_reserve(char **vec, size_t new_capacity)
 void vector_resize(char **vec, size_t new_size, char *default_element)
 {
   cvector_resize(vec, new_size, default_element);
-}
-
-/**
- * Swap one vector's contents with another's.
- */
-void vector_swap(char **vec, char **other, size_t element_size)
-{
-  cvector_swap(vec, other);
 }
