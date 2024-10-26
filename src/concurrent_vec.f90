@@ -34,6 +34,7 @@ module concurrent_vector
     procedure :: reserve => concurrent_vector_reserve
     procedure :: resize => concurrent_vector_resize
     procedure :: swap => concurrent_vector_swap
+    procedure :: clone => concurrent_vector_clone
   end type concurrent_vec
 
 
@@ -292,6 +293,18 @@ contains
 
     call internal_vector_swap(this%data, other%data)
   end subroutine concurrent_vector_swap
+
+
+  !* Clone a vector into another one.
+  !* Might want to make sure that it's uninitialized or this might cause issues.
+  subroutine concurrent_vector_clone(this, other)
+    implicit none
+
+    class(concurrent_vec), intent(in) :: this
+    type(concurrent_vec), intent(inout) :: other
+
+    call internal_vector_clone(this%data, other%data)
+  end subroutine concurrent_vector_clone
 
 
   !* Lock the hashmap mutex.
