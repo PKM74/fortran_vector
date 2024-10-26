@@ -306,16 +306,19 @@ void cvector_pop_back(char *vec)
  */
 void cvector_clone(char *from, char **to)
 {
-    if (from)
-    {
-        cvector_grow(to, cvector_size(from));
-        cvector_set_size(*to, cvector_size(from));
 
-        // If they're not the same size, this will blow up.
-        assert(cvector_element_size(from) == cvector_size(*to));
+    // Can't copy from a null pointer.
+    assert(from);
 
-        memcpy(to, from, HEADER_SIZE + (cvector_size(from) * cvector_element_size(from)));
-    }
+    // If it's initialized, completely bail out.
+    assert(*to == NULL);
+
+    // We're literally going to pure copy it.
+    const size_t heap_size = HEADER_SIZE + (cvector_capacity(from) * cvector_element_size(from));
+
+    *to = malloc(heap_size);
+
+    memcpy(*to, from, heap_size);
 }
 
 /**
