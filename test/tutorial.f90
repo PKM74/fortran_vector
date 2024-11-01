@@ -66,6 +66,9 @@ program example
   !* Create it.
   v = new_vec(int(sizeof(10), c_int64_t), 0_8)
 
+  !* You can resize.
+  call v%resize(10_8, 0)
+
   !* Push some elements into it.
   call v%push_back(1)
   call v%push_back(2)

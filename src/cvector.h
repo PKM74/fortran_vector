@@ -493,7 +493,7 @@ void cvector_resize(char **vec, size_t new_size, char *value)
 {
     if (vec)
     {
-        size_t old_size = ((cvector_header *)vec)->size;
+        size_t old_size = ((cvector_header *)*vec)->size;
 
         if (new_size > old_size)
         {
