@@ -67,7 +67,26 @@ program example
   v = new_vec(int(sizeof(10), c_int64_t), 0_8)
 
   !* You can resize.
-  call v%resize(10_8, 0)
+  call v%resize(10_8, 1)
+  print*,"new size:", v%size()
+  print*,"new capacity:", v%capacity()
+
+  call v%resize(4_8, 1)
+  print*,"new size:", v%size()
+  print*,"new capacity:", v%capacity()
+
+  call v%clear()
+  print*,"new size:", v%size()
+  print*,"new capacity:", v%capacity()
+
+  !* You'll see the capacity is stuck at 10. This is an optimization for reuse!
+  !* Now we can do this:
+  call v%shrink_to_fit()
+  print*,"new size:", v%size()
+  print*,"new capacity:", v%capacity()
+
+  !* Amazing.
+
 
   !* Push some elements into it.
   call v%push_back(1)
