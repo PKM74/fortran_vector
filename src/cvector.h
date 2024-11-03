@@ -74,14 +74,9 @@ size_t cvector_capacity(char *vec)
  */
 size_t cvector_size(char *vec)
 {
-    if (vec)
-    {
-        return ((cvector_header *)vec)->size;
-    }
-    else
-    {
-        return 0;
-    }
+    assert(vec);
+
+    return ((cvector_header *)vec)->size;
 }
 
 /**
@@ -91,14 +86,10 @@ size_t cvector_size(char *vec)
  */
 size_t cvector_element_size(char *vec)
 {
-    if (vec)
-    {
-        return ((cvector_header *)vec)->element_size;
-    }
-    else
-    {
-        return 0;
-    }
+
+    assert(vec);
+
+    return ((cvector_header *)vec)->element_size;
 }
 
 /**
@@ -190,10 +181,9 @@ void cvector_remove(char *vec, size_t index)
  */
 void cvector_clear(char *vec)
 {
-    if (vec)
-    {
-        cvector_set_size(vec, 0);
-    }
+    assert(vec);
+
+    cvector_set_size(vec, 0);
 }
 
 /**
@@ -203,10 +193,9 @@ void cvector_clear(char *vec)
  */
 void cvector_free(char *vec)
 {
-    if (vec)
-    {
-        free(vec);
-    }
+    assert(vec);
+
+    free(vec);
 }
 
 /**
@@ -258,6 +247,9 @@ void cvector_push_back(char **vec, char *value)
  */
 void cvector_insert(char **vec, size_t index, char *fortran_data)
 {
+
+    assert(*vec);
+
     size_t vec_capacity = cvector_capacity(*vec);
 
     if (vec_capacity <= cvector_size(*vec))
@@ -325,7 +317,11 @@ void cvector_clone(char *from, char **to)
  */
 void cvector_swap(char **vec, char **other)
 {
-    if (vec && other)
+    assert(*vec);
+
+    //? Other can be a null pointer.
+
+    if (other)
     {
         char *swapper = *vec;
         *vec = *other;
@@ -342,10 +338,9 @@ void cvector_swap(char **vec, char **other)
  */
 void cvector_set_capacity(char *vec, size_t new_capacity)
 {
-    if (vec)
-    {
-        ((cvector_header *)vec)->capacity = (new_capacity);
-    }
+    assert(vec);
+
+    ((cvector_header *)vec)->capacity = (new_capacity);
 }
 
 /**
@@ -357,10 +352,9 @@ void cvector_set_capacity(char *vec, size_t new_capacity)
  */
 void cvector_set_size(char *vec, size_t new_size)
 {
-    if (vec)
-    {
-        ((cvector_header *)vec)->size = (new_size);
-    }
+    assert(vec);
+
+    ((cvector_header *)vec)->size = (new_size);
 }
 
 /**
@@ -387,11 +381,11 @@ void cvector_grow(char **vec, size_t new_capacity)
  */
 void cvector_shrink_to_fit(char **vec)
 {
-    if (vec)
-    {
-        const size_t vec_size = cvector_size(*vec);
-        cvector_grow(vec, vec_size);
-    }
+    assert(*vec);
+
+    const size_t vec_size = cvector_size(*vec);
+
+    cvector_grow(vec, vec_size);
 }
 
 /**
@@ -402,20 +396,15 @@ void cvector_shrink_to_fit(char **vec)
  */
 char *cvector_get(char *vec, size_t index)
 {
-    if (vec)
+    assert(vec);
+
+    if (index < 0 || index >= cvector_size(vec))
     {
-        if (index < 0 || index >= cvector_size(vec))
-        {
-            return NULL;
-        }
-        else
-        {
-            return vec + HEADER_SIZE + (index * cvector_element_size(vec));
-        }
+        return NULL;
     }
     else
     {
-        return NULL;
+        return vec + HEADER_SIZE + (index * cvector_element_size(vec));
     }
 }
 
@@ -437,16 +426,10 @@ void cvector_set(char *vec, size_t index, void *fortran_data)
  */
 char *cvector_front(char *vec)
 {
-    if (vec)
+    assert(vec);
+    if (cvector_size(vec) > 0)
     {
-        if (cvector_size(vec) > 0)
-        {
-            return cvector_get(vec, 0);
-        }
-        else
-        {
-            return NULL;
-        }
+        return cvector_get(vec, 0);
     }
     else
     {
@@ -460,16 +443,10 @@ char *cvector_front(char *vec)
  */
 char *cvector_back(char *vec)
 {
-    if (vec)
+    assert(vec);
+    if (cvector_size(vec) > 0)
     {
-        if (cvector_size(vec) > 0)
-        {
-            return cvector_get(vec, cvector_size(vec) - 1);
-        }
-        else
-        {
-            return NULL;
-        }
+        return cvector_get(vec, cvector_size(vec) - 1);
     }
     else
     {
