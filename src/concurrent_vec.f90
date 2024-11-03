@@ -137,7 +137,7 @@ contains
   function concurrent_vector_size(this) result(size)
     implicit none
 
-    class(concurrent_vec), intent(in) :: this
+    class(concurrent_vec), intent(inout) :: this
     integer(c_size_t) :: size
 
     size = internal_vector_size(this%data)
