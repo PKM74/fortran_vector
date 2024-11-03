@@ -491,28 +491,27 @@ char *cvector_back(char *vec)
  */
 void cvector_resize(char **vec, size_t new_size, char *value)
 {
-    if (vec)
+    assert(vec);
+
+    size_t old_size = ((cvector_header *)*vec)->size;
+
+    if (new_size > old_size)
     {
-        size_t old_size = ((cvector_header *)*vec)->size;
+        cvector_reserve(vec, new_size);
+        cvector_set_size(*vec, new_size);
 
-        if (new_size > old_size)
+        while (old_size < new_size)
         {
-            cvector_reserve(vec, new_size);
-            cvector_set_size(*vec, new_size);
-
-            while (old_size < new_size)
-            {
-                cvector_push_back(vec, value);
-                old_size++;
-            }
+            cvector_push_back(vec, value);
+            old_size++;
         }
-        else
+    }
+    else
+    {
+        while (new_size < old_size)
         {
-            while (new_size < old_size)
-            {
-                cvector_pop_back(*vec);
-                old_size--;
-            }
+            cvector_pop_back(*vec);
+            old_size--;
         }
     }
 }
