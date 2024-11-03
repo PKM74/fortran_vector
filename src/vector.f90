@@ -132,7 +132,7 @@ contains
   function vector_size(this) result(size)
     implicit none
 
-    class(vec), intent(inout) :: this
+    class(vec), intent(in) :: this
     integer(c_size_t) :: size
 
     size = internal_vector_size(this%data)
