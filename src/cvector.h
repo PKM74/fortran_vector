@@ -470,7 +470,7 @@ void cvector_resize(char **vec, size_t new_size, char *value)
     if (new_size > old_size)
     {
         cvector_reserve(vec, new_size);
-        cvector_set_size(*vec, new_size);
+        cvector_set_size(*vec, 0);
 
         while (old_size < new_size)
         {
