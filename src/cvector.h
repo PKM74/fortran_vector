@@ -62,14 +62,9 @@ const static size_t HEADER_SIZE = sizeof(cvector_header);
  */
 size_t cvector_capacity(char *vec)
 {
-    if (vec)
-    {
-        return ((cvector_header *)vec)->capacity;
-    }
-    else
-    {
-        return 0;
-    }
+    assert(vec);
+
+    return ((cvector_header *)vec)->capacity;
 }
 
 /**
