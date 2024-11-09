@@ -78,7 +78,7 @@ void vector_clear(char *vec)
 /**
  * Insert an element into a index in the vector.
  */
-void vector_insert(char **vec, size_t index, char *fortran_data, size_t element_size)
+void vector_insert(char **vec, size_t index, char *fortran_data)
 {
   cvector_insert(vec, index - 1, fortran_data);
 }
@@ -94,7 +94,7 @@ void vector_remove(char *vec, size_t index)
 /**
  * Push an element to the back of the vector.
  */
-void vector_push_back(char **vec, char *fortran_data, size_t element_size)
+void vector_push_back(char **vec, char *fortran_data)
 {
   cvector_push_back(vec, fortran_data);
 }

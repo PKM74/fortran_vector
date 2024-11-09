@@ -98,13 +98,13 @@ module fortran_vector_bindings
 
 
     !* Insert an element into an index of the array.
-    subroutine internal_vector_insert(vec_pointer, index, fortran_data, data_size) bind(c, name = "vector_insert")
+    subroutine internal_vector_insert(vec_pointer, index, fortran_data) bind(c, name = "vector_insert")
       use, intrinsic :: iso_c_binding
       implicit none
 
       type(c_ptr), intent(inout) :: vec_pointer
       type(c_ptr), intent(in), value :: fortran_data
-      integer(c_size_t), intent(in), value :: index, data_size
+      integer(c_size_t), intent(in), value :: index
     end subroutine internal_vector_insert
 
 
@@ -121,13 +121,12 @@ module fortran_vector_bindings
 
     !* Uses memcpy under the hood.
     !* Push an element to the back of the vector.
-    subroutine internal_vector_push_back(vec_pointer, fortran_data, data_size) bind(c, name = "vector_push_back")
+    subroutine internal_vector_push_back(vec_pointer, fortran_data) bind(c, name = "vector_push_back")
       use, intrinsic :: iso_c_binding
       implicit none
 
       type(c_ptr), intent(inout) :: vec_pointer
       type(c_ptr), intent(in), value :: fortran_data
-      integer(c_size_t), intent(in), value :: data_size
     end subroutine internal_vector_push_back
 
 

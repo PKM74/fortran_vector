@@ -188,7 +188,7 @@ contains
 
     black_magic = transfer(loc(fortran_data), black_magic)
 
-    call internal_vector_insert(this%data, index, black_magic, this%size_of_type)
+    call internal_vector_insert(this%data, index, black_magic)
   end subroutine vector_insert
 
 
@@ -223,7 +223,7 @@ contains
 
     black_magic = transfer(loc(fortran_data), black_magic)
 
-    call internal_vector_push_back(this%data, black_magic, this%size_of_type)
+    call internal_vector_push_back(this%data, black_magic)
   end subroutine vector_push_back
 
 
