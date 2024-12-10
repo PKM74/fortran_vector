@@ -124,7 +124,11 @@ contains
     class(vec), intent(inout) :: this
     logical(c_bool) :: empty
 
-    empty = internal_vector_is_empty(this%data)
+    if (.not. c_associated(this%data)) then
+      empty = .true.
+    else
+      empty = internal_vector_is_empty(this%data)
+    end if
   end function vector_is_empty
 
 
