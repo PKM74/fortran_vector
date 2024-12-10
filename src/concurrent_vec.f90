@@ -71,6 +71,10 @@ contains
 
     class(concurrent_vec), intent(inout) :: this
 
+    if (.not. c_associated(this%data)) then
+      return
+    end if
+
     if (.not. this%is_empty()) then
       call conc_run_gc(this, 1_8, this%size())
     end if
