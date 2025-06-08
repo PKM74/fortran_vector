@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.14.0)
 project(
     fortran-vector
+    DESCRIPTION "Fortran Bindings for C Vector"
     LANGUAGES Fortran
 )
 
