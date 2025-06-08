@@ -42,6 +42,9 @@ add_library(forthread STATIC ${THREAD_SRC})
 
 add_library(${PROJECT_NAME} STATIC ${SOURCES})
 
+add_dependencies(${PROJECT_NAME} forthread for_fifo_queue)
+add_dependencies(forthread for_fifo_queue)
+
 target_link_libraries(
     ${PROJECT_NAME}
     PUBLIC
