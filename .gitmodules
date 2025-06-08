@@ -1,0 +1,6 @@
+[submodule "libs/forthread"]
+	path = libs/forthread
+	url = https://github.com/jordan4ibanez/forthread
+[submodule "libs/for_fifo_queue"]
+	path = libs/for_fifo_queue
+	url = https://github.com/jordan4ibanez/for_fifo_queue
