@@ -16,10 +16,7 @@ Works with any data type, primitives, pointers, and derived types (with pointers
 You can simply use a regular stack variable and sent it in using ``push_back``. It will be copied into the vector. This allows high performance reusage of stack variables.
 
 ### Add to your project:
-```toml
-[dependencies]
-fortran_vector = { git = "https://github.com/jordan4ibanez/fortran_vector" }
-```
+git submodule, shove into cmake with add_library... done.
 
 ### Example:
 
