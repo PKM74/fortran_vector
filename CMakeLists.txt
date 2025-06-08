@@ -35,11 +35,11 @@ set(THREAD_SRC  libs/forthread/src/queues/thread_linked_fifo_queue.f90
 )
 
 
-add_library(for_fifo_queue SHARED ${FIFO_SRC})
+add_library(for_fifo_queue STATIC ${FIFO_SRC})
 
-add_library(forthread SHARED ${THREAD_SRC})
+add_library(forthread STATIC ${THREAD_SRC})
 
-add_library(${PROJECT_NAME} SHARED ${SOURCES})
+add_library(${PROJECT_NAME} STATIC ${SOURCES})
 
 target_link_libraries(
     ${PROJECT_NAME}
