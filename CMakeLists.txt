@@ -2,12 +2,17 @@ cmake_minimum_required(VERSION 3.14.0)
 project(
     fortran-vector
     DESCRIPTION "Fortran Bindings for C Vector"
-    LANGUAGES Fortran
+    LANGUAGES Fortran C
 )
+enable_language(C Fortran)
+
+set(CVERSION "-std=c99")
 
 set(FVERSION "-std=gnu")
 
 set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} ${FVERSION}")
+
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${CVERSION} -Wno-discarded-qualifiers -Wno-incompatible-pointer-types")
 
 enable_language(Fortran)
 
